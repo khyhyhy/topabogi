@@ -10,7 +10,6 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
                 crossorigin="anonymous">
-            <link rel="stylesheet" href="../css/!!!.css" />
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"
                 integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
             <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -19,12 +18,10 @@
         </head>
 
         <body>
-            <section class="container forms">
-                <!-- Signup Form -->
-
+            <section class="container forms show-signup">
                 <div class="form signup">
                     <div class="form-content">
-                        <header>Signup</header>
+                        <header>회원가입</header>
                         <form action="#">
                             <div class="field input-field">
                                 <input type="email" placeholder="Email" class="input">
@@ -39,29 +36,31 @@
                                 <i class='bx bx-hide eye-icon'></i>
                             </div>
 
+                            <div class="field input-field">
+                                <input type="text" placeholder="Nickname" class="input">
+                            </div>
+
                             <div class="field button-field">
-                                <button>Signup</button>
+                                <button>일반 회원가입</button>
                             </div>
                         </form>
 
                         <div class="form-link">
-                            <span>Already have an account? <a href="#" class="link login-link">Login</a></span>
+                            <span>이미 계정을 갖고 계신가요? <a href="login" class="link login-link">Login</a></span>
                         </div>
                     </div>
 
                     <div class="line"></div>
 
                     <div class="media-options">
-                        <a href="#" class="field facebook">
-                            <i class='bx bxl-facebook facebook-icon'></i>
-                            <span>Login with Facebook</span>
+                        <a href="#">
+                            <img src="images/kakao_login.png">
                         </a>
                     </div>
 
                     <div class="media-options">
-                        <a href="#" class="field google">
-                            <img src="images/google.png" alt="" class="google-img">
-                            <span>Login with Google</span>
+                        <a href="#">
+                            <img src="images/naver_login.png">
                         </a>
                     </div>
 

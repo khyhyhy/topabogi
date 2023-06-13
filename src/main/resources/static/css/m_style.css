@@ -25,7 +25,7 @@
     background: #FFF;
 }
 .form.signup{
-    opacity: 0;
+    opacity: 1;
     pointer-events: none;
 }
 .forms.show-signup .form.signup{
@@ -33,7 +33,7 @@
     pointer-events: auto;
 }
 .forms.show-signup .form.login{
-    opacity: 0;
+    opacity: 1;
     pointer-events: none;
 }
 header{
