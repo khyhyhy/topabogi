@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class JoinCotroller {
  
- @RequestMapping("/join/")
+ @RequestMapping("/join")
  public String init(){
-  return "join";
+  return "/join/join";
  }
 }
