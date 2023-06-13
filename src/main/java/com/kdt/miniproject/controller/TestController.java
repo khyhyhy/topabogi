@@ -8,6 +8,16 @@ public class TestController {
  
  @RequestMapping("/")
  public String test(){
-  return "main";
+  return "tour";
+ }
+
+ @RequestMapping("/festival")
+ public String festival(){
+    return "festival";
+ }
+
+ @RequestMapping("/sports")
+ public String sports(){
+    return "sports";
  }
 }
