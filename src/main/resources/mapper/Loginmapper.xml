@@ -3,10 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.kdt.miniproject.mapper.Loginmapper">
+<mapper namespace="com.kdt.miniproject.mapper.LoginMapper">
 
 <!-- select -->
-
+<select id="all" resultType="com.kdt.miniproject.vo.MemberVO">
+SELECT * FROM minipro.member
+</select>
 <!-- insert -->
 
 

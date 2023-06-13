@@ -10,4 +10,8 @@ public class InfoService {
  
  @Autowired
  InfoMapper mapper;
+
+ public void all(){
+  mapper.all();
+ }
 }

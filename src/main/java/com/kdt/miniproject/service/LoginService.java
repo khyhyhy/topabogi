@@ -10,4 +10,8 @@ public class LoginService {
  
  @Autowired
  LoginMapper mapper;
+
+ public void all(){
+  mapper.all();
+ }
 }

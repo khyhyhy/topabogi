@@ -10,4 +10,8 @@ public class MainService {
  
  @Autowired
  MainMapper mapper;
+
+ public void all(){
+  mapper.all();
+ }
 }

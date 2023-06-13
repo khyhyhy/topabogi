@@ -21,7 +21,7 @@ public class DbConfig {
   factory.setDataSource(dataSource);
   PathMatchingResourcePatternResolver resolver 
   = new PathMatchingResourcePatternResolver();
-  factory.setMapperLocations(resolver.getResources("classpath:mapper/**/*.xml"));
+  factory.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
   return factory.getObject();
  }
 

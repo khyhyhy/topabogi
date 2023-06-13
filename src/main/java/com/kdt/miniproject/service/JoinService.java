@@ -10,4 +10,8 @@ public class JoinService {
  
  @Autowired
  JoinMapper mapper;
+
+ public void all(){
+  mapper.all();
+ }
 }
