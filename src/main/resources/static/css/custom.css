@@ -1,0 +1,39 @@
+@font-face {
+    font-family:"Wanjoodae";
+    src: url(font/완주대둔산체\ Regular.ttf);
+}
+.bg-top{
+    background-color: #F5D08A;
+    height: 500px;
+}
+.bg-header:hover{
+    background-color: #fff;
+}
+.mycustom-header{
+    font-family: 'Wanjoodae';
+    font-size: 25px;
+}
+.mycustom{
+    border-radius: 25px;
+    font-family: "Wanjoodae";
+    font-size: 18px;
+    padding: 6px 10px;
+}
+.mycustom:hover {
+    background-color: #36454f;
+    color: #fff;
+    padding: 6px 10px;
+    transition: 0.6s;
+}
+
+.mycustom:visited,.mycustum:active {
+    background-color: #36454f;
+    color: #fff;
+    padding: 6px 10px;
+}
+
+.mycustom-mem-btn{
+    border-radius: 25px;
+    font-size: 15px;
+}
+
