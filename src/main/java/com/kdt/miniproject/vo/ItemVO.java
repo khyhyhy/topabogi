@@ -10,6 +10,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemVO {
-    private String addr1, addr2, eventstartdate, eventenddate,
-        mapx, mapy, tel, title, firstimage, firstimage2;
+    private String addr, addr2, areacode, contentid, contenttypeid, firstimage, firstimage2, mapx, mapy, tel, title;
 }
