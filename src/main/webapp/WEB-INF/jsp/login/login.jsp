@@ -26,25 +26,25 @@
                         <header>Login</header>
                         <form action="#">
                             <div class="field input-field">
-                                <input type="email" placeholder="Email" class="input">
-                            </div>
+                                <input type="email" placeholder="email" class="input" name="email">
+                            </div> 
 
                             <div class="field input-field">
-                                <input type="password" placeholder="Password" class="password">
+                                <input type="password" placeholder="Password" class="password" name="password">
                                 <i class='bx bx-hide eye-icon'></i>
                             </div>
 
                             <div class="form-link">
-                                <a href="#" class="forgot-pass">Forgot password?</a>
+                                <a href="#" class="forgot-pass"></a>
                             </div>
 
                             <div class="field button-field">
-                                <button>Login</button>
+                                <button>로그인</button>
                             </div>
                         </form>
 
                         <div class="form-link">
-                            <span>Don't have an account? <a href="#" class="link">Signup</a></span>
+                            <span>회원가입 하시겠습니까? <a href="#" class="link">Signup</a></span>
                         </div>
                     </div>
 
@@ -57,7 +57,7 @@
                         </a>
                     </div>
 
-                    <div class="media-option">
+                    <div class="media-options">
                         <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=py8uuUtaAKsCCxoOKiY3&state=STATE_STRING&redirect_uri=http://localhost:8080/naver/login" class="field naver">
                             <img src="../images/naver_login.png" alt="" class="naver-img">
                             <span></span>
