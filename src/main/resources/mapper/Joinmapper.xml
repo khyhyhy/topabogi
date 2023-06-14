@@ -7,6 +7,10 @@
 
 <!-- select -->
 
+<select id="check_email" parameterType="String" resultType="com.kdt.miniproject.vo.MemberVO">
+  	SELECT * FROM member WHERE email = #{email}
+</select>
+
 <!-- insert -->
 <insert id="addMem" parameterType="com.kdt.miniproject.vo.MemberVO">
 		INSERT INTO member(email, nickname, password, access_token, refresh_token, profile_image, joindate, status)
