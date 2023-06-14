@@ -30,7 +30,8 @@
                 <div class="form login">
                     <div class="form-content">
                         <header>Login</header>
-                        <form action="#">
+
+                        <form id="login" action="" class="input-group" method="post" >
                             <div class="field input-field">
                                 <input type="email" placeholder="email" class="input" name="email">
                             </div> 
@@ -43,12 +44,12 @@
                             <div class="form-link">
                                 <a href="#" class="forgot-pass"></a>
                             </div>
-
+                            
                             <div class="field button-field">
-                                <button>로그인</button>
+                                <button class="submit" onclick="sendData()">로그인</button>
                             </div>
+                            
                         </form>
-
                         <div class="form-link">
                             <span>회원가입 하시겠습니까? <a href="/join" class="link">Signup</a></span>
                         </div>
@@ -84,6 +85,43 @@
                 crossorigin="anonymous"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        </body>
+            <script>
+    function sendData() {
+
+        if (email.val().trim().length <= 0) {
+            alert("아이디를 입력하세요!");
+            email.focus();
+            return;
+        }
+
+        if (password.val().trim().length <= 0) {
+            alert("비밀번호를 입력하세요!");
+            password.focus();
+            return;
+        }
+        var param = "id=" + encodeURIComponent(id.val()) + "&pw=" + encodeURIComponent(pw.val()) + "&type=login2";
+        $.ajax({
+            url: "login",
+            data: param,
+            type: "post",
+            dataType: "json",
+        }).done(function (param) {
+            console.log("???");
+            console.log(param);
+            // param안에 chk라는 변수의 값이 1이면 성공
+            if (param.chk == 1) {
+                alert("로그인 성공");
+                location.href = "/info";
+            } else if (param.chk == 0) {
+                alert("로그인 실패");
+                location.href = "/login";
+            } 
+        }).fail(function (err) {
+            console.log(err);
+        });
+    }
+
+            </script>
+            </body>
 
         </html>

@@ -76,14 +76,11 @@
                       </c:if>
           
                       <div class="card-body">
-                        <p class="card-text">${vo.title}</p>
+                        <p class="card-text mycustom-card-title">${vo.title}</p>
                         <div class="d-flex justify-content-between align-items-center">
                           <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                           </div>
-                          <c:if test="${vo.addr3 != null && vo.addr3.length() != 0}">
-                            <small class="text-muted">${vo.addr3}</small>
-                          </c:if>
                         </div>
                       </div>
                     </div>

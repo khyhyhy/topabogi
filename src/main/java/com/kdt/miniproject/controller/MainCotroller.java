@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.miniproject.vo.ItemVO;
 
-
-
 @Controller
 public class MainCotroller {
 
     @RequestMapping("/tour")
-    public ModelAndView searchTourList( @RequestParam(value = "end", defaultValue = "16") int end ,
+    public ModelAndView searchTourList( @RequestParam(value = "cPage", defaultValue = "1") int cPage,
+                                    @RequestParam(value = "end", defaultValue = "16") int end ,
                                     @RequestParam(value = "content_TypeId", defaultValue = "12") int content_TypeId , 
                                     @RequestParam(value = "area_Code", defaultValue = "1") int area_Code) throws Exception{
     ModelAndView mv = new ModelAndView();
@@ -41,16 +42,31 @@ public class MainCotroller {
     int contentTypeId = content_TypeId;
     int areaCode = area_Code;
 
+    String re_addr = "http://apis.data.go.kr/B551011/KorService1/areaBasedSyncList1?"; //호출경로
+
     if(content_TypeId != 0){
         contentTypeId = content_TypeId;
     }
     if(area_Code != 0){
         areaCode = area_Code;
     }
-    
+
+    String nowDate = "";
+
+    if(contentTypeId == 15){
+        re_addr = "http://apis.data.go.kr/B551011/KorService1/searchFestival1?";
+
+        // 현재 날짜 구하기
+        LocalDate currentDate = LocalDate.now();
+
+        // 형식 지정
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        nowDate = currentDate.format(formatter);
+    }
 
     StringBuffer sb = new StringBuffer();
-    sb.append("http://apis.data.go.kr/B551011/KorService1/areaBasedSyncList1?"); // 호출할 경로
+    sb.append(re_addr); // 호출할 경로
     sb.append("numOfRows=");
     sb.append(numOfRows);
     sb.append("&pageNo=");
@@ -67,10 +83,19 @@ public class MainCotroller {
     sb.append(listYN);
     sb.append("&arrange=");
     sb.append(arrange);
-    sb.append("&contentTypeId=");
-    sb.append(contentTypeId);
+
+    if(contentTypeId != 15){
+        sb.append("&contentTypeId=");
+        sb.append(contentTypeId);
+    }
     sb.append("&areaCode=");
     sb.append(areaCode);
+    if(contentTypeId == 15){
+        sb.append("&eventStartDate=");
+        sb.append(nowDate);
+    }
+
+    System.out.println(sb.toString());
 
     URL url = new URL(sb.toString());
 
@@ -104,10 +129,14 @@ public class MainCotroller {
         JSONObject response = (JSONObject) json.get("response");
         JSONObject body = (JSONObject) response.get("body");
         JSONObject items = (JSONObject)body.get("items");
-        JSONArray itemsArray = (JSONArray)items.get("item");
-        
 
-        List<ItemVO> itemVOList = new ArrayList<>();
+        Long totalCount = (Long) body.get("totalCount");
+
+        JSONArray itemsArray = (JSONArray)items.get("item");
+
+        System.out.println();
+        
+        ;       List<ItemVO> itemVOList = new ArrayList<>();
 
         for(Object item : itemsArray){
             JSONObject itemJson = (JSONObject) item;
