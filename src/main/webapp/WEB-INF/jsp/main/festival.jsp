@@ -20,9 +20,9 @@
                     </a>
 
                     <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
-                    <li><a href="/" class="nav-link px-3 link-secondary" style="color: #212529!important;">관광지</a></li>
-                    <li><a href="festival" class="nav-link px-3 link-dark" style="color: #6c757d!important;">축제/공연</a></li>
-                    <li><a href="sports" class="nav-link px-3 link-dark">레저</a></li>
+                    <li><a href="/tour/" class="nav-link px-3 link-secondary" style="color: #212529!important;">관광지</a></li>
+                    <li><a href="/main/festival" class="nav-link px-3 link-dark" style="color: #6c757d!important;">축제/공연</a></li>
+                    <li><a href="/main/sports"  class="nav-link px-3 link-dark">레저</a></li>
                     </ul>
 
                     <div class="col-md-3 text-end">

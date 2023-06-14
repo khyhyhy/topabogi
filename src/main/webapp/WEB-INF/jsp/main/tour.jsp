@@ -20,9 +20,9 @@
                     </a>
 
                     <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
-                    <li><a href="/" class="nav-link px-3 link-secondary">관광지</a></li>
-                    <li><a href="festival" class="nav-link px-3 link-dark">축제/공연</a></li>
-                    <li><a href="#" class="nav-link px-3 link-dark">레저</a></li>
+                      <li><a href="/tour/" class="nav-link px-3 link-secondary">관광지</a></li>
+                      <li><a href="/main/festival" class="nav-link px-3 link-dark">축제/공연</a></li>
+                      <li><a href="/main/sports" class="nav-link px-3 link-dark">레저</a></li>
                     </ul>
 
                     <div class="col-md-3 text-end">
@@ -36,23 +36,23 @@
         <div class="container" style="max-width: 1100px;">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2" id="list_zone" >
                 <div class="swiper-wrapper">
-                    <button class="btn btn-default mycustom" type="button" id="seoul_btn" onclick="document.getElementById('seoul_btn').classList.toggle('mycustom_active')">서울</button>
-                    <button class="btn btn-default mycustom" type="button" id="busan_btn" onclick="document.getElementById('busan_btn').classList.toggle('mycustom_active')">부산</button>
-                    <button class="btn btn-default mycustom" type="button">대구</button>
-                    <button class="btn btn-default mycustom" type="button">인천</button>
-                    <button class="btn btn-default mycustom" type="button">광주</button>
-                    <button class="btn btn-default mycustom" type="button">대전</button>
-                    <button class="btn btn-default mycustom" type="button">울산</button>
-                    <button class="btn btn-default mycustom" type="button">세종</button>
-                    <button class="btn btn-default mycustom" type="button">경기</button>
-                    <button class="btn btn-default mycustom" type="button">강원</button>
-                    <button class="btn btn-default mycustom" type="button">충북</button>
-                    <button class="btn btn-default mycustom" type="button">충남</button>
-                    <button class="btn btn-default mycustom" type="button">전북</button>
-                    <button class="btn btn-default mycustom" type="button">전남</button>
-                    <button class="btn btn-default mycustom" type="button">경북</button>
-                    <button class="btn btn-default mycustom" type="button">경남</button>
-                    <button class="btn btn-default mycustom" type="button">제주</button>
+                  <button class="btn btn-default mycustom" type="button" value="1">서울</button>
+                  <button class="btn btn-default mycustom" type="button" value="6">부산</button>
+                  <button class="btn btn-default mycustom" type="button">대구</button>
+                  <button class="btn btn-default mycustom" type="button">인천</button>
+                  <button class="btn btn-default mycustom" type="button">광주</button>
+                  <button class="btn btn-default mycustom" type="button">대전</button>
+                  <button class="btn btn-default mycustom" type="button">울산</button>
+                  <button class="btn btn-default mycustom" type="button">세종</button>
+                  <button class="btn btn-default mycustom" type="button">경기</button>
+                  <button class="btn btn-default mycustom" type="button">강원</button>
+                  <button class="btn btn-default mycustom" type="button">충북</button>
+                  <button class="btn btn-default mycustom" type="button">충남</button>
+                  <button class="btn btn-default mycustom" type="button">전북</button>
+                  <button class="btn btn-default mycustom" type="button">전남</button>
+                  <button class="btn btn-default mycustom" type="button">경북</button>
+                  <button class="btn btn-default mycustom" type="button">경남</button>
+                  <button class="btn btn-default mycustom" type="button">제주</button>
                 </div>
             </div>
         </div>
@@ -93,6 +93,7 @@
         </div>
         <!-- 사진, 관광지 정보 나오는 곳 끝---------------------------------------------------------------------------------- -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function() {
