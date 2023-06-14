@@ -103,8 +103,8 @@
                     </ul>
 
                     <div class="col-md-3 text-end">
-                    <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn">로그인</button>
-                    <button type="button" class="btn btn-outline-success mycustom-mem-btn">회원가입</button>
+                    <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn" onclick="location.href='login'">로그인</button>
+                    <button type="button" class="btn btn-outline-success mycustom-mem-btn" onclick="location.href='join'">회원가입</button>
                     </div>
                 </header>
             </div>
