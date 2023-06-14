@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.miniproject.vo.InfoVO;
 import com.kdt.miniproject.vo.ItemVO;
@@ -20,12 +21,13 @@ import com.kdt.miniproject.vo.ItemVO;
 public class InfoController {
  
  @RequestMapping("/info/")
- public String init() throws Exception{
+ public ModelAndView init() throws Exception{
+  ModelAndView mv = new ModelAndView();
   ItemVO itmVO = new ItemVO("서울특별시 종로구 세종대로 175"
   , "", "1", "2848984", "15", "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image2_1.jpg",
    "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image3_1.jpg",
     "126.9763210635", "37.5720618985", "02-3437-0059", "거리에술 캬라반 '가을'");
-
+  mv.addObject("itmVO", itmVO);
   String path = "http://apis.data.go.kr/B551011/KorService1";
   StringBuffer sb = new StringBuffer();
   String numOfRows = "10";
@@ -33,8 +35,8 @@ public class InfoController {
   String MobileOS = "ETC";
   String listYN = "Y";
   String arrange = "A";
-  String mapX = "126.981611";
-  String mapY = "37.568477";
+  String mapX = itmVO.getMapx();
+  String mapY = itmVO.getMapy();
   String radius = "1000";
   String contentTypeId = "15";
   String servicekey = "VZwsEBpKrcOmbKb2y%2FszpWMkbfTx9GLvm2dZ96N6fn9bubmU0iPfGKNkuGSqCvCgpqL611HousPLRFN2KBEk9w%3D%3D";
@@ -95,9 +97,11 @@ public class InfoController {
    InfoVO[] iar = new InfoVO[list.size()];
 
    list.toArray(iar);
+   mv.addObject("iar", iar);
 
   }
-  return "info/info";
+  mv.setViewName("info/info");
+  return mv;
  }
 
  
