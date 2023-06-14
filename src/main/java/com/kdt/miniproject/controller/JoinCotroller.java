@@ -17,11 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kdt.miniproject.service.JoinService;
 import com.kdt.miniproject.vo.MemberVO;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class JoinCotroller {
  
     @Autowired
     private JoinService j_Service;
+
+    @Autowired
+    private HttpSession session;
 
     @RequestMapping("/join")
     public String init(){
@@ -48,7 +53,7 @@ public class JoinCotroller {
                 StringBuffer sb = new StringBuffer();
                 sb.append("grant_type=authorization_code");
                 sb.append("&client_id=c691b066d7c57c4085e1fa5fc3e2c47b");
-                sb.append("&redirect_uri=http://localhost:8080/kakao/login");
+                sb.append("&redirect_uri=http://localhost:8080/kakao/join");
                 sb.append("&code="+code);
 
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
@@ -107,22 +112,29 @@ public class JoinCotroller {
                         JSONObject kakao_acc = (JSONObject)json2.get("kakao_account");
                         String email = (String)kakao_acc.get("email");
 
-                        MemberVO vo = new MemberVO();
-                        vo.setNickname(nickname);
-                        vo.setProfile_image(profile_image);
-                        vo.setEmail(email);
-                        vo.setAccess_token(access_token);
-                        vo.setRefresh_token(refresh_token);
-                        vo.setStatus(status);
+                        Boolean chk = j_Service.check_email(email);
+                    
+                        if(chk == true){
+                            MemberVO vo = new MemberVO();
+                            vo.setNickname(nickname);
+                            vo.setProfile_image(profile_image);
+                            vo.setEmail(email);
+                            vo.setAccess_token(access_token);
+                            vo.setRefresh_token(refresh_token);
+                            vo.setStatus(status);
 
-                        int cnt = j_Service.addMem(vo);
+                            int cnt = j_Service.addMem(vo);
+
+                            mv.setViewName("redirect:/login");
+                        }else{
+                            session.setAttribute("email_chk", chk);
+                            mv.setViewName("redirect:/join");
+                        }
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            mv.setViewName("redirect:/login");
-
             return mv;
         }
 
@@ -201,22 +213,29 @@ public class JoinCotroller {
                     String profile_image = (String)response.get("profile_image");
                     String email = (String)response.get("email");
 
-                    MemberVO vo = new MemberVO();
-                    vo.setNickname(nickname);
-                    vo.setProfile_image(profile_image);
-                    vo.setEmail(email);
-                    vo.setAccess_token(access_token);
-                    vo.setRefresh_token(refresh_token);
-                    vo.setStatus(status);
+                    Boolean chk = j_Service.check_email(email);
+                    
+                    if(chk == true){
+                        MemberVO vo = new MemberVO();
+                        vo.setNickname(nickname);
+                        vo.setProfile_image(profile_image);
+                        vo.setEmail(email);
+                        vo.setAccess_token(access_token);
+                        vo.setRefresh_token(refresh_token);
+                        vo.setStatus(status);
 
-                    int cnt = j_Service.addMem(vo);
+                        int cnt = j_Service.addMem(vo);
+
+                        mv.setViewName("redirect:/login");
+                    }else{
+                        session.setAttribute("email_chk", chk);
+                        mv.setViewName("redirect:/join");
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mv.setViewName("redirect:/login");
-
         return mv;
     }    
 }

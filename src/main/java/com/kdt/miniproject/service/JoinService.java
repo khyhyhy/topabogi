@@ -14,6 +14,17 @@ public class JoinService {
 
     public int addMem(MemberVO vo) {
 		return j_mapper.addMem(vo);
+    }
+
+    public boolean check_email(String email){
+      boolean chk = false;
 		
-	}
+      MemberVO mvo = j_mapper.check_email(email);
+     
+      if(mvo == null)
+      chk = true;
+      
+		return chk;
+    }
+	
 }

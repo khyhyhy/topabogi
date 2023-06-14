@@ -30,7 +30,7 @@
                             <div class="field input-field">
                                 <input type="password" placeholder="Create password" class="password">
                             </div>
-
+                            
                             <div class="field input-field">
                                 <input type="password" placeholder="Confirm password" class="password">
                                 <i class='bx bx-hide eye-icon'></i>
@@ -74,6 +74,14 @@
                 crossorigin="anonymous"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <script>
+                $(function(){
+                    var chk = "${email_chk}";
+                    if(chk =="false"){
+                        alert("이미 가입된 이메일 입니다.");
+                    }
+                })
+            </script>
         </body>
 
         </html>
