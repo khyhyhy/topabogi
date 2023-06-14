@@ -135,37 +135,36 @@
       </div>
 
         <!-- 사진, 관광지 정보 나오는 곳---------------------------------------------------------------------------------- -->
-        <div class="album py-5" style="background-color: transparent;">
+        <div id="cardContainer">
+          <div class="album py-5 mycustom-album">
             <div class="container">
-        
+            
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                <!-- 반복문 돌릴 구간 -->
-                <c:forEach items="${ar}" var="vo">
               
-                  <div class="col">
-                    <div class="card shadow-sm">
-                      <c:if test="${vo.firstimage != null && vo.firstimage.length() != 0}">
-                        <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${vo.firstimage}"></svg>
-                      </c:if>
-                      <c:if test="${vo.firstimage == null || vo.firstimage.length() == 0}">
-                        <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0JeP-umHMYu3Zx2850WN9gAmi55XIb3Lh35n_0ga5m9-NTXa1KvaBZRyvZnV67eD830&usqp=CAU"></svg>
-                      </c:if>
-          
-                      <div class="card-body">
-                        <p class="card-text mycustom-card-title">${vo.title}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                          </div>
+                <c:forEach items="${ar}" var="vo">
+                
+                <div class="col">
+                  <div class="card shadow-sm">
+                    <c:if test="${vo.firstimage != null && vo.firstimage.length() != 0}">
+                      <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${vo.firstimage}"></svg>
+                    </c:if>
+                    <c:if test="${vo.firstimage == null || vo.firstimage.length() == 0}">
+                      <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0JeP-umHMYu3Zx2850WN9gAmi55XIb3Lh35n_0ga5m9-NTXa1KvaBZRyvZnV67eD830&usqp=CAU"></svg>
+                    </c:if>
+        
+                    <div class="card-body mycustom-card-title">
+                      <p class="card-text mycustom-card-title">${vo.title}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                         </div>
                       </div>
                     </div>
                   </div>
-                    
+                </div>
+                  
                 </c:forEach>
-                <!-- 반복문의 끝-->
-                
-                
+  
               </div>
             </div>
           </div>

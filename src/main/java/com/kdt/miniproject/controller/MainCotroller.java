@@ -138,7 +138,7 @@ public class MainCotroller {
         // System.out.println(nowPage);
         // System.out.println(totalRecord);
 
-        Paging page = new Paging(nowPage, totalRecord, 16, 10,areaCode);
+        Paging page = new Paging(nowPage, totalRecord, 16, 10,areaCode,contentTypeId);
         String pageCode = page.getSb().toString();
         //----------------------------------------------------------------
 

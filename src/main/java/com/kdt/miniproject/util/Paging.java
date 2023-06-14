@@ -20,6 +20,7 @@ public class Paging {
 	int endPage; // 한 블럭의 마지막 페이지값
 
 	int area_Code;
+	int content_TypeId;
 	
 	public Paging() {}
 	
@@ -36,7 +37,7 @@ public class Paging {
  boolean isNextPage;
 
  //페이징에 필요한 html 코드를 생성해주는 생성자
- public Paging(int nowPage,Long totalRecord,int numPerPage,int pagePerBlock,int area_Code){
+ public Paging(int nowPage,Long totalRecord,int numPerPage,int pagePerBlock,int area_Code,int content_TypeId){
   this.nowPage = nowPage; // 현재 페이지 값
   this.totalRecord = totalRecord; // 총 게시물 수
   this.numPerPage = numPerPage; // 한 페이지에 보여질 게시물 수
@@ -74,7 +75,7 @@ public class Paging {
   sb = new StringBuffer("<ol class='paging'>");
   if(isPrePage){
    //이전기능이 적용되는 상황
-   sb.append("<li><a href=/tour?cPage="+(startPage-pagePerBlock)+"&area_Code="+area_Code+">&lt;</a></li>");
+   sb.append("<li><a href=/tour?cPage="+(startPage-pagePerBlock)+"&area_Code="+area_Code+"&content_TypeId="+content_TypeId+">&lt;</a></li>");
    
   }else{
    sb.append("<li class='disable'>&lt;</li>");
@@ -90,6 +91,7 @@ public class Paging {
     sb.append("<li><a href='/tour?cPage=");
     sb.append(i);
 	sb.append("&area_Code="+area_Code);
+	sb.append("&content_TypeId="+content_TypeId);
     sb.append("'>");
     sb.append(i);
     sb.append("</a></li>");
@@ -97,7 +99,7 @@ public class Paging {
   }
   if(isNextPage){
    //다음기능이 적용되는 상황
-   sb.append("<li><a href=/tour?cPage="+(startPage+pagePerBlock)+"&area_Code="+area_Code+">&gt;</a></li>");
+   sb.append("<li><a href=/tour?cPage="+(startPage+pagePerBlock)+"&area_Code="+area_Code+"&content_TypeId="+content_TypeId+">&gt;</a></li>");
   }else{
    sb.append("<li class='disable'>&gt;</li>");
   }
