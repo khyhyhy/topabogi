@@ -16,7 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginCotroller {
  
- @RequestMapping("/login")
+    @RequestMapping("/login")
+ 
  public String init() {
      return "/login/login";
  }
@@ -46,7 +47,7 @@ public class LoginCotroller {
             StringBuffer sb = new StringBuffer();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=ef5415e6ed027721e4d680b30eff28fe");
-            sb.append("&redirect_uri=http://localhost:8080/kakao/login");
+            sb.append("&redirect_uri=http://localhost:8080/naver/login");
             sb.append("&code=" + code);
 
             
