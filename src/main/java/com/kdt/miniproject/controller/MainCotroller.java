@@ -83,7 +83,7 @@ public class MainCotroller {
     sb.append(listYN);
     sb.append("&arrange=");
     sb.append(arrange);
-    
+
     if(contentTypeId != 15){
         sb.append("&contentTypeId=");
         sb.append(contentTypeId);
@@ -129,10 +129,12 @@ public class MainCotroller {
         JSONObject response = (JSONObject) json.get("response");
         JSONObject body = (JSONObject) response.get("body");
         JSONObject items = (JSONObject)body.get("items");
+        String totalCount = (String)body.get("totalCount");
         JSONArray itemsArray = (JSONArray)items.get("item");
-        
 
-        List<ItemVO> itemVOList = new ArrayList<>();
+        System.out.println(totalCount);
+        
+        ;       List<ItemVO> itemVOList = new ArrayList<>();
 
         for(Object item : itemsArray){
             JSONObject itemJson = (JSONObject) item;
