@@ -7,23 +7,46 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.catalina.mapper.Mapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kdt.miniproject.service.LoginService;
+import com.kdt.miniproject.vo.MemberVO;
+
 
 @Controller
 public class LoginCotroller {
- 
+
+    @Autowired
+    private LoginService l_Service;
+    
     @RequestMapping("/login")
     public String init() {
 
-
-
         return "/login/login";
     }
+
+    @RequestMapping("ml_login")
+	public ModelAndView view(String email, String password){
+		ModelAndView mv = new ModelAndView();
+
+		//받인 인자 b_idx를 조건으로 게시물 하나(BbsVO)를 얻어내야 한다.
+        MemberVO[] vo = l_Service.ml_login(email, password);
+        System.out.println("email값"+email);
+        System.out.println("password값"+password);
+
+		mv.addObject("vo", vo);
+		mv.setViewName("view");
+
+		return mv;
+	}
+
+    
  
  
  @RequestMapping("/naver/login")
@@ -233,7 +256,7 @@ public class LoginCotroller {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mv.setViewName("result");
+        mv.setViewName("main");
 
         return mv;
     }
