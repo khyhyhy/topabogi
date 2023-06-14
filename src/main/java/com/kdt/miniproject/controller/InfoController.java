@@ -104,5 +104,10 @@ public class InfoController {
   return mv;
  }
 
- 
+ @RequestMapping("/info/infomation/")
+ public ModelAndView sanse(InfoVO vo){
+  ModelAndView mv = new ModelAndView();
+  System.out.println("인뽀메이숀"+vo.getTitle());
+  return mv;
+ } 
 }

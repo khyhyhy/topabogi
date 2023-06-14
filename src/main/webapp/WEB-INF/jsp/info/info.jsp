@@ -14,6 +14,21 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>infomation</title>
  <style>
+  .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {display: none;
+     width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
   .img{
    width : 40%;
    height: auto;
@@ -39,6 +54,11 @@
     line-height:18px;
     border-radius:4px;
     padding:0px 10px;
+  }
+  .butt {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   }
  </style>
 </head>
@@ -113,7 +133,7 @@
               <div class="card-footer"><a id="btn-thd" class="btn btn-primary btn-sm" href="#!">More Info</a></div>
              </div>
             </div>
-            <div id="map" style="width:800px;height:500px;"></div>
+            <div class="col-md-4 mb-5" id="map" style="width:800px;height:500px;"></div>
   </div>
 </div>
 <!-- Bootstrap core JS-->
@@ -145,6 +165,7 @@
   </script>
  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b64121064fac6d582b95caba86d1124d&libraries=services"></script>
  <script>
+  
   var container = document.getElementById('map');
 		var options = {
 			center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
@@ -178,19 +199,23 @@
    // });
    //인포윈도우를 생성하고 장소에 대한 설명을 지도에 표시합니다
 
-  </script>
+   
+
+var ind = 0;
+</script>
   <c:forEach items="${iar}" var="vo">
-   <script>
-    
-    var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
+  
+  <script>
+   var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
 // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
      position: position,
-     clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+     clickable: false // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
     });
-    marker.setMap(map);
+    
+    var overlayid = "idnum"+ ind++;
 
-  var iwContent = '<div style="padding:5px;" class="infobox">${vo.title}</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+  var iwContent = '<div style="padding:5px;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
        iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
    // 인포윈도우를 생성합니다
@@ -200,12 +225,14 @@
    });
    // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
    infowindow.open(map, marker); 
-
-   var content = '<div class="wrap">' + 
-            '    <div class="info">' + 
+   
+   var content = document.createElement('div');
+   content.className = 'overlay';
+   content.innerHTML = '<div class="wrap">' + 
+            '    <div class="info" id='+overlayid+'>' + 
             '        <div class="title">' + 
             '            ${vo.title}' + 
-            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '            <div class="close" onclick="closeOverlay(this)" title="닫기"></div>' + 
             '        </div>' + 
             '        <div class="body">' + 
             '            <div class="img">' +
@@ -213,7 +240,8 @@
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">${vo.addr1}</div>' + 
-            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+            '                <div> <input type="hidden" name="title" value=""/>'+
+            '<a href="/info/infomation/" target="_blank" class="link">홈페이지</a></div>' + 
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    
@@ -227,18 +255,40 @@ var overlay = new kakao.maps.CustomOverlay({
     position: marker.getPosition()       
 });
 
-// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-kakao.maps.event.addListener(marker, 'click', function() {
-    overlay.setMap(map);
-});
+function disp(aa) {
+     document.getElementById(aa).style.display="block";
+};
 
-// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-function closeOverlay() {
-    overlay.setMap(null);     
+function closeOverlay(vo){
+ vo.parentElement.parentElement.style.display="none";
 }
 
-   </script>
-  </c:forEach>
+
+
+
+// // 마커에 마우스아웃 이벤트를 등록합니다
+// kakao.maps.event.addListener(marker, 'mouseout', function() {
+//     // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+//     overlay.setMap(null); 
+// });
+
+
+
+
+// // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+// kakao.maps.event.addListener(marker, 'click', function() {
+//     overlay.setMap(map);
+// });
+
+// // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+// function closeOverlay() {
+//     overlay.setMap(null);     
+// }
+
+ marker.setMap(map);
+ </script>
+</c:forEach>
+  
   <script>
    let marker_ar = document.querySelectorAll(".infobox")
    
