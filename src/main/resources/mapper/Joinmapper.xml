@@ -6,11 +6,13 @@
 <mapper namespace="com.kdt.miniproject.mapper.JoinMapper">
 
 <!-- select -->
-<select id="all" resultType="com.kdt.miniproject.vo.MemberVO">
-SELECT * FROM minipro.member
-</select>
-<!-- insert -->
 
+<!-- insert -->
+<insert id="addMem" parameterType="com.kdt.miniproject.vo.MemberVO">
+		INSERT INTO member(email, nickname, password, access_token, refresh_token, profile_image, joindate, status)
+		VALUES(#{email}, #{nickname}, #{password}, #{access_token}, #{refresh_token}, #{profile_image}, NOW(), #{status})
+</insert>
 
 <!-- update -->
+
 </mapper>

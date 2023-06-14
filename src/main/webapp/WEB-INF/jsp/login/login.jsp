@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="media-options">
-                        <a href="#" class="field google">
+                        <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=py8uuUtaAKsCCxoOKiY3&state=STATE_STRING&redirect_uri=http://localhost:8080/naver/login" class="field google">
                             <img src="images/google.png" alt="" class="google-img">
                             <span>Login with Google</span>
                         </a>
