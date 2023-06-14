@@ -6,9 +6,8 @@
 <mapper namespace="com.kdt.miniproject.mapper.JoinMapper">
 
 <!-- select -->
-
-<select id="check_email" parameterType="String" resultType="com.kdt.miniproject.vo.MemberVO">
-  	SELECT * FROM member WHERE email = #{email}
+<select id="check_email" parameterType="com.kdt.miniproject.vo.MemberVO" resultType="com.kdt.miniproject.vo.MemberVO">
+  	SELECT * FROM member WHERE email = #{email} AND status = #{status}
 </select>
 
 <!-- insert -->
@@ -18,5 +17,11 @@
 </insert>
 
 <!-- update -->
+<update id="updateToken" parameterType="com.kdt.miniproject.vo.MemberVO">
+	UPDATE member
+	SET access_token = #{access_token},
+		refresh_token = #{refresh_token}
+	WHERE email = #{email} AND status = #{status}
+</update>
 
 </mapper>

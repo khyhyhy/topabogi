@@ -16,10 +16,10 @@ public class JoinService {
 		return j_mapper.addMem(vo);
     }
 
-    public boolean check_email(String email){
+    public boolean check_email(MemberVO vo){
       boolean chk = false;
 		
-      MemberVO mvo = j_mapper.check_email(email);
+      MemberVO mvo = j_mapper.check_email(vo);
      
       if(mvo == null)
       chk = true;
@@ -27,4 +27,7 @@ public class JoinService {
 		return chk;
     }
 	
+    public int updateToken(MemberVO vo) {
+      return j_mapper.updateToken(vo);
+    }
 }

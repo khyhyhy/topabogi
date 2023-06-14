@@ -18,6 +18,7 @@
         </head>
 
         <body>
+            
             <section class="container forms show-signup">
                 <div class="form signup">
                     <div class="form-content">
@@ -120,14 +121,14 @@
                     }
                     form.submit();
                 }
-                
+                /*--보류
                 $(function(){
                     var chk = "${email_chk}";
                     if(chk =="false"){
                         alert("이미 가입된 이메일 입니다.");
                     }
                 })
-
+                */
                 
             </script>
         </body>

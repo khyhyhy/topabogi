@@ -112,25 +112,39 @@ public class JoinCotroller {
 
                     JSONObject kakao_acc = (JSONObject)json2.get("kakao_account");
                     String email = (String)kakao_acc.get("email");
+                    
+                    MemberVO vo = new MemberVO();
+                    vo.setNickname(nickname);
+                    vo.setProfile_image(profile_image);
+                    vo.setEmail(email);
+                    vo.setAccess_token(access_token);
+                    vo.setRefresh_token(refresh_token);
+                    vo.setStatus(status);
 
-                    Boolean chk = j_Service.check_email(email);
-                
+                    Boolean chk = j_Service.check_email(vo);
+
                     if(chk == true){
-                        MemberVO vo = new MemberVO();
-                        vo.setNickname(nickname);
-                        vo.setProfile_image(profile_image);
-                        vo.setEmail(email);
-                        vo.setAccess_token(access_token);
-                        vo.setRefresh_token(refresh_token);
-                        vo.setStatus(status);
-
-                        int cnt = j_Service.addMem(vo);
-
-                        mv.setViewName("redirect:/login");
-                    }else{
-                        session.setAttribute("email_chk", chk);
-                        mv.setViewName("redirect:/join");
-                    }
+                            /*
+                            MemberVO vo = new MemberVO();
+                            vo.setNickname(nickname);
+                            vo.setProfile_image(profile_image);
+                            vo.setEmail(email);
+                            vo.setAccess_token(access_token);
+                            vo.setRefresh_token(refresh_token);
+                            vo.setStatus(status);
+                            */
+                            int cnt = j_Service.addMem(vo);
+                           // mv.setViewName("redirect:/main/main");
+                            //mv.setViewName("redirect:/login");
+                        }else{ 
+                            // 이미 가입된 상태이기 때문에 세션에 vo를 저장
+                            //session.setAttribute("email_chk", chk);
+                            
+                            //토큰갱신하는 부분
+                            j_Service.updateToken(vo);
+                        }
+                        session.setAttribute("mvo", vo);
+                        mv.setViewName("redirect:/tour");
                 }
             }
         } catch (Exception e) {
@@ -214,24 +228,38 @@ public class JoinCotroller {
                     String profile_image = (String)response.get("profile_image");
                     String email = (String)response.get("email");
 
-                    Boolean chk = j_Service.check_email(email);
-                    
+                    MemberVO vo = new MemberVO();
+                    vo.setNickname(nickname);
+                    vo.setProfile_image(profile_image);
+                    vo.setEmail(email);
+                    vo.setAccess_token(access_token);
+                    vo.setRefresh_token(refresh_token);
+                    vo.setStatus(status);
+
+                    Boolean chk = j_Service.check_email(vo);
+
                     if(chk == true){
-                        MemberVO vo = new MemberVO();
-                        vo.setNickname(nickname);
-                        vo.setProfile_image(profile_image);
-                        vo.setEmail(email);
-                        vo.setAccess_token(access_token);
-                        vo.setRefresh_token(refresh_token);
-                        vo.setStatus(status);
-
-                        int cnt = j_Service.addMem(vo);
-
-                        mv.setViewName("redirect:/login");
-                    }else{
-                        session.setAttribute("email_chk", chk);
-                        mv.setViewName("redirect:/join");
-                    }
+                            /*
+                            MemberVO vo = new MemberVO();
+                            vo.setNickname(nickname);
+                            vo.setProfile_image(profile_image);
+                            vo.setEmail(email);
+                            vo.setAccess_token(access_token);
+                            vo.setRefresh_token(refresh_token);
+                            vo.setStatus(status);
+                            */
+                            int cnt = j_Service.addMem(vo);
+                           // mv.setViewName("redirect:/main/main");
+                            //mv.setViewName("redirect:/login");
+                        }else{ 
+                            // 이미 가입된 상태이기 때문에 세션에 vo를 저장
+                            //session.setAttribute("email_chk", chk);
+                            
+                            //토큰갱신하는 부분
+                            j_Service.updateToken(vo);
+                        }
+                        session.setAttribute("mvo", vo);
+                        mv.setViewName("redirect:/tour");
                 }
             }
         } catch (Exception e) {
