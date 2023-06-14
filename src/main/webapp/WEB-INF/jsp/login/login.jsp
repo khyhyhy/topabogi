@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <!DOCTYPE html>
+    <%
+        String l_id = request.getParameter("email");
+        String l_pw = request.getParameter("password");
+        
+    %>
+    
+    <!DOCTYPE html>
         <html>
 
         <head> <!-- ml -->
@@ -44,7 +50,7 @@
                         </form>
 
                         <div class="form-link">
-                            <span>회원가입 하시겠습니까? <a href="redirect_uri=http://localhost:8080/join/join" class="link">Signup</a></span>
+                            <span>회원가입 하시겠습니까? <a href="/join" class="link">Signup</a></span>
                         </div>
                     </div>
 
