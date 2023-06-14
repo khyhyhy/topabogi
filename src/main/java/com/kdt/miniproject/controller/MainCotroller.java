@@ -18,13 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.miniproject.vo.ItemVO;
 
-
-
 @Controller
 public class MainCotroller {
 
     @RequestMapping("/tour")
-    public ModelAndView searchTourList( @RequestParam(value = "end", defaultValue = "16") int end ,
+    public ModelAndView searchTourList( @RequestParam(value = "cPage", defaultValue = "1") int cPage,
+                                    @RequestParam(value = "end", defaultValue = "16") int end ,
                                     @RequestParam(value = "content_TypeId", defaultValue = "12") int content_TypeId , 
                                     @RequestParam(value = "area_Code", defaultValue = "1") int area_Code) throws Exception{
     ModelAndView mv = new ModelAndView();

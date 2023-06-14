@@ -80,7 +80,6 @@
                           <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                           </div>
-                          <small class="text-muted">${vo.addr3}</small>
                         </div>
                       </div>
                     </div>
