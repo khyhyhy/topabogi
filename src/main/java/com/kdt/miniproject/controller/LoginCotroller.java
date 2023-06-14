@@ -16,7 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginCotroller {
  
- @RequestMapping("/login")
+    @RequestMapping("/login")
+ 
  public String init() {
      return "/login/login";
  }
