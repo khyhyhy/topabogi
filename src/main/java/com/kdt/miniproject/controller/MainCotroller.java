@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kdt.miniproject.util.Paging;
 import com.kdt.miniproject.vo.ItemVO;
 
 @Controller
@@ -31,7 +32,7 @@ public class MainCotroller {
     ModelAndView mv = new ModelAndView();
 
     int numOfRows = end;//한페이지 당 보여질 건수
-    int pageNo = 1; //현재 페이지값
+    int pageNo = cPage; //현재 페이지값
 
     String mobileOS = "ETC"; // 서비스 플랫폼 (IOS 또는 ANDROID 등)
     String mobileApp = "AppTest";// 프로젝트 명 또는 앱 이름
@@ -95,7 +96,7 @@ public class MainCotroller {
         sb.append(nowDate);
     }
 
-    System.out.println(sb.toString());
+    //System.out.println(sb.toString());
 
     URL url = new URL(sb.toString());
 
@@ -130,13 +131,20 @@ public class MainCotroller {
         JSONObject body = (JSONObject) response.get("body");
         JSONObject items = (JSONObject)body.get("items");
 
-        Long totalCount = (Long) body.get("totalCount");
+        //페이징처리------------------------------------------------------
+        Long totalRecord = (Long) body.get("totalCount");
+        int nowPage = pageNo;
+
+        // System.out.println(nowPage);
+        // System.out.println(totalRecord);
+
+        Paging page = new Paging(nowPage, totalRecord, 16, 10,areaCode);
+        String pageCode = page.getSb().toString();
+        //----------------------------------------------------------------
 
         JSONArray itemsArray = (JSONArray)items.get("item");
 
-        System.out.println();
-        
-        ;       List<ItemVO> itemVOList = new ArrayList<>();
+        List<ItemVO> itemVOList = new ArrayList<>();
 
         for(Object item : itemsArray){
             JSONObject itemJson = (JSONObject) item;
@@ -159,6 +167,8 @@ public class MainCotroller {
         ItemVO[] ar = itemVOList.toArray(new ItemVO[itemVOList.size()]);
 
         mv.addObject("ar", ar);
+        mv.addObject("page", page);
+        mv.addObject("pageCode", pageCode); // 페이징에 필요한 HTML코드
     }
     
     mv.addObject("area_Code", area_Code);

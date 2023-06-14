@@ -7,7 +7,7 @@ public class Paging {
 	
 	
 	// 페이징을 위한 변수
-	int totalRecord; // 총 게시물의 수
+	Long totalRecord; // 총 게시물의 수
 	int pagePerBlock = 5; // 페이지 묶음(한 블럭당 보여질 페이지의 수)
 	int totalPage; // 전체 페이지의 수
 	
@@ -18,6 +18,8 @@ public class Paging {
 	
 	int startPage; // 한 블럭의 시작 페이지값
 	int endPage; // 한 블럭의 마지막 페이지값
+
+	int area_Code;
 	
 	public Paging() {}
 	
@@ -34,7 +36,7 @@ public class Paging {
  boolean isNextPage;
 
  //페이징에 필요한 html 코드를 생성해주는 생성자
- public Paging(int nowPage,int totalRecord,int numPerPage,int pagePerBlock){
+ public Paging(int nowPage,Long totalRecord,int numPerPage,int pagePerBlock,int area_Code){
   this.nowPage = nowPage; // 현재 페이지 값
   this.totalRecord = totalRecord; // 총 게시물 수
   this.numPerPage = numPerPage; // 한 페이지에 보여질 게시물 수
@@ -72,7 +74,8 @@ public class Paging {
   sb = new StringBuffer("<ol class='paging'>");
   if(isPrePage){
    //이전기능이 적용되는 상황
-   sb.append("<li><a href=list?cPage="+(startPage-pagePerBlock)+">&lt;</a></li>");
+   sb.append("<li><a href=/tour?cPage="+(startPage-pagePerBlock)+"&area_Code="+area_Code+">&lt;</a></li>");
+   
   }else{
    sb.append("<li class='disable'>&lt;</li>");
   }
@@ -84,8 +87,9 @@ public class Paging {
     sb.append(i);
     sb.append("</li>");
    }else{
-    sb.append("<li><a href='list?cPage=");
+    sb.append("<li><a href='/tour?cPage=");
     sb.append(i);
+	sb.append("&area_Code="+area_Code);
     sb.append("'>");
     sb.append(i);
     sb.append("</a></li>");
@@ -93,7 +97,7 @@ public class Paging {
   }
   if(isNextPage){
    //다음기능이 적용되는 상황
-   sb.append("<li><a href=list?cPage="+(startPage+pagePerBlock)+">&gt;</a></li>");
+   sb.append("<li><a href=/tour?cPage="+(startPage+pagePerBlock)+"&area_Code="+area_Code+">&gt;</a></li>");
   }else{
    sb.append("<li class='disable'>&gt;</li>");
   }
@@ -141,11 +145,11 @@ public class Paging {
 		this.numPerPage = numPerPage;
 	}
 
-	public int getTotalRecord() {
+	public long getTotalRecord() {
 		return totalRecord;
 	}
 
-	public void setTotalRecord(int totalRecord) {
+	public void setTotalRecord(Long totalRecord) {
 		this.totalRecord = totalRecord;
 		// 총 게시물 수가 정해지면 자동적으로 총 페이지 수를 구하자
 		

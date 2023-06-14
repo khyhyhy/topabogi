@@ -9,6 +9,83 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/custom.css" />
+<style type="text/css">
+	#bbs table {
+	    width:580px;
+	    margin-left:10px;
+	    border:1px solid black;
+	    border-collapse:collapse;
+	    font-size:14px;
+	    
+	}
+	
+	#bbs table caption {
+	    font-size:20px;
+	    font-weight:bold;
+	    margin-bottom:10px;
+	}
+	
+	#bbs table th,#bbs table td {
+	    text-align:center;
+	    border:1px solid black;
+	    padding:4px 10px;
+	}
+	
+	.no {width:15%}
+	.subject {width:30%}
+	.writer {width:20%}
+	.reg {width:20%}
+	.hit {width:15%}
+	.title{background:lightsteelblue}
+	
+	.odd {background:silver}
+	
+	/* paging */
+	
+	table tfoot ol.paging {
+	    list-style:none;
+	}
+	
+	table tfoot ol.paging li {
+	    float:left;
+	    margin-right:8px;
+	}
+	
+	table tfoot ol.paging li a {
+	    display:block;
+	    padding:3px 7px;
+	    border:1px solid #00B3DC;
+	    color:#2f313e;
+	    font-weight:bold;
+	    text-decoration: none
+	}
+	
+	table tfoot ol.paging li a:hover {
+	    background:#00B3DC;
+	    color:white;
+	    font-weight:bold;
+	    text-decoration: none
+	}
+	
+	.disable {
+	    padding:3px 7px;
+	    border:1px solid silver;
+	    color:silver;
+	}
+	
+	.now {
+	   padding:3px 7px;
+	    border:1px solid #ff4aa5;
+	    background:#ff4aa5;
+	    color:white;
+	    font-weight:bold;
+	}
+	
+	.empty{
+		height: 50px;
+		color: #ababab;
+	}
+</style>
 </head>
 <body>
     <div class="bg-top" style="background-color: #FFD2D7">
@@ -94,6 +171,17 @@
           </div>
         </div>
         <!-- 사진, 관광지 정보 나오는 곳 끝---------------------------------------------------------------------------------- -->
+        <div class="container">
+          <table>
+            <tfoot>
+              <tr>
+                <td>
+                  ${pageCode}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

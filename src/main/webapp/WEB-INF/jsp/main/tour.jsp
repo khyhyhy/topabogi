@@ -9,6 +9,83 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/custom.css" />
+<style type="text/css">
+	#bbs table {
+	    width:580px;
+	    margin-left:10px;
+	    border:1px solid black;
+	    border-collapse:collapse;
+	    font-size:14px;
+	    
+	}
+	
+	#bbs table caption {
+	    font-size:20px;
+	    font-weight:bold;
+	    margin-bottom:10px;
+	}
+	
+	#bbs table th,#bbs table td {
+	    text-align:center;
+	    border:1px solid black;
+	    padding:4px 10px;
+	}
+	
+	.no {width:15%}
+	.subject {width:30%}
+	.writer {width:20%}
+	.reg {width:20%}
+	.hit {width:15%}
+	.title{background:lightsteelblue}
+	
+	.odd {background:silver}
+	
+	/* paging */
+	
+	table tfoot ol.paging {
+	    list-style:none;
+	}
+	
+	table tfoot ol.paging li {
+	    float:left;
+	    margin-right:8px;
+	}
+	
+	table tfoot ol.paging li a {
+	    display:block;
+	    padding:3px 7px;
+	    border:1px solid #00B3DC;
+	    color:#2f313e;
+	    font-weight:bold;
+	    text-decoration: none
+	}
+	
+	table tfoot ol.paging li a:hover {
+	    background:#00B3DC;
+	    color:white;
+	    font-weight:bold;
+	    text-decoration: none
+	}
+	
+	.disable {
+	    padding:3px 7px;
+	    border:1px solid silver;
+	    color:silver;
+	}
+	
+	.now {
+	   padding:3px 7px;
+	    border:1px solid #ff4aa5;
+	    background:#ff4aa5;
+	    color:white;
+	    font-weight:bold;
+	}
+	
+	.empty{
+		height: 50px;
+		color: #ababab;
+	}
+</style>
 </head>
 <body>
     <div class="bg-top">
@@ -94,23 +171,15 @@
       </div>
       <!-- 사진, 관광지 정보 나오는 곳 끝---------------------------------------------------------------------------------- -->
       <div class="container">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+        <table>
+          <tfoot>
+            <tr>
+              <td>
+                ${pageCode}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
 
     </div><!--bg-top 끝-->
