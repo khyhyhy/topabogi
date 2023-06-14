@@ -23,10 +23,10 @@ import com.kdt.miniproject.vo.ItemVO;
 @Controller
 public class MainCotroller {
 
-    @RequestMapping("/tour/")
+    @RequestMapping("/tour")
     public ModelAndView searchTourList( @RequestParam(value = "end", defaultValue = "16") int end ,
-                                    @RequestParam(value = "content_typeID", defaultValue = "12") int content_TypeId , 
-                                    @RequestParam(value = "area_typeID", defaultValue = "1") int area_Code) throws Exception{
+                                    @RequestParam(value = "content_TypeId", defaultValue = "12") int content_TypeId , 
+                                    @RequestParam(value = "area_Code", defaultValue = "1") int area_Code) throws Exception{
     ModelAndView mv = new ModelAndView();
 
     int numOfRows = end;//한페이지 당 보여질 건수
@@ -40,7 +40,6 @@ public class MainCotroller {
     String arrange = "O"; //정렬 구분 (A=제목순, C=수정일순, D=생성일순)
     int contentTypeId = content_TypeId;
     int areaCode = area_Code;
-    int sigunguCode = 1;
 
     if(content_TypeId != 0){
         contentTypeId = content_TypeId;
@@ -123,7 +122,7 @@ public class MainCotroller {
             String contentid = (String)itemJson.get("contentid");
             String contenttypeid = (String)itemJson.get("contenttypeid");
             String title = (String)itemJson.get("title");
-
+            
             ItemVO vo = new ItemVO(addr1, addr2, areacode, contentid, contenttypeid, firstimage, firstimage2, mapx, mapy, tel, title);
             itemVOList.add(vo);
         }
@@ -133,19 +132,19 @@ public class MainCotroller {
         mv.addObject("ar", ar);
     }
     
-    mv.setViewName("/main/tour");
+    mv.addObject("area_Code", area_Code);
+    
+    switch(contentTypeId){
+        case 12: mv.setViewName("/main/tour");
+            break;
+        case 15: mv.setViewName("/main/festival");
+            break;
+        case 28: mv.setViewName("/main/sports");
+
+    }
+    
 
     return mv;
- }
-
- @RequestMapping("/main/festival")
- public String festival(){
-    return "/main/festival";
- }
-
- @RequestMapping("/main/sports")
- public String sports(){
-    return "/main/sports";
  }
 
 }

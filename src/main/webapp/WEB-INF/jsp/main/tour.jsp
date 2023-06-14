@@ -20,9 +20,9 @@
                     </a>
 
                     <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
-                      <li><a href="/tour/" class="nav-link px-3 link-secondary">관광지</a></li>
-                      <li><a href="/main/festival" class="nav-link px-3 link-dark">축제/공연</a></li>
-                      <li><a href="/main/sports" class="nav-link px-3 link-dark">레저</a></li>
+                      <li><a href="/tour" class="nav-link px-3 link-secondary">관광지</a></li>
+                      <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark">축제/공연</a></li>
+                      <li><a href="/tour?content_TypeId=28" class="nav-link px-3 link-dark">레저</a></li>
                     </ul>
 
                     <div class="col-md-3 text-end">
@@ -38,78 +38,77 @@
                 <div class="swiper-wrapper">
                   <button class="btn btn-default mycustom" type="button" value="1">서울</button>
                   <button class="btn btn-default mycustom" type="button" value="6">부산</button>
-                  <button class="btn btn-default mycustom" type="button">대구</button>
-                  <button class="btn btn-default mycustom" type="button">인천</button>
-                  <button class="btn btn-default mycustom" type="button">광주</button>
-                  <button class="btn btn-default mycustom" type="button">대전</button>
-                  <button class="btn btn-default mycustom" type="button">울산</button>
-                  <button class="btn btn-default mycustom" type="button">세종</button>
-                  <button class="btn btn-default mycustom" type="button">경기</button>
-                  <button class="btn btn-default mycustom" type="button">강원</button>
-                  <button class="btn btn-default mycustom" type="button">충북</button>
-                  <button class="btn btn-default mycustom" type="button">충남</button>
-                  <button class="btn btn-default mycustom" type="button">전북</button>
-                  <button class="btn btn-default mycustom" type="button">전남</button>
-                  <button class="btn btn-default mycustom" type="button">경북</button>
-                  <button class="btn btn-default mycustom" type="button">경남</button>
-                  <button class="btn btn-default mycustom" type="button">제주</button>
+                  <button class="btn btn-default mycustom" type="button" value="4">대구</button>
+                  <button class="btn btn-default mycustom" type="button" value="2">인천</button>
+                  <button class="btn btn-default mycustom" type="button" value="5">광주</button>
+                  <button class="btn btn-default mycustom" type="button" value="3">대전</button>
+                  <button class="btn btn-default mycustom" type="button" value="7">울산</button>
+                  <button class="btn btn-default mycustom" type="button" value="8">세종</button>
+                  <button class="btn btn-default mycustom" type="button" value="31">경기</button>
+                  <button class="btn btn-default mycustom" type="button" value="32">강원</button>
+                  <button class="btn btn-default mycustom" type="button" value="33">충북</button>
+                  <button class="btn btn-default mycustom" type="button" value="34">충남</button>
+                  <button class="btn btn-default mycustom" type="button" value="37">전북</button>
+                  <button class="btn btn-default mycustom" type="button" value="38">전남</button>
+                  <button class="btn btn-default mycustom" type="button" value="35">경북</button>
+                  <button class="btn btn-default mycustom" type="button" value="36">경남</button>
+                  <button class="btn btn-default mycustom" type="button" value="39">제주</button>
                 </div>
             </div>
         </div>
 
         <!-- 사진, 관광지 정보 나오는 곳---------------------------------------------------------------------------------- -->
+      <div id="cardContainer">
         <div class="album py-5 mycustom-album">
-            <div class="container">
-        
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                
-                <c:forEach items="${ar}" var="vo">
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <c:if test="${vo.firstimage != null && vo.firstimage.length() != 0}">
-                      <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${vo.firstimage}"></svg>
-                    </c:if>
-                    <c:if test="${vo.firstimage == null || vo.firstimage.length() == 0}">
-                      <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0JeP-umHMYu3Zx2850WN9gAmi55XIb3Lh35n_0ga5m9-NTXa1KvaBZRyvZnV67eD830&usqp=CAU"></svg>
-                    </c:if>
-        
-                    <div class="card-body">
-                      <p class="card-text">${vo.title}</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                          <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                        </div>
-                        <small class="text-muted">9 mins</small>
+          <div class="container">
+          
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            
+              <c:forEach items="${ar}" var="vo">
+              
+              <div class="col">
+                <div class="card shadow-sm">
+                  <c:if test="${vo.firstimage != null && vo.firstimage.length() != 0}">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${vo.firstimage}"></svg>
+                  </c:if>
+                  <c:if test="${vo.firstimage == null || vo.firstimage.length() == 0}">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0JeP-umHMYu3Zx2850WN9gAmi55XIb3Lh35n_0ga5m9-NTXa1KvaBZRyvZnV67eD830&usqp=CAU"></svg>
+                  </c:if>
+      
+                  <div class="card-body">
+                    <p class="card-text">${vo.title}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                       </div>
+                      <small class="text-muted">${vo.addr3}</small>
                     </div>
                   </div>
                 </div>
-                </c:forEach>
-
               </div>
+                
+              </c:forEach>
+
             </div>
           </div>
         </div>
-        <!-- 사진, 관광지 정보 나오는 곳 끝---------------------------------------------------------------------------------- -->
+      </div>
+      <!-- 사진, 관광지 정보 나오는 곳 끝---------------------------------------------------------------------------------- -->
+    </div><!--bg-top 끝-->
     </div>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function() {
-      var clickedButton = null;
+
+      $("button[value=${area_Code}]").toggleClass('mycustom_active');
 
       $('.mycustom').click(function() {
-        if (clickedButton !== null) {
-            clickedButton.removeClass('mycustom_active');
-            $(this).toggleClass('mycustom_active');
-            clickedButton = $(this);
-        } else {
-            $(this).toggleClass('mycustom_active');
-            clickedButton = $(this);
-        }
 
         var buttonValue = $(this).val(); // 클릭된 버튼의 value 값을 가져옴
+
+        location.href="/tour?area_Code="+buttonValue;
+        
       });
     });
     </script>    
