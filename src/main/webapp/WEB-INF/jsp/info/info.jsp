@@ -116,9 +116,7 @@
  <script>
   $( function() {
     $( "#map" ).dialog({
-      // width:auto,
-      // height:auto,
-      autoOpen: false,
+     autoOpen: false,
       show: {
         effect: "blind",
         duration: 1000
@@ -126,11 +124,13 @@
       hide: {
         effect: "fadeOut",
         duration: 400
-      }
+      },
+      minWidth: 800,
+      minHeight:800
     });
  
     $( "#btn-thd" ).on( "click", function() {
-      $( "#map" ).dialog( "open" );
+      $( "#map" ).dialog( "open");
     });
   } );
   </script>
@@ -138,41 +138,24 @@
  <script>
   var container = document.getElementById('map');
 		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
 			level: 3
 		};
 		var map = new kakao.maps.Map(container, options);
-  
-  var geocoder = new kakao.maps.services.Geocoder();
-  
-  // 주소로 좌표 변환 객체 생성
-   var callback = function(result, status) {
-   if (status === kakao.maps.services.Status.OK) { // 정상적으로 검색이 되었다면
-    var cords= new kakao.maps.LatLng(result[0].y,result[0].x);
-    //지도의 중심을 결과값으로 받은 위치로 이동시킴.
-    /*
-    var markerPosition  = cords; 
+  var position = options.center
 
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-     position: markerPosition
-    });
-    
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
-    */
+// 마커를 생성합니다
+ var marker = new kakao.maps.Marker({
+  position: position,
+  clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+ });
 
+  marker.setMap(map);
 
-   var marker = new kakao.maps.Marker({
-     position: cords,
-     map:map,
-     clickable: true
-   });
-
-   map.setCenter(cords);
+   //map.setCenter(cords);
    // style 강제 적용
    // 클래스가 marker인 요소들 모두 찾아내기
-   let marker_ar = document.querySelectorAll(".marker")
+   //let marker_ar = document.querySelectorAll(".marker")
 
    marker_ar.forEach(function(e){
     // 검색된 요소들의 수만큼 반복되는 함수
@@ -192,20 +175,8 @@
      content : '<div class="marker">부천시청으로간다</div>',
      removable : false
     });
-
-   //  var infowindow = new kakao.maps.InfoWindow({
-   //   content : '<div class="marker">부천시청으로간다</div>',
-   //  });
-
-   //  kakao.maps.event.addListener(marker, 'click', function() {
-   //    // 마커 위에 인포윈도우를 표시합니다
-   //    infowindow.open(map, marker);
-   
-   // });
-  }
-  };
-
-  geocoder.addressSearch('경기도 부천시', callback);
+  // 주소로 좌표 변환 객체 생성
+  //geocoder.addressSearch('경기도 부천시', callback);
   </script>
 </body>
 </html>
