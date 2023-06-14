@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="media-options">
-                        <a href="#">
+                        <a href="https://nid.naver.com/oauth2.0/authorize?client_id=6BPvD8rTeGLnG7fdps1C&redirect_uri=http://localhost:8080/naver/login&response_type=code&state=test">
                             <img src="images/naver_login.png">
                         </a>
                     </div>

@@ -32,8 +32,6 @@ public class JoinCotroller {
         public ModelAndView kakaoLogin(String code){
             ModelAndView mv = new ModelAndView();
 
-            //System.out.println("code:"+code);
-
             String access_token="";
             String refresh_token="";
             String reqURL="https://kauth.kakao.com/oauth/token";
@@ -59,7 +57,6 @@ public class JoinCotroller {
                 bw.flush();
 
                 int res_code=conn.getResponseCode();
-                //System.out.println("res_code:"+res_code);
 
                 if(res_code == HttpURLConnection.HTTP_OK){
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -70,19 +67,10 @@ public class JoinCotroller {
                         result.append(line);
                     }
 
-                    //System.out.println("result:"+result.toString());
-
                     JSONParser jsonParser = new JSONParser();
 
                     Object obj = jsonParser.parse(result.toString());
                     JSONObject json = (JSONObject)obj;
-
-                    //System.out.println("json:"+json);
-                    /*
-                    json:{"access_token":"JXec2PCCuqKJo3xa-YgK6ck_Ir24MsFfGCxYQdafCinJXwAAAYi3SRsR",
-                    "refresh_token_expires_in":5183999,"refresh_token":"d5hHb7qTg2VQWTRuU_gfHQWciz8zmUDHLzQGrwhVCinJXwAAAYi3SRsP",
-                    "scope":"account_email profile_image profile_nickname","token_type":"bearer","expires_in":21599}
-                    */
 
                     access_token = (String)json.get("access_token");
                     refresh_token = (String)json.get("refresh_token");
@@ -100,7 +88,6 @@ public class JoinCotroller {
                     
                     res_code = conn2.getResponseCode();
                     
-                    //System.out.println("res_code:"+res_code);
                     if(res_code == HttpURLConnection.HTTP_OK){
                         BufferedReader br2 = new BufferedReader(new InputStreamReader(conn2.getInputStream(), "UTF-8"));
 
@@ -111,19 +98,6 @@ public class JoinCotroller {
                             result2.append(line2);
                         }
 
-                        //System.out.println("result2:"+result2.toString());
-                        /*
-                        result2:{"id":2842588363,"connected_at":"2023-06-14T00:22:29Z",
-                        "properties":{"nickname":"민건영",
-                        "profile_image":"http://k.kakaocdn.net/dn/9W4Wd/btqEPvUeKah/QrByGeg01oqcMwerh3hrHk/img_640x640.jpg",
-                        "thumbnail_image":"http://k.kakaocdn.net/dn/9W4Wd/btqEPvUeKah/QrByGeg01oqcMwerh3hrHk/img_110x110.jpg"},
-                        kakao_account":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,
-                        "profile":{"nickname":"민건영",
-                        "thumbnail_image_url":"http://k.kakaocdn.net/dn/9W4Wd/btqEPvUeKah/QrByGeg01oqcMwerh3hrHk/img_110x110.jpg",
-                        "profile_image_url":"http://k.kakaocdn.net/dn/9W4Wd/btqEPvUeKah/QrByGeg01oqcMwerh3hrHk/img_640x640.jpg",
-                        "is_default_image":false},"has_email":true,"email_needs_agreement":false,"is_email_valid":true,"is_email_verified":true,"email":"hahaha3456@naver.com"}}
-                        */
-
                         Object obj2 = jsonParser.parse(result2.toString());
                         JSONObject json2 = (JSONObject)obj2;
                         JSONObject props = (JSONObject)json2.get("properties");
@@ -132,12 +106,6 @@ public class JoinCotroller {
 
                         JSONObject kakao_acc = (JSONObject)json2.get("kakao_account");
                         String email = (String)kakao_acc.get("email");
-
-                        //System.out.println("nickname:"+nickname);
-                        //System.out.println("p_image:"+profile_image);
-                        //System.out.println("email:"+email);
-                        //System.out.println("access_token:"+access_token);
-                        //System.out.println("refresh_token:"+refresh_token);
 
                         MemberVO vo = new MemberVO();
                         vo.setNickname(nickname);
@@ -153,12 +121,102 @@ public class JoinCotroller {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
-
-            mv.setViewName("result");
+            mv.setViewName("redirect:/login");
 
             return mv;
-
         }
+
+    @RequestMapping("/naver/login")
+    public ModelAndView naverLogin(String code, String state, String error, String error_description){
+        ModelAndView mv = new ModelAndView();
+
+        String reqURL = "https://nid.naver.com/oauth2.0/token";
+        String access_token="";
+        String refresh_token="";
+        String status = "2";
+
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
+            StringBuffer sb = new StringBuffer();
+            sb.append("grant_type=authorization_code");
+            sb.append("&client_id=6BPvD8rTeGLnG7fdps1C");
+            sb.append("&client_secret=xcqAzUEomv");
+            sb.append("&code="+code);
+            sb.append("&state="+state);
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            bw.write(sb.toString());
+            bw.flush();
+
+            int res_code = conn.getResponseCode();
+
+            if(res_code == HttpURLConnection.HTTP_OK){
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuffer result = new StringBuffer();
+                String line = null;
+
+                while((line = br.readLine()) !=null){
+                    result.append(line);
+                }
+
+                JSONParser jsonParser = new JSONParser();
+
+                Object obj = jsonParser.parse(result.toString());
+                JSONObject json = (JSONObject)obj;
+
+                access_token = (String)json.get("access_token");
+                refresh_token = (String)json.get("refresh_token");
+
+                String apiURL = "https://openapi.naver.com/v1/nid/me";
+                String header = "Bearer "+access_token;
+
+                URL url2 = new URL(apiURL);
+
+                HttpURLConnection conn2 = (HttpURLConnection)url2.openConnection();
+
+                conn2.setRequestMethod("POST");
+                conn2.setDoOutput(true);
+
+                conn2.setRequestProperty("Authorization", header);
+
+                res_code = conn2.getResponseCode();
+
+                if(res_code == HttpURLConnection.HTTP_OK){
+                    BufferedReader br2 = new BufferedReader(new InputStreamReader(conn2.getInputStream()));
+                    StringBuffer result2 = new StringBuffer();
+                    String line2 = null;
+
+                    while((line2 = br2.readLine()) != null){
+                        result2.append(line2);
+                    }
+
+                    Object obj2 = jsonParser.parse(result2.toString());
+                    JSONObject json2 = (JSONObject)obj2;
+                    JSONObject response = (JSONObject)json2.get("response");
+                    String nickname = (String)response.get("nickname");
+                    String profile_image = (String)response.get("profile_image");
+                    String email = (String)response.get("email");
+
+                    MemberVO vo = new MemberVO();
+                    vo.setNickname(nickname);
+                    vo.setProfile_image(profile_image);
+                    vo.setEmail(email);
+                    vo.setAccess_token(access_token);
+                    vo.setRefresh_token(refresh_token);
+                    vo.setStatus(status);
+
+                    int cnt = j_Service.addMem(vo);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mv.setViewName("redirect:/login");
+
+        return mv;
+    }    
 }
