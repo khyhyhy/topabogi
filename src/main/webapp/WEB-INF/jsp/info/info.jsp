@@ -113,18 +113,11 @@
  
  
  
- 
- 
- 
- 
- 
- 
- 
  <script>
   $( function() {
     $( "#map" ).dialog({
-      width:auto,
-      height:auto,
+      // width:auto,
+      // height:auto,
       autoOpen: false,
       show: {
         effect: "blind",

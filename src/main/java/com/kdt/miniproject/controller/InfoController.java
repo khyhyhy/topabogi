@@ -14,12 +14,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kdt.miniproject.vo.InfoVO;
+import com.kdt.miniproject.vo.ItemVO;
 
 @Controller
 public class InfoController {
  
  @RequestMapping("/info/")
  public String init() throws Exception{
+  ItemVO itmVO = new ItemVO("서울특별시 종로구 세종대로 175"
+  , "", "1", "2848984", "15", "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image2_1.jpg",
+   "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image3_1.jpg",
+    "126.9763210635", "37.5720618985", "02-3437-0059", "거리에술 캬라반 '가을'");
+
   String path = "http://apis.data.go.kr/B551011/KorService1";
   StringBuffer sb = new StringBuffer();
   String numOfRows = "10";
@@ -58,7 +64,7 @@ public class InfoController {
   sb.append(contentTypeId);
   sb.append("&serviceKey=");
   sb.append(servicekey);
-  System.out.println(sb.toString());
+  
   URL url = new URL(sb.toString());
   HttpURLConnection conn = (HttpURLConnection)url.openConnection();
   conn.connect();
@@ -77,6 +83,7 @@ public class InfoController {
    JSONObject items = (JSONObject)parser.parse(body.get("items").toString());
    JSONArray array = (JSONArray)items.get("item");
    List<InfoVO> list = new ArrayList<>();
+
    for(Object vo : array){
     JSONObject item = (JSONObject)vo;
     InfoVO ivo = new InfoVO((String)item.get("mapx"), (String)item.get("mapy"), 
@@ -86,11 +93,9 @@ public class InfoController {
     list.add(ivo);
    }
    InfoVO[] iar = new InfoVO[list.size()];
+
    list.toArray(iar);
-   System.out.println("list size=="+list.size());
-   System.out.println("iar length=="+iar.length);
-   InfoVO ivo = iar[1];
-   System.out.println("ivo title"+ivo.getTitle());
+
   }
   return "info/info";
  }
