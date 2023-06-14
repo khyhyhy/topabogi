@@ -4,14 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kdt.miniproject.mapper.JoinMapper;
+import com.kdt.miniproject.vo.MemberVO;
 
 @Service
 public class JoinService {
  
- @Autowired
- JoinMapper mapper;
+    @Autowired
+    private JoinMapper j_mapper;
 
- public void all(){
-  mapper.all();
- }
+    public int addMem(MemberVO vo) {
+		return j_mapper.addMem(vo);
+		
+	}
 }

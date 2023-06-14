@@ -53,7 +53,7 @@
                     <div class="line"></div>
 
                     <div class="media-options">
-                        <a href="#">
+                        <a href="https://kauth.kakao.com/oauth/authorize?client_id=c691b066d7c57c4085e1fa5fc3e2c47b&redirect_uri=http://localhost:8080/kakao/login&response_type=code">
                             <img src="images/kakao_login.png">
                         </a>
                     </div>
