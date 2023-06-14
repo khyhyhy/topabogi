@@ -30,6 +30,16 @@
    font-size: 30px;
    position: relative;
   }
+  .infobox{
+    display: block;
+    background: #50627F;
+    color: #fff;
+    text-align: center;
+    height: 24px;
+    line-height:18px;
+    border-radius:4px;
+    padding:0px 10px;
+  }
  </style>
 </head>
 <body>
@@ -112,7 +122,6 @@
  <script src="js/scripts.js"></script>
  
  
- 
  <script>
   $( function() {
     $( "#map" ).dialog({
@@ -139,7 +148,7 @@
   var container = document.getElementById('map');
 		var options = {
 			center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
-			level: 3
+			level: 5
 		};
 		var map = new kakao.maps.Map(container, options);
   var position = options.center
@@ -151,32 +160,99 @@
  });
 
   marker.setMap(map);
-
    //map.setCenter(cords);
    // style 강제 적용
    // 클래스가 marker인 요소들 모두 찾아내기
-   //let marker_ar = document.querySelectorAll(".marker")
+   // let marker_ar = document.querySelectorAll(".infobox")
+   
+   // marker_ar.forEach(function(e){
+   //  // 검색된 요소들의 수만큼 반복되는 함수
+   //  let w = e.offsetWith + 10;
+   //  let ml = w/2;
+   //  e.parentElement.style.top = "80px";
+   //  e.parentElement.style.marginLeft = -ml+"px";
+   //  e.parentElement.style.width = w+"px";
+   //  e.parentElement.previousElementSibling.style.display="none";
+   //  e.parentElement.parentElement.style.border="0px";
+   //  e.parentElement.style.left="50%";
+   // });
+   //인포윈도우를 생성하고 장소에 대한 설명을 지도에 표시합니다
 
-   marker_ar.forEach(function(e){
-    // 검색된 요소들의 수만큼 반복되는 함수
-    let w = e.offsetWith + 10;
-    let ml = w/2;
-    e.parentElement.style.top = "80px";
+  </script>
+  <c:forEach items="${iar}" var="vo">
+   <script>
+    
+    var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
+// 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+     position: position,
+     clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+    });
+    marker.setMap(map);
+
+  var iwContent = '<div style="padding:5px;" class="infobox">${vo.title}</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+       iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
+
+   // 인포윈도우를 생성합니다
+   var infowindow = new kakao.maps.InfoWindow({
+       position : iwPosition, 
+       content : iwContent 
+   });
+   // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+   infowindow.open(map, marker); 
+
+   var content = '<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '            ${vo.title}' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="${vo.firstimage2}" width="73" height="70">' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">${vo.addr1}</div>' + 
+            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>';
+
+// 마커 위에 커스텀오버레이를 표시합니다
+// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+var overlay = new kakao.maps.CustomOverlay({
+    content: content,
+    map: map,
+    position: marker.getPosition()       
+});
+
+// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+kakao.maps.event.addListener(marker, 'click', function() {
+    overlay.setMap(map);
+});
+
+// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+function closeOverlay() {
+    overlay.setMap(null);     
+}
+
+   </script>
+  </c:forEach>
+  <script>
+   let marker_ar = document.querySelectorAll(".infobox")
+   
+    marker_ar.forEach(function(e){
+    var w = e.offsetWidth + 10;
+    var ml = w/2;
+    e.parentElement.style.top = "82px";
+    e.parentElement.style.left = "50%";
     e.parentElement.style.marginLeft = -ml+"px";
     e.parentElement.style.width = w+"px";
-    e.parentElement.previousElementSibling.style.display="none";
-    e.parentElement.parentElement.style.border="0px";
-    e.parentElement.style.left="50%";
-   });
-   //인포윈도우를 생성하고 장소에 대한 설명을 지도에 표시합니다
-    var infowindow = new kakao.maps.InfoWindow({
-     map: map, // 인포윈도우가 표시될 지도
-     position : cords, 
-     content : '<div class="marker">부천시청으로간다</div>',
-     removable : false
+    e.parentElement.previousSibling.style.display = "none";
+    e.parentElement.parentElement.style.border = "0px";
+    e.parentElement.parentElement.style.background = "unset";
     });
-  // 주소로 좌표 변환 객체 생성
-  //geocoder.addressSearch('경기도 부천시', callback);
   </script>
 </body>
 </html>
