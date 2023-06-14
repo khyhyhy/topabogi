@@ -44,12 +44,12 @@
                             <div class="form-link">
                                 <a href="#" class="forgot-pass"></a>
                             </div>
-
+                            
+                            <div class="field button-field">
+                                <button class="submit" onclick="sendData()">로그인</button>
+                            </div>
+                            
                         </form>
-                        <div class="field button-field">
-                            <button class="submit" onclick="sendData()">로그인</button>
-                        </div>
-                        
                         <div class="form-link">
                             <span>회원가입 하시겠습니까? <a href="/join" class="link">Signup</a></span>
                         </div>
@@ -101,7 +101,7 @@
         }
         var param = "id=" + encodeURIComponent(id.val()) + "&pw=" + encodeURIComponent(pw.val()) + "&type=login2";
         $.ajax({
-            url: "Controller?type=login2",
+            url: "login",
             data: param,
             type: "post",
             dataType: "json",
@@ -111,14 +111,11 @@
             // param안에 chk라는 변수의 값이 1이면 성공
             if (param.chk == 1) {
                 alert("로그인 성공");
-                location.href = "Controller?type=shop";
+                location.href = "/info";
             } else if (param.chk == 0) {
                 alert("로그인 실패");
-                location.href = "Controller?type=login";
-            } else if (param.chk == 2) {
-                alert("관리자아이디로 로그인 하였습니다");
-                location.href = "Controller?type=admin";
-            }
+                location.href = "/login";
+            } 
         }).fail(function (err) {
             console.log(err);
         });
