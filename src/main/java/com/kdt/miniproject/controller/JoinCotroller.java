@@ -28,7 +28,7 @@ public class JoinCotroller {
     return "/join/join";
     }
 
-    @RequestMapping("/kakao/login")
+    @RequestMapping("/kakao/join")
         public ModelAndView kakaoLogin(String code){
             ModelAndView mv = new ModelAndView();
 
@@ -126,7 +126,7 @@ public class JoinCotroller {
             return mv;
         }
 
-    @RequestMapping("/naver/login")
+    @RequestMapping("/naver/join")
     public ModelAndView naverLogin(String code, String state, String error, String error_description){
         ModelAndView mv = new ModelAndView();
 
