@@ -129,10 +129,12 @@ public class MainCotroller {
         JSONObject response = (JSONObject) json.get("response");
         JSONObject body = (JSONObject) response.get("body");
         JSONObject items = (JSONObject)body.get("items");
-        String totalCount = (String)body.get("totalCount");
+
+        Long totalCount = (Long) body.get("totalCount");
+
         JSONArray itemsArray = (JSONArray)items.get("item");
 
-        System.out.println(totalCount);
+        System.out.println();
         
         ;       List<ItemVO> itemVOList = new ArrayList<>();
 
