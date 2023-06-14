@@ -75,8 +75,8 @@
                     <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0JeP-umHMYu3Zx2850WN9gAmi55XIb3Lh35n_0ga5m9-NTXa1KvaBZRyvZnV67eD830&usqp=CAU"></svg>
                   </c:if>
       
-                  <div class="card-body">
-                    <p class="card-text">${vo.title}</p>
+                  <div class="card-body mycustom-card-title">
+                    <p class="card-text mycustom-card-title">${vo.title}</p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
@@ -93,7 +93,7 @@
         </div>
       </div>
       <!-- 사진, 관광지 정보 나오는 곳 끝---------------------------------------------------------------------------------- -->
-
+      <div class="container">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
@@ -111,6 +111,7 @@
           </li>
         </ul>
       </nav>
+      </div>
 
     </div><!--bg-top 끝-->
     </div>

@@ -2,6 +2,14 @@
     font-family:"Wanjoodae";
     src: url(font/완주대둔산체\ Regular.ttf);
 }
+@font-face {
+    font-family:"TAEBAEK";
+    src: url(font/TAEBAEK\ milkyway.otf);
+}
+@font-face {
+    font-family: "omyu";
+    src: url(font/오뮤_다예쁨체.ttf);
+}
 .bg-top{
     background-color: #F5D08A;
     height: 500px;
@@ -40,6 +48,11 @@
 
 .mycustom-album{
     background-color: transparent;
+}
+
+.mycustom-card-title{
+    font-family: 'omyu';
+    font-size: 22px;
 }
 
 
