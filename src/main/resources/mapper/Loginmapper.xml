@@ -9,6 +9,12 @@
 <select id="all" resultType="com.kdt.miniproject.vo.MemberVO">
 SELECT * FROM minipro.member
 </select>
+
+<select id="login" parameterType="Map" resultType="com.kdt.miniproject.vo.MemberVO">
+    select * from minipro.member
+    where email = #{email} and
+    password = #{password}
+  </select>
 <!-- insert -->
 
 

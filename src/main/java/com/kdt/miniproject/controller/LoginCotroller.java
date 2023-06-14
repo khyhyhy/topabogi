@@ -6,24 +6,51 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.catalina.mapper.Mapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.kdt.miniproject.service.LoginService;
+import com.kdt.miniproject.vo.MemberVO;
 
 
 @Controller
 public class LoginCotroller {
- 
+
+    @Autowired
+    private LoginService l_Service;
+    
     @RequestMapping("/login")
     public String init() {
 
-
-
         return "/login/login";
     }
+
+    @PostMapping("login")
+    @ResponseBody
+	public Map<String,Object> view(String email, String password){
+        Map<String, Object> map = new HashMap<String,Object>();
+		//받인 인자 b_idx를 조건으로 게시물 하나(BbsVO)를 얻어내야 한다.
+        MemberVO[] vo = l_Service.ml_login(email, password);
+        System.out.println("email값"+map);
+      
+
+		map.put("vo", vo);
+		
+        
+		return map;
+	}
+
+    
  
  
  @RequestMapping("/naver/login")
@@ -233,7 +260,7 @@ public class LoginCotroller {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mv.setViewName("result");
+        mv.setViewName("main");
 
         return mv;
     }
