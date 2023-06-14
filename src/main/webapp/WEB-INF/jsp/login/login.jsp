@@ -57,9 +57,9 @@
                     <div class="line"></div>
                     
                     <div class="media-options">
-                        <a href="#" class="field facebook">
-                            <i class='bx bxl-facebook facebook-icon'></i>
-                            <span>Login with Facebook</span>
+                        <a href="https://kauth.kakao.com/oauth/authorize?client_id=ef5415e6ed027721e4d680b30eff28fe&redirect_uri=http://localhost:8080/kakao/login&response_type=code" class="field kakao">
+                            <img src="../images/kakao_login.png" alt="" class="kakao-img">
+                            <span></span>
                         </a>
                     </div>
 
