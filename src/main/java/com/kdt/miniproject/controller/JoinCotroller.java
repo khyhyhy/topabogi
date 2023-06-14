@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,109 +35,109 @@ public class JoinCotroller {
     }
 
     @RequestMapping("/kakao/join")
-        public ModelAndView kakaoLogin(String code){
-            ModelAndView mv = new ModelAndView();
+    public ModelAndView kakaoLogin(String code){
+        ModelAndView mv = new ModelAndView();
 
-            String access_token="";
-            String refresh_token="";
-            String reqURL="https://kauth.kakao.com/oauth/token";
-            String status = "1";
+        String access_token="";
+        String refresh_token="";
+        String reqURL="https://kauth.kakao.com/oauth/token";
+        String status = "1";
 
-            try {
-                URL url = new URL(reqURL);
+        try {
+            URL url = new URL(reqURL);
 
-                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
-                conn.setRequestMethod("POST");
-                conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
 
-                StringBuffer sb = new StringBuffer();
-                sb.append("grant_type=authorization_code");
-                sb.append("&client_id=c691b066d7c57c4085e1fa5fc3e2c47b");
-                sb.append("&redirect_uri=http://localhost:8080/kakao/join");
-                sb.append("&code="+code);
+            StringBuffer sb = new StringBuffer();
+            sb.append("grant_type=authorization_code");
+            sb.append("&client_id=c691b066d7c57c4085e1fa5fc3e2c47b");
+            sb.append("&redirect_uri=http://localhost:8080/kakao/join");
+            sb.append("&code="+code);
 
-                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 
-                bw.write(sb.toString());
-                bw.flush();
+            bw.write(sb.toString());
+            bw.flush();
 
-                int res_code=conn.getResponseCode();
+            int res_code=conn.getResponseCode();
 
+            if(res_code == HttpURLConnection.HTTP_OK){
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuffer result = new StringBuffer();
+                String line = null;
+
+                while((line = br.readLine()) != null){
+                    result.append(line);
+                }
+
+                JSONParser jsonParser = new JSONParser();
+
+                Object obj = jsonParser.parse(result.toString());
+                JSONObject json = (JSONObject)obj;
+
+                access_token = (String)json.get("access_token");
+                refresh_token = (String)json.get("refresh_token");
+
+                String apiURL = "https://kapi.kakao.com/v2/user/me";
+                String header = "Bearer "+access_token;
+
+                URL url2 = new URL(apiURL);
+                HttpURLConnection conn2 = (HttpURLConnection)url2.openConnection();
+
+                conn2.setRequestMethod("POST");
+                conn2.setDoOutput(true);
+
+                conn2.setRequestProperty("Authorization", header);
+                
+                res_code = conn2.getResponseCode();
+                
                 if(res_code == HttpURLConnection.HTTP_OK){
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuffer result = new StringBuffer();
-                    String line = null;
+                    BufferedReader br2 = new BufferedReader(new InputStreamReader(conn2.getInputStream(), "UTF-8"));
 
-                    while((line = br.readLine()) != null){
-                        result.append(line);
+                    StringBuffer result2 = new StringBuffer();
+                    String line2 = null;
+
+                    while((line2 = br2.readLine()) != null){
+                        result2.append(line2);
                     }
 
-                    JSONParser jsonParser = new JSONParser();
+                    Object obj2 = jsonParser.parse(result2.toString());
+                    JSONObject json2 = (JSONObject)obj2;
+                    JSONObject props = (JSONObject)json2.get("properties");
+                    String nickname = (String)props.get("nickname");
+                    String profile_image = (String)props.get("profile_image");
 
-                    Object obj = jsonParser.parse(result.toString());
-                    JSONObject json = (JSONObject)obj;
+                    JSONObject kakao_acc = (JSONObject)json2.get("kakao_account");
+                    String email = (String)kakao_acc.get("email");
 
-                    access_token = (String)json.get("access_token");
-                    refresh_token = (String)json.get("refresh_token");
+                    Boolean chk = j_Service.check_email(email);
+                
+                    if(chk == true){
+                        MemberVO vo = new MemberVO();
+                        vo.setNickname(nickname);
+                        vo.setProfile_image(profile_image);
+                        vo.setEmail(email);
+                        vo.setAccess_token(access_token);
+                        vo.setRefresh_token(refresh_token);
+                        vo.setStatus(status);
 
-                    String apiURL = "https://kapi.kakao.com/v2/user/me";
-                    String header = "Bearer "+access_token;
+                        int cnt = j_Service.addMem(vo);
 
-                    URL url2 = new URL(apiURL);
-                    HttpURLConnection conn2 = (HttpURLConnection)url2.openConnection();
-
-                    conn2.setRequestMethod("POST");
-                    conn2.setDoOutput(true);
-
-                    conn2.setRequestProperty("Authorization", header);
-                    
-                    res_code = conn2.getResponseCode();
-                    
-                    if(res_code == HttpURLConnection.HTTP_OK){
-                        BufferedReader br2 = new BufferedReader(new InputStreamReader(conn2.getInputStream(), "UTF-8"));
-
-                        StringBuffer result2 = new StringBuffer();
-                        String line2 = null;
-
-                        while((line2 = br2.readLine()) != null){
-                            result2.append(line2);
-                        }
-
-                        Object obj2 = jsonParser.parse(result2.toString());
-                        JSONObject json2 = (JSONObject)obj2;
-                        JSONObject props = (JSONObject)json2.get("properties");
-                        String nickname = (String)props.get("nickname");
-                        String profile_image = (String)props.get("profile_image");
-
-                        JSONObject kakao_acc = (JSONObject)json2.get("kakao_account");
-                        String email = (String)kakao_acc.get("email");
-
-                        Boolean chk = j_Service.check_email(email);
-                    
-                        if(chk == true){
-                            MemberVO vo = new MemberVO();
-                            vo.setNickname(nickname);
-                            vo.setProfile_image(profile_image);
-                            vo.setEmail(email);
-                            vo.setAccess_token(access_token);
-                            vo.setRefresh_token(refresh_token);
-                            vo.setStatus(status);
-
-                            int cnt = j_Service.addMem(vo);
-
-                            mv.setViewName("redirect:/login");
-                        }else{
-                            session.setAttribute("email_chk", chk);
-                            mv.setViewName("redirect:/join");
-                        }
+                        mv.setViewName("redirect:/login");
+                    }else{
+                        session.setAttribute("email_chk", chk);
+                        mv.setViewName("redirect:/join");
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-            return mv;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return mv;
+    }
 
     @RequestMapping("/naver/join")
     public ModelAndView naverLogin(String code, String state, String error, String error_description){
@@ -237,5 +238,29 @@ public class JoinCotroller {
             e.printStackTrace();
         }
         return mv;
-    }    
+    }  
+    
+    @PostMapping("/common/join")
+    public ModelAndView commonJoin(String j_email, String j_password, String j_nickname, String j_confirmpassword){
+        ModelAndView mv = new ModelAndView();
+
+        String email = j_email;
+        String password = j_password;
+        String nickname = j_nickname;
+        String status = "0";
+
+        MemberVO vo = new MemberVO();
+        vo.setEmail(email);
+        vo.setPassword(password);
+        vo.setNickname(nickname);
+        vo.setStatus(status);
+
+        int cnt = j_Service.addMem(vo);        
+                    
+        mv.setViewName("redirect:/login");
+
+        return mv;
+    }
+
+    
 }

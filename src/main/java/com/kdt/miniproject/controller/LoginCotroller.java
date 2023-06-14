@@ -22,9 +22,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kdt.miniproject.service.LoginService;
 import com.kdt.miniproject.vo.MemberVO;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class LoginCotroller {
+
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     private LoginService l_Service;
@@ -35,19 +40,26 @@ public class LoginCotroller {
         return "/login/login";
     }
 
-    @PostMapping("login")
-    @ResponseBody
-	public Map<String,Object> view(String email, String password){
-        Map<String, Object> map = new HashMap<String,Object>();
-		//받인 인자 b_idx를 조건으로 게시물 하나(BbsVO)를 얻어내야 한다.
-        MemberVO[] vo = l_Service.ml_login(email, password);
-        System.out.println("email값"+map);
-      
 
-		map.put("vo", vo);
-		
+    @PostMapping("login")
+	public ModelAndView view(String email, String password){
+        ModelAndView mv = new ModelAndView();
+		//받인 인자 b_idx를 조건으로 게시물 하나(BbsVO)를 얻어내야 한다.
+        MemberVO vo = l_Service.ml_login(email, password);
         
-		return map;
+        
+        if (vo != null) {
+
+            //세션처리
+            session.setAttribute("mvo", vo);
+
+            mv.setViewName("redirect:/tour");
+
+        } else {
+            mv.setViewName("redirect:/login");
+        }
+
+		return mv;
 	}
 
     
