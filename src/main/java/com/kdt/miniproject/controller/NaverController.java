@@ -22,7 +22,7 @@ public class NaverController {
         
         String access_Token = "";
         String refresh_Token = "";
-        String reqURL = "https://kauth.naver.com/oauth/token";
+        String reqURL = "https://nid.naver.com/oauth2.0/token";
 
         try {
             // 웹 상의 경로(URL)를 객체화 시킨다.
@@ -79,7 +79,7 @@ public class NaverController {
                 refresh_Token = (String) json.get("refresh_token");
 
              
-                String apiURL = "https://kapi.kakao.com/v2/user/me";
+                String apiURL = "https://openapi.naver.com/v1/nid/me";
                 String header = "Bearer " + access_Token;
 
               
@@ -120,10 +120,10 @@ public class NaverController {
                     String p_img = (String) props.get("profile_image");
 
                   
-                    JSONObject kakao_acc = (JSONObject) json.get("kakao_account");
-                    String email = (String) kakao_acc.get("email");
+                    JSONObject naver_acc = (JSONObject) json.get("naver_account");
+                    String email = (String) naver_acc.get("email");
 
-                    JSONObject profile = (JSONObject) kakao_acc.get("profile");
+                    JSONObject profile = (JSONObject) naver_acc.get("profile");
                     nickName = (String) profile.get("nickname");
                     p_img = (String) profile.get("profile_image_url");
 
