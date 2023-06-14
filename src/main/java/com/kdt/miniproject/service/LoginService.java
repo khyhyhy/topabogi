@@ -1,6 +1,8 @@
 package com.kdt.miniproject.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,15 +22,14 @@ public class LoginService implements HandlerInterceptor{
  @Autowired
     private LoginMapper mapper;
  
- public MemberVO[] ml_login(String email, String password) {
-     MemberVO[] ar = null;
-    
-     List<MemberVO> list = mapper.login(email, password);
-        if(list != null && list.size() > 0){
-            ar = new MemberVO[list.size()];
-            list.toArray(ar);
-        }
+    public MemberVO ml_login(String email, String password) {
+       
 
-        return ar;
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("email",email);
+        map.put("password", password);
+        
+        return mapper.login(map);
+
     }
 }
