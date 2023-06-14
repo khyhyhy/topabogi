@@ -8,6 +8,6 @@ public class InfoController {
  
  @RequestMapping("/info/")
  public String init(){
-  return "info";
+  return "info/info";
  }
 }
