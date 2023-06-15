@@ -5,8 +5,7 @@
 <html>
 <head>
  <meta charset="UTF-8">
- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
- <link rel="stylesheet" href="/resources/demos/style.css">
+ 
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
  <link rel="stylesheet" href="../css/custom.css" />
  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
@@ -46,6 +45,27 @@
    position: relative;
   }
   .infobox{
+    display: block;
+    background: #50627F;
+    color: #fff;
+    text-align: center;
+    width: auto !important; 
+    height: 24px;
+    line-height:18px;
+    border-radius:4px;
+    padding:0px 10px;
+  }
+  .infobox2{
+    display: block;
+    background: #50627F;
+    color: #fff;
+    text-align: center;
+    height: 24px;
+    line-height:18px;
+    border-radius:4px;
+    padding:0px 10px;
+  }
+  .infobox3{
     display: block;
     background: #50627F;
     color: #fff;
@@ -115,7 +135,7 @@
   <div class="accordion" id="accordionExample">
    <div class="accordion-item">
      <h2 class="accordion-header" id="headingOne">
-       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick="map1load()">
          주변 축제 및 행사
        </button>
      </h2>
@@ -127,7 +147,7 @@
    </div>
    <div class="accordion-item">
      <h2 class="accordion-header" id="headingTwo">
-       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onclick="map2load()">
          주변 음식점 정보
        </button>
      </h2>
@@ -135,15 +155,15 @@
        <div class="accordion-body">
         <div id="map2" style="width:800px;height:500px;"></div>
        </div>
+      </div>
      </div>
-   </div>
-   <div class="accordion-item">
-     <h2 class="accordion-header" id="headingThree">
-       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-         주변 숙박 정보
+     <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" onclick="map3load()">
+        주변 숙박 정보
        </button>
-     </h2>
-     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
        <div class="accordion-body">
         <div class="col-md-4 mb-5" id="map3" style="width:800px;height:500px;"></div>
        </div>
@@ -186,7 +206,7 @@
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
- <script src="js/scripts.js"></script>
+ 
  
  <!-- <script>
   function sendmapdata(file,editor){
@@ -243,6 +263,7 @@
 			level: 4
 		};
 		var map = new kakao.maps.Map(container, options);
+  map.relayout();
   var position = options.center
 
 // 마커를 생성합니다
@@ -254,6 +275,9 @@
   marker.setMap(map);
 
 var ind = 0;
+function map1load(){
+ map.relayout();
+}
 </script>
   <c:forEach items="${iar}" var="vo">
   <script>
@@ -266,7 +290,7 @@ var ind = 0;
     
     var overlayid = "idnum"+ ind++;
 
-  var iwContent = '<div style="padding:5px;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+  var iwContent = '<div style="padding:5px;width:auto;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
        iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
    // 인포윈도우를 생성합니다
@@ -321,69 +345,62 @@ function disp(aa) {
 function closeOverlay(vo){
  vo.parentElement.parentElement.style.display="none";
 }
-function resizeMap() {
-    var mapContainer = document.getElementById('map');
-    mapContainer.style.width = '650px';
-    mapContainer.style.height = '650px'; 
-}
-
-function relayout() {    
-    
-    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-    map.relayout();
-}
  marker.setMap(map);
  </script>
 </c:forEach>
 
+
+
  <script>
-  
-  var container = document.getElementById('map2');
-		var options = {
+  var container2 = document.getElementById('map2');
+		var options2 = {
 			center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
 			level: 4
 		};
-		var map = new kakao.maps.Map(container, options);
-  var position = options.center
+		var map2 = new kakao.maps.Map(container2, options2);
+  map2.relayout();
+  var position2 = options2.center
 
 // 마커를 생성합니다
- var marker = new kakao.maps.Marker({
-  position: position,
+ var marker2 = new kakao.maps.Marker({
+  position: position2,
   clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
  });
-map.relayout()
-  marker.setMap(map);
 
-var ind = 0;
+  marker2.setMap(map2);
+
+var ind2 = 0;
+function map2load(){
+ map2.relayout();
+}
 </script>
   <c:forEach items="${iar2}" var="vo">
   <script>
-   var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
+   var position2 = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
 // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-     position: position,
+    var marker2 = new kakao.maps.Marker({
+     position: position2,
      clickable: false // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
     });
     
-    var overlayid = "idnum"+ ind++;
+    var overlayid2 = "idnumm"+ ind2++;
 
-  var iwContent = '<div style="padding:5px;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-       iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
+  var iwContent2 = '<div style="width:150px;" class="infobox2">${vo.title}<button type="button"  class="butt" onclick="dispp(\''+overlayid2+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+       iwPosition2 = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
+       infowindow.close();
    // 인포윈도우를 생성합니다
-   var infowindow = new kakao.maps.InfoWindow({
-       position : iwPosition, 
-       content : iwContent 
+   var infowindow2 = new kakao.maps.InfoWindow({
+       position : iwPosition2, 
+       content : iwContent2 
    });
    // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-   infowindow.open(map, marker); 
+   infowindow2.open(map2, marker2); 
    
-   var content = document.createElement('div');
-   content.className = 'overlay';
-   content.innerHTML = '<div class="wrap">' + 
-            '    <div class="info" id='+overlayid+'>' + 
+   var content2 = document.createElement('div');
+   content2.className = 'overlay';
+   content2.innerHTML = '<div class="wrap">' + 
+            '    <div class="info" id='+overlayid2+'>' + 
             '        <div class="title">' + 
             '            ${vo.title}' + 
             '            <div class="close" onclick="closeOverlay(this)" title="닫기"></div>' + 
@@ -411,81 +428,76 @@ var ind = 0;
 
 // 마커 위에 커스텀오버레이를 표시합니다
 // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-var overlay = new kakao.maps.CustomOverlay({
-    content: content,
-    map: map,
-    position: marker.getPosition()       
+var overlay2 = new kakao.maps.CustomOverlay({
+    content: content2,
+    map: map2,
+    position: marker2.getPosition()       
 });
 
-function disp(aa) {
+function dispp(aa) {
      document.getElementById(aa).style.display="block";
 };
 
 function closeOverlay(vo){
  vo.parentElement.parentElement.style.display="none";
 }
-function resizeMap() {
-    var mapContainer = document.getElementById('map2');
-    mapContainer.style.width = '650px';
-    mapContainer.style.height = '650px'; 
-}
-
-function relayout() {    
-    
-    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-    map.relayout();
-}
- marker.setMap(map);
+ marker2.setMap(map2);
  </script>
 </c:forEach>
+
+
+
+
  <script>
-  
-  var container = document.getElementById('map3');
-		var options = {
+  var container3 = document.getElementById('map3');
+		var options3 = {
 			center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
 			level: 4
 		};
-		var map = new kakao.maps.Map(container, options);
-  var position = options.center
+		var map3 = new kakao.maps.Map(container3, options3);
+  map3.relayout();
+  var position3 = options3.center
 
 // 마커를 생성합니다
- var marker = new kakao.maps.Marker({
-  position: position,
+ var marker3 = new kakao.maps.Marker({
+  position: position3,
   clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
  });
 
-  marker.setMap(map);
+  marker3.setMap(map3);
 
-var ind = 0;
+var ind3 = 0;
+function map3load(){
+ map3.relayout();
+}
 </script>
   <c:forEach items="${iar3}" var="vo">
   <script>
-   var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
+   var position3 = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
 // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-     position: position,
+    var marker3 = new kakao.maps.Marker({
+     position: position3,
      clickable: false // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
     });
     
-    var overlayid = "idnum"+ ind++;
+    var overlayid3 = "idnumm"+ ind3++;
 
-  var iwContent = '<div style="padding:5px;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-       iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
+  var iwContent3 = '<div style="width:300px;" class="infobox3">${vo.title}<button type="button"  class="butt" onclick="disppp(\''+overlayid3+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+       iwPosition3 = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
+       
    // 인포윈도우를 생성합니다
-   var infowindow = new kakao.maps.InfoWindow({
-       position : iwPosition, 
-       content : iwContent 
+   var infowindow3 = new kakao.maps.InfoWindow({
+       position : iwPosition3, 
+       content : iwContent3
    });
    // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-   infowindow.open(map, marker); 
+   infowindow3.open(map3, marker3); 
    
-   var content = document.createElement('div');
-   content.className = 'overlay';
-   content.innerHTML = '<div class="wrap">' + 
-            '    <div class="info" id='+overlayid+'>' + 
+   var content3 = document.createElement('div');
+   content3.className = 'overlay';
+   content3.innerHTML = '<div class="wrap">' + 
+            '    <div class="info" id='+overlayid3+'>' + 
             '        <div class="title">' + 
             '            ${vo.title}' + 
             '            <div class="close" onclick="closeOverlay(this)" title="닫기"></div>' + 
@@ -513,27 +525,28 @@ var ind = 0;
 
 // 마커 위에 커스텀오버레이를 표시합니다
 // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-var overlay = new kakao.maps.CustomOverlay({
-    content: content,
-    map: map,
-    position: marker.getPosition()       
+var overlay3 = new kakao.maps.CustomOverlay({
+    content: content3,
+    map: map3,
+    position: marker3.getPosition()       
 });
 
-function disp(aa) {
-     document.getElementById(aa).style.display="block";
+function disppp(aaa) {
+     document.getElementById(aaa).style.display="block";
 };
 
 function closeOverlay(vo){
  vo.parentElement.parentElement.style.display="none";
 }
-
- marker.setMap(map);
+ marker3.setMap(map3);
  </script>
 </c:forEach>
-  
+
   <script>
-   map.relayout()
-   let marker_ar = document.querySelectorAll(".infobox")
+   
+
+   
+   let marker_ar = document.querySelectorAll(".infobox");
    
     marker_ar.forEach(function(e){
     var w = e.offsetWidth + 10;
@@ -541,10 +554,24 @@ function closeOverlay(vo){
     e.parentElement.style.top = "82px";
     e.parentElement.style.left = "50%";
     e.parentElement.style.marginLeft = -ml+"px";
-    e.parentElement.style.width = w+"px";
+    e.parentElement.style.width = w+"px !important;";
     e.parentElement.previousSibling.style.display = "none";
     e.parentElement.parentElement.style.border = "0px";
     e.parentElement.parentElement.style.background = "unset";
+    });
+
+   let marker_ar2 = document.querySelectorAll(".infobox2");
+   
+    marker_ar2.forEach(function(e2){
+    var w2 = e2.offsetWidth + 10;
+    var ml2 = w2/2;
+    e2.parentElement.style.top = "82px";
+    e2.parentElement.style.left = "50%";
+    e2.parentElement.style.marginLeft = -ml2+"px";
+    e2.parentElement.style.width = w2+"px !important;";
+    e2.parentElement.previousSibling.style.display = "none";
+    e2.parentElement.parentElement.style.border = "0px";
+    e2.parentElement.parentElement.style.background = "unset";
     });
   </script>
 </body>
