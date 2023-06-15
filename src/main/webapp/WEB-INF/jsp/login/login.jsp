@@ -50,6 +50,7 @@
                             </div>
                             
                         </form>
+                        
                         <div class="form-link">
                             <span>회원가입 하시겠습니까? <a href="/join" class="link">Signup</a></span>
                         </div>
@@ -88,6 +89,13 @@
             <script>
     function sendData() {
 
+        if (!form.$("#email").value || !form.$("#password").value) {
+            alert('아이디와 비밀번호를 모두 입력해 주세요.');
+            ("#email").focus();
+            return false;
+        }
+
+
         if ($("#email").val().trim().length <= 0) {
             alert("아이디를 입력하세요!");
             ("#email").focus();
@@ -99,9 +107,13 @@
             $("#password").focus();
             return;
         }
+
+
+        
         //var param = "id=" + encodeURIComponent(email.val()) + "&pw=" + encodeURIComponent(pw.val()) + "&type=login";
        document.frm.submit();
     }   
+
 
             </script>
             </body>

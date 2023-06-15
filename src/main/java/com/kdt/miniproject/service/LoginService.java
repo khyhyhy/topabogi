@@ -23,13 +23,14 @@ public class LoginService implements HandlerInterceptor{
     private LoginMapper mapper;
  
     public MemberVO ml_login(String email, String password) {
-       
 
         Map<String, String> map = new HashMap<String, String>();
-        map.put("email",email);
+        map.put("email", email);
         map.put("password", password);
-        
+
         return mapper.login(map);
 
     }
+    
+  
 }

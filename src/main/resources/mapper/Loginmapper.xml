@@ -15,6 +15,12 @@ SELECT * FROM minipro.member
     where email = #{email} and
     password = #{password}
   </select>
+  <select id="passChk" resultType="int">
+  SELECT COUNT(*) FROM minipro.member
+  WHERE email = #{email}
+  AND password = #{password}
+  </select>
+  
 <!-- insert -->
 
 
