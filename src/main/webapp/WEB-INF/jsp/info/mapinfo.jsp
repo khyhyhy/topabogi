@@ -118,6 +118,11 @@
                       
                         <!-- Comment form-->
                         <form class="mb-4" method="get" action="/info/reviewwrite">
+                          <input type="hidden" name="votitle" value="${ifoVO.title}">
+                          <input type="hidden" name="voaddr1" value="${ifoVO.addr1}">
+                          <input type="hidden" name="votel" value="${ifoVO.tel}">
+                          <input type="hidden" name="vofirstimage" value="${ifoVO.firstimage}">
+                          
                           <input class="form-control" type="text" name="title">
                           <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}">
                           <input type="hidden" name="contentid" value="${ifoVO.contentid}">

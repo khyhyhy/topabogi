@@ -351,19 +351,24 @@ public class InfoController {
  } 
 
  @RequestMapping("/info/reviewwrite")
- public ModelAndView reviewwrite(String title, String m_idx , String content,String contentid){
+ public ModelAndView reviewwrite(String title, String m_idx , String content,String contentid,String votitle, String voaddr1 ,String votel , String vofirstimage){
   ModelAndView mv = new ModelAndView();
-  System.out.println("title"+title);
-  System.out.println("m_idx"+m_idx);
-  System.out.println("content"+content);
-  System.out.println("contentid"+contentid);
+  InfoVO vo = new InfoVO();
+  vo.setAddr1(voaddr1);
+  vo.setContentid(contentid);
+  vo.setFirstimage(vofirstimage);
+  vo.setTitle(votitle);
+  vo.setTel(votel);
   ReviewVO rvo = new ReviewVO();
   rvo.setTitle(title);
   rvo.setContent(content);
   rvo.setContentid(contentid);
   rvo.setScore("5");
   service.reviewwrite(rvo, m_idx,contentid);
-  mv.setViewName("/info");
+  ReviewLogVO[] ar = service.reviewall(contentid);
+  vo.setRl_list(ar);
+  mv.addObject("ifoVO", vo);
+  mv.setViewName("info/mapinfo");
   return mv;
  }
  
