@@ -26,7 +26,13 @@ SELECT * FROM minipro.review WHERE r_idx = ${param}
 </select>
 
 <!-- insert -->
+<insert id="rvowrite" parameterType="com.kdt.miniproject.vo.ReviewVO" useGeneratedKeys="true" keyProperty="r_idx" keyColumn="r_idx">
+INSERT INTO minipro.review(contentid,title,score,content,status) 
+VALUES("${contentid}" ,"${title}" ,"${score}","${content}" ,0 )
+</insert>
 
-
+<insert id="rlvowrite" parameterType="Map">
+INSERT INTO minipro.reviewlog(m_idx ,r_idx ,writedate ,rl_val1 ) VALUES(${m_idx} ,${r_idx} ,NOW() ,${contentid})
+</insert>
 <!-- update -->
 </mapper>

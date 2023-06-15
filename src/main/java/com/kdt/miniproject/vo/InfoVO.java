@@ -12,5 +12,5 @@ import lombok.Setter;
 public class InfoVO {
  String mapX,mapY,title,addr1,contentid,modifiedtime,firstimage2,tel,firstimage;
 
- ReviewVO[] r_list;
+ ReviewLogVO[] rl_list;
 }

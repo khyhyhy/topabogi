@@ -117,19 +117,22 @@
                     <div class="card-body">
                       
                         <!-- Comment form-->
-                        <form class="mb-4">
-                          <input class="form-control" type="text" ></form>
-                          <textarea class="form-control" rows="3"></textarea>
+                        <form class="mb-4" method="get" action="/info/reviewwrite">
+                          <input class="form-control" type="text" name="title">
+                          <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}">
+                          <input type="hidden" name="contentid" value="${ifoVO.contentid}">
+                          <textarea class="form-control" rows="3" name="content"></textarea>
                           <br/>
-                          <button class="btn btn-default mycustom-mapinfo-btn" type="button">리뷰남기기</button>
+                          <button class="btn btn-default mycustom-mapinfo-btn" type="submit">리뷰남기기</button>
                         </form>
 
                         <!-- Comment with nested comments-->
                         <div class="d-flex mb-4">
-                            <c:forEach items="${ifoVO.r_list}" var="rvo">
+                            <c:forEach items="${ifoVO.rl_list}" var="rlvo">
                               <div class="ms-3">
-                                  <div class="fw-bold">${rvo.title}</div>
-                                  ${rvo.content}
+                                  <div class="fw-bold">${rlvo.rvo.title}</div>
+                                  ${rlvo.rvo.content}<br/>
+                                  ${rlvo.mvo.nickname}
                               </div>
                             </c:forEach>
                         </div>

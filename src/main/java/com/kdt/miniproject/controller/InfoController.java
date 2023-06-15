@@ -11,17 +11,23 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kdt.miniproject.service.InfoService;
 import com.kdt.miniproject.vo.InfoVO;
-import com.kdt.miniproject.vo.ItemVO;
+import com.kdt.miniproject.vo.ReviewLogVO;
+import com.kdt.miniproject.vo.ReviewVO;
 import com.kdt.miniproject.vo.infomationVO;
 
 @Controller
 public class InfoController {
  
+ @Autowired
+ InfoService service;
+
  @RequestMapping("/info/")
  public ModelAndView init(String contenttypeid , String contentid) throws Exception{
   ModelAndView mv = new ModelAndView();
@@ -146,7 +152,7 @@ public class InfoController {
    while((line =br.readLine())!=null){
     inputst.append(line);
    }
-   System.out.println("상세정보2=="+inputst.toString());
+   //System.out.println("상세정보2=="+inputst.toString());
   
     JSONParser parser = new JSONParser();
     JSONObject json = (JSONObject)parser.parse(inputst.toString());
@@ -222,7 +228,7 @@ public class InfoController {
     while((line =br.readLine())!=null){
      inputst.append(line);
     }
-    System.out.println("상세정보2=="+inputst.toString());
+    //System.out.println("상세정보2=="+inputst.toString());
     
     JSONParser parser = new JSONParser();
     JSONObject json = (JSONObject)parser.parse(inputst.toString());
@@ -298,7 +304,7 @@ public class InfoController {
     while((line =br.readLine())!=null){
      inputst.append(line);
     }
-    System.out.println("상세정보2=="+inputst.toString());
+    //System.out.println("상세정보2=="+inputst.toString());
     
     JSONParser parser = new JSONParser();
     JSONObject json = (JSONObject)parser.parse(inputst.toString());
@@ -337,10 +343,29 @@ public class InfoController {
  public ModelAndView sanse(InfoVO vo){
   ModelAndView mv = new ModelAndView();
   System.out.println("인뽀메이숀"+vo.getTitle());
+  ReviewLogVO[] ar= service.reviewall(vo.getContentid());
+  vo.setRl_list(ar);
   mv.addObject("ifoVO", vo);
   mv.setViewName("info/mapinfo");
   return mv;
  } 
+
+ @RequestMapping("/info/reviewwrite")
+ public ModelAndView reviewwrite(String title, String m_idx , String content,String contentid){
+  ModelAndView mv = new ModelAndView();
+  System.out.println("title"+title);
+  System.out.println("m_idx"+m_idx);
+  System.out.println("content"+content);
+  System.out.println("contentid"+contentid);
+  ReviewVO rvo = new ReviewVO();
+  rvo.setTitle(title);
+  rvo.setContent(content);
+  rvo.setContentid(contentid);
+  rvo.setScore("5");
+  service.reviewwrite(rvo, m_idx,contentid);
+  mv.setViewName("/info");
+  return mv;
+ }
  
  @RequestMapping("/info/test")
  public String test(){
