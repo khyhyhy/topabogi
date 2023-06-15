@@ -117,4 +117,9 @@ public class InfoController {
   mv.setViewName("info/mapinfo");
   return mv;
  } 
+ 
+ @RequestMapping("/info/test")
+ public String test(){
+    return "info/info";
+ }
 }
