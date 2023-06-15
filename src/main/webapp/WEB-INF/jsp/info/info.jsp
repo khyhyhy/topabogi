@@ -5,7 +5,7 @@
 <html>
 <head>
  <meta charset="UTF-8">
- 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
  <link rel="stylesheet" href="../css/custom.css" />
  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
@@ -76,15 +76,28 @@
     padding:0px 10px;
   }
   .butt {
+   border: 0;
+  background-color: transparent;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  }
+  .white{
+   color:#ffffff;
   }
  </style>
 </head>
 <body>
  
+ <c:if test="${itmVO.contenttypeid == 12}">
+ <div class="bg-top">
+ </c:if>
+ <c:if test="${itmVO.contenttypeid == 15}">
  <div class="bg-top" style="background-color: #FFD2D7">
+ </c:if>
+ <c:if test="${itmVO.contenttypeid == 28}">
+ <div class="bg-top" style="background-color: #DBF1FC">
+ </c:if>
   <!-- 메뉴바 ---------------------------------------------------------------------------------------------------- -->
   <div class="bg-header">
    <div class="container">
@@ -93,9 +106,21 @@
            </a>
 
            <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
+            <c:if test="${itmVO.contenttypeid == 12}">
+            <li><a href="/tour" class="nav-link px-3 link-secondary">관광지</a></li>
+            <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark">축제/공연</a></li>
+            <li><a href="/tour?content_TypeId=28" class="nav-link px-3 link-dark">레저</a></li>
+           </c:if>
+            <c:if test="${itmVO.contenttypeid == 15}">
              <li><a href="/tour" class="nav-link px-3 link-secondary" style="color: #212529!important;">관광지</a></li>
              <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark" style="color: #6c757d!important;">축제/공연</a></li>
              <li><a href="/tour?content_TypeId=28"  class="nav-link px-3 link-dark">레저</a></li>
+            </c:if>
+            <c:if test="${itmVO.contenttypeid == 28}">
+             <li><a href="/tour" class="nav-link px-3 link-secondary" style="color: #212529!important;">관광지</a></li>
+                    <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark">축제/공연</a></li>
+                    <li><a href="/tour?content_TypeId=28" class="nav-link px-3 link-dark" style="color: #6c757d!important;">레저</a></li>
+            </c:if>
            </ul>
 
            <c:if test="${sessionScope.mvo == null}">
@@ -129,8 +154,17 @@
       </div>
   </div>
   <!-- Call to Action-->
-  <div class="card text-white bg-secondary my-5 py-4 text-left">
-      <div class="card-body"><p class="text-white m-0">${itmVO.overview}</p></div>
+  <c:if test="${itmVO.contenttypeid == 12}">
+     <div class="card text-gray  my-5 py-4 text-left" style="background-color: #f5d08aae !important;">
+     </c:if>
+     <c:if test="${itmVO.contenttypeid == 15}">
+     <div class="card text-gray  my-5 py-4 text-left" style="background-color: #ffd2d7c2 !important;">
+     </c:if>
+     <c:if test="${itmVO.contenttypeid == 28}">
+       <div class="card text-gray  my-5 py-4 text-left" style="background-color: #dbf1fcca !important;">
+     </c:if>
+        <div class="card-body"><p class="text-gray m-0">
+     ${itmVO.overview}</p></div>
   </div>
   <div class="accordion" id="accordionExample">
    <div class="accordion-item">
@@ -290,7 +324,7 @@ function map1load(){
     
     var overlayid = "idnum"+ ind++;
 
-  var iwContent = '<div style="padding:5px;width:auto;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+  var iwContent = '<div style="padding:5px;width:auto;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"><i class="bi bi-caret-up white"></i></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
        iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
    // 인포윈도우를 생성합니다
@@ -385,7 +419,7 @@ function map2load(){
     
     var overlayid2 = "idnumm"+ ind2++;
 
-  var iwContent2 = '<div style="width:150px;" class="infobox2">${vo.title}<button type="button"  class="butt" onclick="dispp(\''+overlayid2+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+  var iwContent2 = '<div style="width:150px;" class="infobox2">${vo.title}<button type="button"  class="butt" onclick="dispp(\''+overlayid2+'\')"><i class="bi bi-caret-up white"></i></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
        iwPosition2 = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
        infowindow.close();
@@ -482,7 +516,7 @@ function map3load(){
     
     var overlayid3 = "idnumm"+ ind3++;
 
-  var iwContent3 = '<div style="width:300px;" class="infobox3">${vo.title}<button type="button"  class="butt" onclick="disppp(\''+overlayid3+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+  var iwContent3 = '<div style="width:300px;" class="infobox3">${vo.title}<button type="button"  class="butt" onclick="disppp(\''+overlayid3+'\')"><i class="bi bi-caret-up white"></i></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
        iwPosition3 = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
        
@@ -574,5 +608,20 @@ function closeOverlay(vo){
     e2.parentElement.parentElement.style.background = "unset";
     });
   </script>
+  <script>
+
+   var ix = 0;
+   $('i').on('click',function(){
+       if(ix==0){
+           $(this).attr('class','bi-caret-up-fill white');
+           i++;
+       }else if(ix==1){
+           $(this).attr('class','bi-caret-up white');
+           i--;
+       }
+
+   });
+
+</script>
 </body>
 </html>

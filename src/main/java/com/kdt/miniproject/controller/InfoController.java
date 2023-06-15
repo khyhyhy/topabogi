@@ -106,14 +106,14 @@ public class InfoController {
     mv.addObject("itmVO", infomaVO);
   String path = "http://apis.data.go.kr/B551011/KorService1";
   StringBuffer sb = new StringBuffer();
-  String numOfRows = "10";
+  String numOfRows = "50";
   String pageNo = "1";
   String MobileOS = "ETC";
   String listYN = "Y";
   String arrange = "A";
   String mapX = infomaVO.getMapx();
   String mapY = infomaVO.getMapy();
-  String radius = "1000";
+  String radius = "3000";
   String contentTypeId = "15";
   sb.append(path);
   sb.append("/");
@@ -182,14 +182,14 @@ public class InfoController {
    }
    path = "http://apis.data.go.kr/B551011/KorService1";
    sb = new StringBuffer();
-   numOfRows = "10";
+   numOfRows = "50";
    pageNo = "1";
    MobileOS = "ETC";
    listYN = "Y";
    arrange = "A";
    mapX = infomaVO.getMapx();
    mapY = infomaVO.getMapy();
-   radius = "1000";
+   radius = "3000";
    contentTypeId = "39";
    sb.append(path);
    sb.append("/");
@@ -258,14 +258,14 @@ public class InfoController {
    }
    path = "http://apis.data.go.kr/B551011/KorService1";
    sb = new StringBuffer();
-   numOfRows = "10";
+   numOfRows = "50";
    pageNo = "1";
    MobileOS = "ETC";
    listYN = "Y";
    arrange = "A";
    mapX = infomaVO.getMapx();
    mapY = infomaVO.getMapy();
-   radius = "1000";
+   radius = "3000";
    contentTypeId = "32";
    sb.append(path);
    sb.append("/");
