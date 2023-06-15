@@ -22,13 +22,13 @@ import com.kdt.miniproject.vo.ItemVO;
 public class InfoController {
  
  @RequestMapping("/info/")
- public ModelAndView init() throws Exception{
+ public ModelAndView init(ItemVO itmvo) throws Exception{
   ModelAndView mv = new ModelAndView();
-  ItemVO itmVO = new ItemVO("서울특별시 종로구 세종대로 175"
+  itmvo = new ItemVO("서울특별시 종로구 세종대로 175"
   , "", "1", "2848984", "15", "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image2_1.jpg",
    "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image3_1.jpg",
     "126.9763210635", "37.5720618985", "02-3437-0059", "거리에술 캬라반 '가을'","","");
-  mv.addObject("itmVO", itmVO);
+  mv.addObject("itmVO", itmvo);
   String path = "http://apis.data.go.kr/B551011/KorService1";
   StringBuffer sb = new StringBuffer();
   String numOfRows = "10";
@@ -36,8 +36,8 @@ public class InfoController {
   String MobileOS = "ETC";
   String listYN = "Y";
   String arrange = "A";
-  String mapX = itmVO.getMapx();
-  String mapY = itmVO.getMapy();
+  String mapX = itmvo.getMapx();
+  String mapY = itmvo.getMapy();
   String radius = "1000";
   String contentTypeId = "15";
   String servicekey = "VZwsEBpKrcOmbKb2y%2FszpWMkbfTx9GLvm2dZ96N6fn9bubmU0iPfGKNkuGSqCvCgpqL611HousPLRFN2KBEk9w%3D%3D";
@@ -109,11 +109,11 @@ public class InfoController {
 
 
 
- @RequestMapping("/info/infomation/")
+ @RequestMapping("/info/infomation")
  public ModelAndView sanse(InfoVO vo){
   ModelAndView mv = new ModelAndView();
   System.out.println("인뽀메이숀"+vo.getTitle());
-  mv.addObject("itmVO", vo);
+  mv.addObject("ifoVO", vo);
   mv.setViewName("info/mapinfo");
   return mv;
  } 

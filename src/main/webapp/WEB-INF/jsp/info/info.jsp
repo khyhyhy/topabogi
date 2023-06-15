@@ -229,7 +229,6 @@
 var ind = 0;
 </script>
   <c:forEach items="${iar}" var="vo">
-  
   <script>
    var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
 // 마커를 생성합니다
@@ -265,7 +264,7 @@ var ind = 0;
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">${vo.addr1}</div>' +
-            '                <form action="/info/infomation/" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>'+
+            '                <form action="/info/infomation" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>'+
             '                <div> <input type="hidden" name="mapX" value="${vo.mapX}"/>'+
             '                <div> <input type="hidden" name="mapY" value="${vo.mapY}"/>'+
             '                <div> <input type="hidden" name="addr1" value="${vo.addr1}"/>'+
@@ -274,7 +273,7 @@ var ind = 0;
             '                <div> <input type="hidden" name="firstimage" value="${vo.firstimage}"/>'+
             '                <div> <input type="hidden" name="firstimage2" value="${vo.firstimage2}"/>'+
             '                <div> <input type="hidden" name="tel" value="${vo.tel}"/>'+
-            '<a href="/info/infomation/" target="_blank" class="link">홈페이지</a></div></form>' + 
+            '<input type="submit" value="자세히보기"/></div></form>' + 
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    

@@ -93,15 +93,19 @@
  <div class="container px-4 px-lg-5">
   <!-- Heading Row-->
   <div class="row gx-4 gx-lg-5 align-items-center my-5">
-      <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="${itmVO.firstimage}" alt="..." /></div>
+      <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="${ifoVO.firstimage}" alt="..." /></div>
       <div class="col-lg-5">
           <h1 class="font-weight-light">${ifoVO.title}</h1>
-          <p><h4>${ifoVO.addr}</h4></p>
+          <p><h4>${ifoVO.addr1}</h4></p>
           <p><h4>${ifoVO.tel}</h4></p>
           <!--<a class="btn btn-primary" href="#!">Call to Action!</a>-->
       </div>
   </div>
   <!-- Content Row-->
+  <div >
+   <h1>사용자 리뷰</h1>
+   <div>리뷰 게시판 들어갈 곳</div>
+  </div>
    <div class="col-md-4 mb-5" id="map" style="width:800px;height:500px;"></div>
   </div>
 </div>
@@ -109,7 +113,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
  <script src="js/scripts.js"></script>
- 
  
  <script>
   $( function() {
@@ -137,7 +140,7 @@
   
   var container = document.getElementById('map');
 		var options = {
-			center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
+			center: new kakao.maps.LatLng(${ifoVO.mapY}, ${ifoVO.mapX}),
 			level: 4
 		};
 		var map = new kakao.maps.Map(container, options);
@@ -170,93 +173,10 @@
 
    
 
-var ind = 0;
-</script>
-  <c:forEach items="${iar}" var="vo">
   
-  <script>
-   var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
-// 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-     position: position,
-     clickable: false // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-    });
-    
-    var overlayid = "idnum"+ ind++;
-
-  var iwContent = '<div style="padding:5px;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-       iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
-
-   // 인포윈도우를 생성합니다
-   var infowindow = new kakao.maps.InfoWindow({
-       position : iwPosition, 
-       content : iwContent 
-   });
-   // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-   infowindow.open(map, marker); 
-   
-//    var content = document.createElement('div');
-//    content.className = 'overlay';
-//    content.innerHTML = '<div class="wrap">' + 
-//             '    <div class="info" id='+overlayid+'>' + 
-//             '        <div class="title">' + 
-//             '            ${vo.title}' + 
-//             '            <div class="close" onclick="closeOverlay(this)" title="닫기"></div>' + 
-//             '        </div>' + 
-//             '        <div class="body">' + 
-//             '            <div class="img">' +
-//             '                <img src="${vo.firstimage2}" width="73" height="70">' +
-//             '           </div>' + 
-//             '            <div class="desc">' + 
-//             '                <div class="ellipsis">${vo.addr1}</div>' + 
-//             '                <div> <input type="hidden" name="title" value=""/>'+
-//             '<a href="/info/infomation/" target="_blank" class="link">홈페이지</a></div>' + 
-//             '            </div>' + 
-//             '        </div>' + 
-//             '    </div>' +    
-//             '</div>';
-
-// // 마커 위에 커스텀오버레이를 표시합니다
-// // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-// var overlay = new kakao.maps.CustomOverlay({
-//     content: content,
-//     map: map,
-//     position: marker.getPosition()       
-// });
-
-// function disp(aa) {
-//      document.getElementById(aa).style.display="block";
-// };
-
-// function closeOverlay(vo){
-//  vo.parentElement.parentElement.style.display="none";
-// }
-
-
-
-
-// // // 마커에 마우스아웃 이벤트를 등록합니다
-// // kakao.maps.event.addListener(marker, 'mouseout', function() {
-// //     // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-// //     overlay.setMap(null); 
-// // });
-
-
-
-
-// // // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-// // kakao.maps.event.addListener(marker, 'click', function() {
-// //     overlay.setMap(map);
-// // });
-
-// // // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-// // function closeOverlay() {
-// //     overlay.setMap(null);     
-// // }
-
  marker.setMap(map);
  </script>
-</c:forEach>
+
   
   <script>
    let marker_ar = document.querySelectorAll(".infobox")
