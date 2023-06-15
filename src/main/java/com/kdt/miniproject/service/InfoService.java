@@ -12,6 +12,6 @@ public class InfoService {
  InfoMapper mapper;
 
  public void all(){
-  mapper.all();
+  mapper.reviewlog("");
  }
 }

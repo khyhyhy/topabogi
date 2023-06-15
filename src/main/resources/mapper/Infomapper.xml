@@ -5,10 +5,10 @@
   
 <mapper namespace="com.kdt.miniproject.mapper.InfoMapper">
 
-<resultMap resultType="com.kdt.miniproject.vo.ReviewLogVO" id="rlmap"> 
-<id column="m_idx" property="m_idx"/>
+<resultMap type="com.kdt.miniproject.vo.ReviewLogVO" id="rlmap"> 
+<result column="m_idx" property="m_idx"/>
+<result column="r_idx" property="r_idx"/>
  <association property="mvo" column="m_idx" javaType="com.kdt.miniproject.vo.MemberVO" select="mvo"></association>
-<id column="r_idx" property="r_idx"/>
  <association property="rvo" column="r_idx" javaType="com.kdt.miniproject.vo.ReviewVO" select="rvo"></association>
 </resultMap>
 
