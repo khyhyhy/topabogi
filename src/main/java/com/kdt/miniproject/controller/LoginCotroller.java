@@ -57,6 +57,7 @@ public class LoginCotroller {
 
         } else {
             mv.setViewName("redirect:/login");
+           
         }
 
 		return mv;

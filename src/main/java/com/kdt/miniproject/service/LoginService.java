@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -28,9 +29,13 @@ public class LoginService implements HandlerInterceptor{
         map.put("email", email);
         map.put("password", password);
 
+        
+
+
         return mapper.login(map);
 
     }
+    
     
   
 }

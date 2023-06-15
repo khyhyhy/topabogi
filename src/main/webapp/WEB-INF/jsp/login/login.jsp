@@ -89,11 +89,7 @@
             <script>
     function sendData() {
 
-        if (!form.$("#email").value || !form.$("#password").value) {
-            alert('아이디와 비밀번호를 모두 입력해 주세요.');
-            ("#email").focus();
-            return false;
-        }
+
 
 
         if ($("#email").val().trim().length <= 0) {
@@ -107,6 +103,8 @@
             $("#password").focus();
             return;
         }
+       
+        
 
 
         
