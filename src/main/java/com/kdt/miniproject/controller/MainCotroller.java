@@ -13,6 +13,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,16 +22,27 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kdt.miniproject.util.Paging;
 import com.kdt.miniproject.vo.ItemVO;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class MainCotroller {
+
+    @Autowired
+    private HttpSession session;
 
     @RequestMapping("/tour")
     public ModelAndView searchTourList( @RequestParam(value = "cPage", defaultValue = "1") int cPage,
                                     @RequestParam(value = "end", defaultValue = "16") int end ,
                                     @RequestParam(value = "content_TypeId", defaultValue = "12") int content_TypeId , 
-                                    @RequestParam(value = "area_Code", defaultValue = "1") int area_Code) throws Exception{
-    ModelAndView mv = new ModelAndView();
+                                    @RequestParam(value = "area_Code", defaultValue = "1") int area_Code,
+                                    @RequestParam(value = "isLogout", defaultValue = "false") boolean isLogout ) throws Exception{
+    
+    if(isLogout){
+        session.removeAttribute("mvo");
+    }
 
+    ModelAndView mv = new ModelAndView();
+                                
     int numOfRows = end;//한페이지 당 보여질 건수
     int pageNo = cPage; //현재 페이지값
 
@@ -160,7 +172,34 @@ public class MainCotroller {
             String contenttypeid = (String)itemJson.get("contenttypeid");
             String title = (String)itemJson.get("title");
             
-            ItemVO vo = new ItemVO(addr1, addr2, areacode, contentid, contenttypeid, firstimage, firstimage2, mapx, mapy, tel, title);
+            String eventstartdate = null;
+            String eventenddate = null;
+            
+            if(contentTypeId == 15){
+                eventstartdate = (String)itemJson.get("eventstartdate");
+                eventenddate = (String)itemJson.get("eventenddate");
+
+                StringBuffer edit_str = new StringBuffer();
+                edit_str.append(eventstartdate.substring(0, 4));
+                edit_str.append(".");
+                edit_str.append(eventstartdate.substring(4,6));
+                edit_str.append(".");
+                edit_str.append(eventstartdate.substring(6,8));
+
+                eventstartdate = edit_str.toString();
+
+                edit_str = new StringBuffer();
+                edit_str.append(eventenddate.substring(0, 4));
+                edit_str.append(".");
+                edit_str.append(eventenddate.substring(4,6));
+                edit_str.append(".");
+                edit_str.append(eventenddate.substring(6,8));
+
+                eventenddate = edit_str.toString();
+            }
+            
+            ItemVO vo = new ItemVO(addr1, addr2, areacode, contentid, contenttypeid, firstimage, firstimage2, mapx, mapy, tel, title,eventstartdate,eventenddate);
+            
             itemVOList.add(vo);
         }
 

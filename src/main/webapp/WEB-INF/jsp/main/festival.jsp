@@ -25,10 +25,17 @@
                       <li><a href="/tour?content_TypeId=28"  class="nav-link px-3 link-dark">레저</a></li>
                     </ul>
 
-                    <div class="col-md-3 text-end">
-                    <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn">로그인</button>
-                    <button type="button" class="btn btn-outline-success mycustom-mem-btn">회원가입</button>
-                    </div>
+                    <c:if test="${sessionScope.mvo == null}">
+                      <div class="col-md-3 text-end">
+                        <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn" onclick="location.href='login'">로그인</button>
+                        <button type="button" class="btn btn-outline-success mycustom-mem-btn" onclick="location.href='join'">회원가입</button>
+                      </div>
+                    </c:if>
+                    <c:if test="${sessionScope.mvo != null}">
+                      <div class="col-md-3 text-end">
+                        <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn" onclick="location.href='/tour?isLogout=true'">로그아웃</button>
+                      </div>
+                    </c:if>
                 </header>
             </div>
         </div>
@@ -79,8 +86,9 @@
                       <p class="card-text mycustom-card-title">${vo.title}</p>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary">자세히보기</button>
                         </div>
+                        <p class="card-text mycustom-card-date">${vo.eventstartdate} ~ ${vo.eventenddate}</p>
                       </div>
                     </div>
                   </div>
