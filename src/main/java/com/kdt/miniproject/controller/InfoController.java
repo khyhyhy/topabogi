@@ -17,30 +17,97 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.miniproject.vo.InfoVO;
 import com.kdt.miniproject.vo.ItemVO;
+import com.kdt.miniproject.vo.infomationVO;
 
 @Controller
 public class InfoController {
  
  @RequestMapping("/info/")
- public ModelAndView init(ItemVO itmvo) throws Exception{
+ public ModelAndView init(String contenttypeid , String contentid) throws Exception{
   ModelAndView mv = new ModelAndView();
   /*itmvo = new ItemVO("서울특별시 종로구 세종대로 175"
   , "", "1", "2848984", "15", "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image2_1.jpg",
    "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image3_1.jpg",
     "126.9763210635", "37.5720618985", "02-3437-0059", "거리에술 캬라반 '가을'","","");*/
-  mv.addObject("itmVO", itmvo);
-  String path = "http://apis.data.go.kr/B551011/KorService1";
+    String servicekey = "VZwsEBpKrcOmbKb2y%2FszpWMkbfTx9GLvm2dZ96N6fn9bubmU0iPfGKNkuGSqCvCgpqL611HousPLRFN2KBEk9w%3D%3D";
+    String infourl= "http://apis.data.go.kr/B551011/KorService1/";
+    infomationVO infomaVO = new infomationVO();
+    StringBuffer infosb = new StringBuffer();
+    infosb.append(infourl);
+    infosb.append("detailCommon1?");
+    infosb.append("MobileOS=ETC");
+    infosb.append("&MobileApp=dajuu");
+    infosb.append("&_type=json");
+    infosb.append("&contentId=");
+    infosb.append(contentid);
+    infosb.append("&contentTypeId=");
+    infosb.append(contenttypeid);
+    infosb.append("&numOfRows=10");
+    infosb.append("&pageNo=1");
+    infosb.append("&serviceKey=");
+    infosb.append(servicekey);
+    infosb.append("&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y");
+    URL inurl = new URL(infosb.toString());
+    HttpURLConnection inconn = (HttpURLConnection)inurl.openConnection();
+    //inconn.connect();
+    if(inconn.getResponseCode()==HttpURLConnection.HTTP_OK){
+     StringBuffer inst = new StringBuffer();
+     BufferedReader br2 = new BufferedReader(new InputStreamReader(inconn.getInputStream()));
+     String infoline;
+     while((infoline =br2.readLine())!=null){
+      inst.append(infoline);
+     }
+     JSONParser parser1 = new JSONParser();
+     JSONObject json1 = (JSONObject)parser1.parse(inst.toString());
+     JSONObject resp1 = (JSONObject)json1.get("response");
+     JSONObject body1 = (JSONObject)resp1.get("body");
+     JSONObject items1 = (JSONObject)body1.get("items");
+     JSONArray itemar = (JSONArray)items1.get("item");
+     
+     for(Object vo : itemar){
+      JSONObject item1 = (JSONObject)vo;
+      String contentid1 = (String)item1.get("contentid");
+      String contenttypeid1 = (String)item1.get("contenttypeid");
+      String title1 = (String)item1.get("title");
+      String createdtime1 = (String)item1.get("createdtime");
+      String modifiedtime1 = (String)item1.get("modifiedtime");
+      String tel1 = (String)item1.get("tel");
+      String telname1 = (String)item1.get("telname");
+      String homepage1 = (String)item1.get("homepage");
+      String booktour1 = (String)item1.get("booktour");
+      String firstimage1 = (String)item1.get("firstimage");
+      String firstimage21 = (String)item1.get("firstimage2");
+      String cpyrhtDivCd1 = (String)item1.get("cpyrhtDivCd");
+      String areacode1 = (String)item1.get("areacode");
+      String sigungucode1 = (String)item1.get("sigungucode");
+      String cat1 = (String)item1.get("cat1");
+      String cat2 = (String)item1.get("cat2");
+      String cat3 = (String)item1.get("cat3");
+      String addr11 = (String)item1.get("addr1");
+      String addr21 = (String)item1.get("addr2");
+      String zipcode1 = (String)item1.get("zipcode");
+      String mapx1 = (String)item1.get("mapx");
+      String mapy1 = (String)item1.get("mapy");
+      String mlevel1 = (String)item1.get("mlevel");
+      String overview1 = (String)item1.get("overview");
+      
+      infomaVO = new infomationVO(contentid1, contenttypeid1, title1, createdtime1, modifiedtime1, tel1, telname1, homepage1, booktour1, firstimage1, firstimage21, cpyrhtDivCd1, areacode1, sigungucode1, cat1, cat2, cat3, addr11, addr21, zipcode1, mapx1, mapy1, mlevel1, overview1);
+     }
+     System.out.println("상세정보 ======="+inst.toString());
+    }
+    
+    mv.addObject("itmVO", infomaVO);
+    String path = "http://apis.data.go.kr/B551011/KorService1";
   StringBuffer sb = new StringBuffer();
   String numOfRows = "10";
   String pageNo = "1";
   String MobileOS = "ETC";
   String listYN = "Y";
   String arrange = "A";
-  String mapX = itmvo.getMapx();
-  String mapY = itmvo.getMapy();
+  String mapX = infomaVO.getMapx();
+  String mapY = infomaVO.getMapy();
   String radius = "1000";
   String contentTypeId = "15";
-  String servicekey = "VZwsEBpKrcOmbKb2y%2FszpWMkbfTx9GLvm2dZ96N6fn9bubmU0iPfGKNkuGSqCvCgpqL611HousPLRFN2KBEk9w%3D%3D";
   sb.append(path);
   sb.append("/");
   sb.append("locationBasedList1");

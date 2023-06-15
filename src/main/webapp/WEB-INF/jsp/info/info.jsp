@@ -107,7 +107,7 @@
       
       <div class="col-lg-5">
           <h1 class="font-weight-light">${itmVO.title}</h1>
-          <p><h4>${itmVO.addr}</h4></p>
+          <p><h4>${itmVO.addr1}</h4></p>
           <p><h4>${itmVO.tel}</h4></p>
           <!--<a class="btn btn-primary" href="#!">Call to Action!</a>-->
       </div>
