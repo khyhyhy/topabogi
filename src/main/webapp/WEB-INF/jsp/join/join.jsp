@@ -144,6 +144,11 @@
                             $("#j_box").html("");
                         }
                     });
+
+                    if("${commjoin_fail}" == "commjoin_fail"){
+                        alert("이미 가입된 이메일입니다.");
+                        return;
+                    }
                 });
                 
             </script>

@@ -264,10 +264,16 @@ public class JoinCotroller {
         vo.setPassword(password);
         vo.setNickname(nickname);
         vo.setStatus(status);
-
-        int cnt = j_Service.addMem(vo);        
                     
-        mv.setViewName("redirect:/login");
+        Boolean chk = j_Service.check_email(vo);
+
+        if(chk == true){
+            int cnt = j_Service.addMem(vo);
+            mv.setViewName("redirect:/login");
+        }else{ 
+            session.setAttribute("commjoin_fail", "commjoin_fail");
+            mv.setViewName("redirect:/join");    
+        }
 
         return mv;
     }
