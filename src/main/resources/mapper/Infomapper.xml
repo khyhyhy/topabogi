@@ -5,10 +5,26 @@
   
 <mapper namespace="com.kdt.miniproject.mapper.InfoMapper">
 
+<resultMap resultType="com.kdt.miniproject.vo.ReviewLogVO" id="rlmap"> 
+<id column="m_idx" property="m_idx"/>
+ <association property="mvo" column="m_idx" javaType="com.kdt.miniproject.vo.MemberVO" select="mvo"></association>
+<id column="r_idx" property="r_idx"/>
+ <association property="rvo" column="r_idx" javaType="com.kdt.miniproject.vo.ReviewVO" select="rvo"></association>
+</resultMap>
+
 <!-- select -->
-<select id="all" resultType="com.kdt.miniproject.vo.ReviewVO">
-SELECT * FROM minipro.review
+<select id="reviewlog" resultMap="rlmap" parameterType="String">
+SELECT * FROM minipro.reviewlog WHERE rl_val1 = ${param}
 </select>
+
+<select id="mvo" resultType="com.kdt.miniproject.vo.MemberVO" parameterType="String">
+SELECT * FROM minipro.member WHERE m_idx = ${param}
+</select>
+
+<select id="rvo" resultType="com.kdt.miniproject.vo.ReviewVO" parameterType="String">
+SELECT * FROM minipro.review WHERE r_idx = ${param}
+</select>
+
 <!-- insert -->
 
 

@@ -12,4 +12,5 @@ import lombok.Setter;
 public class ReviewVO {
  String r_idx , contentid , title , score, content , status,
  r_val1,r_val2,r_val3,r_val4;
+ 
 }
