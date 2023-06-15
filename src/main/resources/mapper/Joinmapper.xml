@@ -6,8 +6,19 @@
 <mapper namespace="com.kdt.miniproject.mapper.JoinMapper">
 
 <!-- select -->
+<!-- 카카오, 네이버 로그인 시 중복 가입 방지를 위한 체크 -->
 <select id="check_email" parameterType="com.kdt.miniproject.vo.MemberVO" resultType="com.kdt.miniproject.vo.MemberVO">
   	SELECT * FROM member WHERE email = #{email} AND status = #{status}
+</select>
+
+<!-- 일반 회원 가입시 email(ID)비동기식 체크 -->
+<select id="check_id" parameterType="String" resultType="com.kdt.miniproject.vo.MemberVO">
+  	SELECT * FROM member WHERE email = #{email}
+</select>
+
+<!-- 회원 정보 가져오기 -->
+<select id="getMem" parameterType="com.kdt.miniproject.vo.MemberVO" resultType="com.kdt.miniproject.vo.MemberVO">
+	SELECT * FROM member WHERE email = #{email} AND status = #{status}
 </select>
 
 <!-- insert -->

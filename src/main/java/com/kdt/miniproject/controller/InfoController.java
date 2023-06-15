@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -91,7 +92,8 @@ public class InfoController {
     InfoVO ivo = new InfoVO((String)item.get("mapx"), (String)item.get("mapy"), 
     (String)item.get("title"),(String)item.get("addr1"),
     (String)item.get("contentid"),(String)item.get("modifiedtime"),
-    (String)item.get("firstimage2"),(String)item.get("tel"));
+    (String)item.get("firstimage2"),(String)item.get("tel"),
+    (String)item.get("firstimage"));
     list.add(ivo);
    }
    InfoVO[] iar = new InfoVO[list.size()];
@@ -104,10 +106,15 @@ public class InfoController {
   return mv;
  }
 
+
+
+
  @RequestMapping("/info/infomation/")
  public ModelAndView sanse(InfoVO vo){
   ModelAndView mv = new ModelAndView();
   System.out.println("인뽀메이숀"+vo.getTitle());
+  mv.addObject("itmVO", vo);
+  mv.setViewName("info/mapinfo");
   return mv;
  } 
 }
