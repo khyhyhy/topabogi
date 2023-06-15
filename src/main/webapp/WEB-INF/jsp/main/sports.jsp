@@ -86,7 +86,7 @@
                       <p class="card-text mycustom-card-title">${vo.title}</p>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/info/?contentid=${vo.contentid}'">자세히보기</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/info/?contentid=${vo.contentid}&contenttypeid=${vo.contenttypeid}'">자세히보기</button>
                         </div>
                       </div>
                     </div>
