@@ -12,4 +12,6 @@ import lombok.Setter;
 public class ReviewLogVO {
  String relog_idx , m_idx , r_idx , writedate,
  rl_val1,rl_val2,rl_va3;
+ MemberVO mvo;
+ ReviewVO rvo;
 }

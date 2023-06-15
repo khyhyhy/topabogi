@@ -11,4 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class InfoVO {
  String mapX,mapY,title,addr1,contentid,modifiedtime,firstimage2,tel,firstimage;
+
+ ReviewLogVO[] rl_list;
 }
