@@ -30,4 +30,21 @@ public class JoinService {
     public int updateToken(MemberVO vo) {
       return j_mapper.updateToken(vo);
     }
+
+    public boolean check_id(String email){
+      boolean chk = false;
+		
+      MemberVO mvo = j_mapper.check_id(email);
+     
+      if(mvo == null)
+      chk = true;
+      
+		return chk;
+    }
+
+    public MemberVO getMem(MemberVO vo){
+        MemberVO mvo = j_mapper.check_email(vo);
+
+        return mvo;
+    }
 }

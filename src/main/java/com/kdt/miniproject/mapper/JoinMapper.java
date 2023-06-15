@@ -8,4 +8,8 @@ public interface JoinMapper {
     MemberVO check_email(MemberVO vo);
 
     int updateToken(MemberVO vo);
+
+    MemberVO check_id(String email);
+
+    MemberVO getMem(MemberVO vo);
 }

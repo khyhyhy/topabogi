@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.miniproject.service.JoinService;
@@ -124,27 +127,15 @@ public class JoinCotroller {
                     Boolean chk = j_Service.check_email(vo);
 
                     if(chk == true){
-                            /*
-                            MemberVO vo = new MemberVO();
-                            vo.setNickname(nickname);
-                            vo.setProfile_image(profile_image);
-                            vo.setEmail(email);
-                            vo.setAccess_token(access_token);
-                            vo.setRefresh_token(refresh_token);
-                            vo.setStatus(status);
-                            */
                             int cnt = j_Service.addMem(vo);
-                           // mv.setViewName("redirect:/main/main");
-                            //mv.setViewName("redirect:/login");
-                        }else{ 
-                            // 이미 가입된 상태이기 때문에 세션에 vo를 저장
-                            //session.setAttribute("email_chk", chk);
-                            
-                            //토큰갱신하는 부분
+                    }else{ 
                             j_Service.updateToken(vo);
-                        }
-                        session.setAttribute("mvo", vo);
-                        mv.setViewName("redirect:/tour");
+                    }
+
+                    MemberVO mvo = j_Service.getMem(vo);
+
+                    session.setAttribute("mvo", mvo);
+                    mv.setViewName("redirect:/tour");
                 }
             }
         } catch (Exception e) {
@@ -239,27 +230,18 @@ public class JoinCotroller {
                     Boolean chk = j_Service.check_email(vo);
 
                     if(chk == true){
-                            /*
-                            MemberVO vo = new MemberVO();
-                            vo.setNickname(nickname);
-                            vo.setProfile_image(profile_image);
-                            vo.setEmail(email);
-                            vo.setAccess_token(access_token);
-                            vo.setRefresh_token(refresh_token);
-                            vo.setStatus(status);
-                            */
-                            int cnt = j_Service.addMem(vo);
-                           // mv.setViewName("redirect:/main/main");
-                            //mv.setViewName("redirect:/login");
-                        }else{ 
-                            // 이미 가입된 상태이기 때문에 세션에 vo를 저장
-                            //session.setAttribute("email_chk", chk);
                             
-                            //토큰갱신하는 부분
-                            j_Service.updateToken(vo);
-                        }
-                        session.setAttribute("mvo", vo);
-                        mv.setViewName("redirect:/tour");
+                            int cnt = j_Service.addMem(vo);
+                           
+                    }else{ 
+                        
+                        j_Service.updateToken(vo);
+                    }
+
+                    MemberVO mvo = j_Service.getMem(vo);
+
+                    session.setAttribute("mvo", mvo);
+                    mv.setViewName("redirect:/tour");
                 }
             }
         } catch (Exception e) {
@@ -290,5 +272,14 @@ public class JoinCotroller {
         return mv;
     }
 
-    
+    @PostMapping("/join/checkid")
+    @ResponseBody
+    public Map<String, Object> check_id(String email){
+        boolean chk = j_Service.check_id(email);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("chk", chk);
+
+        return map;
+    }
 }

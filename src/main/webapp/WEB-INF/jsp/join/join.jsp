@@ -26,6 +26,7 @@
                         <form action="/common/join" method="post">
                             <div class="field input-field">
                                 <input type="text" placeholder="Email" class="input" name = "j_email" id = "j_email">
+                                <span id="j_box"></span> 
                             </div>
 
                             <div class="field input-field">
@@ -56,6 +57,7 @@
                         <a href="https://kauth.kakao.com/oauth/authorize?client_id=c691b066d7c57c4085e1fa5fc3e2c47b&redirect_uri=http://localhost:8080/kakao/join&response_type=code">
                             <img src="images/kakao_login.png">
                         </a>
+                    </br>
                     </div>
 
                     <div class="media-options">
@@ -121,14 +123,28 @@
                     }
                     form.submit();
                 }
-                /*--보류
+                
                 $(function(){
-                    var chk = "${email_chk}";
-                    if(chk =="false"){
-                        alert("이미 가입된 이메일 입니다.");
-                    }
-                })
-                */
+                    $("#j_email").bind("keyup", function(){
+                        var str = $(this).val();
+                        if(str.trim().length > 4){
+                            $.ajax({
+                                url: "/join/checkid",
+                                type: "post",
+                                data: {"email":str},
+                                dataType:"json"
+                            }).done(function(res){
+                                if(res.chk == true){
+                                    $("#j_box").html("&nbsp;사용가능");
+                                }else{
+                                    $("#j_box").html("&nbsp;사용불가능");
+                                }
+                            })
+                        }else{
+                            $("#j_box").html("");
+                        }
+                    });
+                });
                 
             </script>
         </body>
