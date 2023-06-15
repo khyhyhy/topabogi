@@ -56,6 +56,7 @@ public class LoginCotroller {
             mv.setViewName("redirect:/tour");
 
         } else {
+             session.setAttribute("alat", "alat");
             mv.setViewName("redirect:/login");
            
         }
