@@ -73,8 +73,8 @@
            </a>
 
            <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
-             <li><a href="/tour" class="nav-link px-3 link-secondary" style="color: #212529!important;">관광지</a></li>
-             <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark" style="color: #6c757d!important;">축제/공연</a></li>
+             <li><a href="/tour" class="nav-link px-3 link-dark">관광지</a></li>
+             <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark">축제/공연</a></li>
              <li><a href="/tour?content_TypeId=28"  class="nav-link px-3 link-dark">레저</a></li>
            </ul>
 
@@ -97,10 +97,14 @@
   <div class="img"><img src="../test1.jpg" id="img"><div>
   <div class="titlebox">제목영역</div>
  </div> -->
+  
+
  <div class="container px-4 px-lg-5">
   <!-- Heading Row-->
+
+
   <div class="row gx-4 gx-lg-5 align-items-center my-5">
-      <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="${itmVO.firstimage}" alt="..." /></div>
+      
       <div class="col-lg-5">
           <h1 class="font-weight-light">${itmVO.title}</h1>
           <p><h4>${itmVO.addr}</h4></p>

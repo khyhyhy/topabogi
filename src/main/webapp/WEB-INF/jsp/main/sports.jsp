@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../css/custom.css" />
 </head>
 <body>
-    <div class="bg-top" style="background-color: #A7EEFF">
+    <div class="bg-top" style="background-color: #DBF1FC">
         <!-- 메뉴바 ---------------------------------------------------------------------------------------------------- -->
         <div class="bg-header">
             <div class="container">

@@ -70,6 +70,13 @@
     border-style: none;
 }
 
+.mycustom-paging:hover{
+    font-family: 'Jamsil';
+    font-size: 20px;
+    color: #ffa07a;
+    border-style: none;
+}
+
 .mycustom-paging-now{
     font-family: 'Jamsil-Bold';
     font-size: 20px;
@@ -79,6 +86,11 @@
 
 .mycustom-card-date{
     font-size: 18px;
+}
+
+.mycustom-info-img{
+    width: 1000px;
+    height: 500px;
 }
 
 
