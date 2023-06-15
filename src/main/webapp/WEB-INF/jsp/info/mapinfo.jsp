@@ -64,7 +64,7 @@
 </head>
 <body>
  
- <div class="bg-top" style="background-color: #FFD2D7">
+ <div class="mycustom-mapinfo-background">
   <!-- 메뉴바 ---------------------------------------------------------------------------------------------------- -->
   <div class="bg-header">
    <div class="container">
@@ -73,8 +73,8 @@
            </a>
 
            <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
-             <li><a href="/tour" class="nav-link px-3 link-secondary" style="color: #212529!important;">관광지</a></li>
-             <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark" style="color: #6c757d!important;">축제/공연</a></li>
+             <li><a href="/tour" class="nav-link px-3 link-dark">관광지</a></li>
+             <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark">축제/공연</a></li>
              <li><a href="/tour?content_TypeId=28"  class="nav-link px-3 link-dark">레저</a></li>
            </ul>
 
@@ -93,28 +93,53 @@
    </div>
 </div>
   <!-- 메뉴바 끝 -------------------------------------------------------------------------------------------------- -->
- <!-- <div class=".container">
-  <div class="img"><img src="../test1.jpg" id="img"><div>
-  <div class="titlebox">제목영역</div>
- </div> -->
- <div class="container px-4 px-lg-5">
-  <!-- Heading Row-->
-  <div class="row gx-4 gx-lg-5 align-items-center my-5">
-      <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="${ifoVO.firstimage}" alt="..." /></div>
-      <div class="col-lg-5">
-          <h1 class="font-weight-light">${ifoVO.title}</h1>
-          <p><h4>${ifoVO.addr1}</h4></p>
-          <p><h4>${ifoVO.tel}</h4></p>
-          <!--<a class="btn btn-primary" href="#!">Call to Action!</a>-->
-      </div>
-  </div>
-  <!-- Content Row-->
-  <div >
-   <h1>사용자 리뷰</h1>
-   <div>리뷰 게시판 들어갈 곳</div>
-  </div>
-   <div class="col-md-4 mb-5" id="map" style="width:800px;height:500px;"></div>
-  </div>
+  <div class="container mt-5">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-lg-8">
+            <!-- Post content-->
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- 제목 -->
+                    <h1 class="fw-bolder mb-1 mycustom-mapinfo-title">${ifoVO.title}</h1>
+                </header>
+                <!-- 사진 -->
+                <figure class="mb-4" style="border-style: solid 10px #fff;"><img class="img-fluid rounded mycustom-mapinfo-img" style="text-align: center;" src="${ifoVO.firstimage}" alt="..." /></figure>
+                <!-- Post content-->
+                <section class="mb-5 mycustom-mapinfo-info">
+                    <p class="fs-5 mb-4">${ifoVO.addr1}</p>
+                    <p class="fs-5 mb-4">${ifoVO.tel}</p>
+                </section>
+            </article>
+            <!-- Comments section-->
+            <section class="mb-5">
+                <div class="card mycustom-mapinfo-rieview">
+                    <div class="card-body">
+                      
+                        <!-- Comment form-->
+                        <form class="mb-4">
+                          <input class="form-control" type="text" ></form>
+                          <textarea class="form-control" rows="3"></textarea>
+                          <br/>
+                          <button class="btn btn-default mycustom-mapinfo-btn" type="button">리뷰남기기</button>
+                        </form>
+
+                        <!-- Comment with nested comments-->
+                        <div class="d-flex mb-4">
+                            <c:forEach items="${ifoVO.r_list}" var="rvo">
+                              <div class="ms-3">
+                                  <div class="fw-bold">${rvo.title}</div>
+                                  ${rvo.content}
+                              </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+            
+        </div>
+    </div>
 </div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -147,7 +172,7 @@
   
   var container = document.getElementById('map');
 		var options = {
-			center: new kakao.maps.LatLng(${ifoVO.mapY}, ${ifoVO.mapX}),
+			center: new kakao.maps.LatLng("${ifoVO.mapY}, ${ifoVO.mapX}"),
 			level: 4
 		};
 		var map = new kakao.maps.Map(container, options);
