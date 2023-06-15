@@ -95,79 +95,23 @@
   <div class="row gx-4 gx-lg-5 align-items-center my-5">
       <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="${itmVO.firstimage}" alt="..." /></div>
       <div class="col-lg-5">
-          <h1 class="font-weight-light">${itmVO.title}</h1>
-          <p><h4>${itmVO.addr}</h4></p>
-          <p><h4>${itmVO.tel}</h4></p>
+          <h1 class="font-weight-light">${ifoVO.title}</h1>
+          <p><h4>${ifoVO.addr}</h4></p>
+          <p><h4>${ifoVO.tel}</h4></p>
           <!--<a class="btn btn-primary" href="#!">Call to Action!</a>-->
       </div>
   </div>
-  <!-- Call to Action-->
-  <div class="card text-white bg-secondary my-5 py-4 text-center">
-      <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
-  </div>
   <!-- Content Row-->
-  <div class="row gx-4 gx-lg-5">
-      <div class="col-md-4 mb-5">
-          <div class="card h-100">
-              <div class="card-body">
-                  <h2 class="card-title">주변 문화 정보</h2>
-                  <p class="card-text"><img src="../image/info/mona-lisa.png"></p>
-              </div>
-              <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">지도 보기</a></div>
-          </div>
-      </div>
-      <div class="col-md-4 mb-5">
-          <div class="card h-100">
-              <div class="card-body">
-                  <h2 class="card-title">주변 숙박 정보</h2>
-                  <p class="card-text"><img src="../image/info/bed.png"></p>
-              </div>
-              <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">지도 보기</a></div>
-          </div>
-      </div>
-      <div class="col-md-4 mb-5">
-          <div class="card h-100">
-              <div class="card-body">
-                  <h2 class="card-title">주변 식당 정보</h2>
-                  <p class="card-text"><img src="../image/info/dish.png"></p>
-              </div>
-              <div class="card-footer"><a id="btn-thd" class="btn btn-primary btn-sm" href="#!">지도 보기</a></div>
-             </div>
-            </div>
-           </div>
-           <div class="col-md-4 mb-5" id="map" style="width:800px;height:500px;"></div>
+   <div class="col-md-4 mb-5" id="map" style="width:800px;height:500px;"></div>
+  </div>
 </div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
  <script src="js/scripts.js"></script>
  
+ 
  <script>
-  function sendmapdata(file,editor){
-			// 이미지 파일을 첨부하여 서버로 보내야하기 떄문에 json으로 못넘겨서 formdata가 필요하다
-			var frm = new FormData();
-			// 보내고자 하는 파일
-			frm.append("s_file",file); // 나중에 서버에서 현재 파일을 받을 때는 반드시 s_file이라는 파라미터로 받아야함.
-			$.ajax({
-				url:"/info/around",
-				data: json,
-				type:"get",
-				contentType:false,
-				processData:false,
-				cache:false,
-				dataType:"json"
-			}).done(function(data){
-				let path = data.path;
-				let fname = data.fname;
-				
-				$("#content").summernote("editor.insertImage",path+"/"+fname)
-			});
-			
-			
-		}
-	
-
-
   $( function() {
     $( "#map" ).dialog({
      autoOpen: false,
@@ -251,50 +195,64 @@ var ind = 0;
    // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
    infowindow.open(map, marker); 
    
-   var content = document.createElement('div');
-   content.className = 'overlay';
-   content.innerHTML = '<div class="wrap">' + 
-            '    <div class="info" id='+overlayid+'>' + 
-            '        <div class="title">' + 
-            '            ${vo.title}' + 
-            '            <div class="close" onclick="closeOverlay(this)" title="닫기"></div>' + 
-            '        </div>' + 
-            '        <div class="body">' + 
-            '            <div class="img">' +
-            '                <img src="${vo.firstimage2}" width="73" height="70">' +
-            '           </div>' + 
-            '            <div class="desc">' + 
-            '                <div class="ellipsis">${vo.addr1}</div>' +
-            '                <form action="/info/infomation/" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>'+
-            '                <div> <input type="hidden" name="mapX" value="${vo.mapX}"/>'+
-            '                <div> <input type="hidden" name="mapY" value="${vo.mapY}"/>'+
-            '                <div> <input type="hidden" name="addr1" value="${vo.addr1}"/>'+
-            '                <div> <input type="hidden" name="contentid" value="${vo.contentid}"/>'+
-            '                <div> <input type="hidden" name="modifiedtime" value="${vo.modifiedtime}"/>'+
-            '                <div> <input type="hidden" name="firstimage" value="${vo.firstimage}"/>'+
-            '                <div> <input type="hidden" name="firstimage2" value="${vo.firstimage2}"/>'+
-            '                <div> <input type="hidden" name="tel" value="${vo.tel}"/>'+
-            '<a href="/info/infomation/" target="_blank" class="link">홈페이지</a></div></form>' + 
-            '            </div>' + 
-            '        </div>' + 
-            '    </div>' +    
-            '</div>';
+//    var content = document.createElement('div');
+//    content.className = 'overlay';
+//    content.innerHTML = '<div class="wrap">' + 
+//             '    <div class="info" id='+overlayid+'>' + 
+//             '        <div class="title">' + 
+//             '            ${vo.title}' + 
+//             '            <div class="close" onclick="closeOverlay(this)" title="닫기"></div>' + 
+//             '        </div>' + 
+//             '        <div class="body">' + 
+//             '            <div class="img">' +
+//             '                <img src="${vo.firstimage2}" width="73" height="70">' +
+//             '           </div>' + 
+//             '            <div class="desc">' + 
+//             '                <div class="ellipsis">${vo.addr1}</div>' + 
+//             '                <div> <input type="hidden" name="title" value=""/>'+
+//             '<a href="/info/infomation/" target="_blank" class="link">홈페이지</a></div>' + 
+//             '            </div>' + 
+//             '        </div>' + 
+//             '    </div>' +    
+//             '</div>';
 
-// 마커 위에 커스텀오버레이를 표시합니다
-// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-var overlay = new kakao.maps.CustomOverlay({
-    content: content,
-    map: map,
-    position: marker.getPosition()       
-});
+// // 마커 위에 커스텀오버레이를 표시합니다
+// // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+// var overlay = new kakao.maps.CustomOverlay({
+//     content: content,
+//     map: map,
+//     position: marker.getPosition()       
+// });
 
-function disp(aa) {
-     document.getElementById(aa).style.display="block";
-};
+// function disp(aa) {
+//      document.getElementById(aa).style.display="block";
+// };
 
-function closeOverlay(vo){
- vo.parentElement.parentElement.style.display="none";
-}
+// function closeOverlay(vo){
+//  vo.parentElement.parentElement.style.display="none";
+// }
+
+
+
+
+// // // 마커에 마우스아웃 이벤트를 등록합니다
+// // kakao.maps.event.addListener(marker, 'mouseout', function() {
+// //     // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+// //     overlay.setMap(null); 
+// // });
+
+
+
+
+// // // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+// // kakao.maps.event.addListener(marker, 'click', function() {
+// //     overlay.setMap(map);
+// // });
+
+// // // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+// // function closeOverlay() {
+// //     overlay.setMap(null);     
+// // }
 
  marker.setMap(map);
  </script>
