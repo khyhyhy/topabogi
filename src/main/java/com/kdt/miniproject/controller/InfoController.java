@@ -57,12 +57,13 @@ public class InfoController {
      while((infoline =br2.readLine())!=null){
       inst.append(infoline);
      }
-     JSONParser parser1 = new JSONParser();
-     JSONObject json1 = (JSONObject)parser1.parse(inst.toString());
-     JSONObject resp1 = (JSONObject)json1.get("response");
-     JSONObject body1 = (JSONObject)resp1.get("body");
-     JSONObject items1 = (JSONObject)body1.get("items");
-     JSONArray itemar = (JSONArray)items1.get("item");
+     System.out.println("상세정보 ======="+inst.toString());
+      JSONParser parser1 = new JSONParser();
+      JSONObject json1 = (JSONObject)parser1.parse(inst.toString());
+      JSONObject resp1 = (JSONObject)json1.get("response");
+      JSONObject body1 = (JSONObject)resp1.get("body");
+      JSONObject items1 = (JSONObject)body1.get("items");
+      JSONArray itemar = (JSONArray)items1.get("item");
      
      for(Object vo : itemar){
       JSONObject item1 = (JSONObject)vo;
@@ -93,7 +94,7 @@ public class InfoController {
       
       infomaVO = new infomationVO(contentid1, contenttypeid1, title1, createdtime1, modifiedtime1, tel1, telname1, homepage1, booktour1, firstimage1, firstimage21, cpyrhtDivCd1, areacode1, sigungucode1, cat1, cat2, cat3, addr11, addr21, zipcode1, mapx1, mapy1, mlevel1, overview1);
      }
-     System.out.println("상세정보 ======="+inst.toString());
+     
     }
     
     mv.addObject("itmVO", infomaVO);
@@ -145,31 +146,35 @@ public class InfoController {
    while((line =br.readLine())!=null){
     inputst.append(line);
    }
-   
-   JSONParser parser = new JSONParser();
-   JSONObject json = (JSONObject)parser.parse(inputst.toString());
-   JSONObject resp = (JSONObject)parser.parse(json.get("response").toString());
-   JSONObject body = (JSONObject)parser.parse(resp.get("body").toString());
-   JSONObject items = (JSONObject)parser.parse(body.get("items").toString());
-   JSONArray array = (JSONArray)items.get("item");
-   List<InfoVO> list = new ArrayList<>();
+   System.out.println("상세정보2=="+inputst.toString());
+  
+    JSONParser parser = new JSONParser();
+    JSONObject json = (JSONObject)parser.parse(inputst.toString());
+    JSONObject resp = (JSONObject)json.get("response");
+    JSONObject body = (JSONObject)resp.get("body");
+    //System.out.println("totalcount+=="+body.get("totalCount").toString());
+    if(!body.get("totalCount").toString().equals("0")){
+    JSONObject items = (JSONObject)body.get("items");
+    JSONArray array = (JSONArray)items.get("item");
+    List<InfoVO> list = new ArrayList<>();
 
-   for(Object vo : array){
-    JSONObject item = (JSONObject)vo;
-    InfoVO ivo = new InfoVO((String)item.get("mapx"), (String)item.get("mapy"), 
-    (String)item.get("title"),(String)item.get("addr1"),
-    (String)item.get("contentid"),(String)item.get("modifiedtime"),
-    (String)item.get("firstimage2"),(String)item.get("tel"),
-    (String)item.get("firstimage"),null);
-    list.add(ivo);
+    for(Object vo : array){
+     JSONObject item = (JSONObject)vo;
+     InfoVO ivo = new InfoVO((String)item.get("mapx"), (String)item.get("mapy"), 
+     (String)item.get("title"),(String)item.get("addr1"),
+     (String)item.get("contentid"),(String)item.get("modifiedtime"),
+     (String)item.get("firstimage2"),(String)item.get("tel"),
+     (String)item.get("firstimage"),null);
+     list.add(ivo);
    }
-   InfoVO[] iar = new InfoVO[list.size()];
+    InfoVO[] iar = new InfoVO[list.size()];
 
-   list.toArray(iar);
-   mv.addObject("iar", iar);
-
-  }
-  mv.setViewName("info/info");
+    list.toArray(iar);
+  
+    mv.addObject("iar", iar);
+   }
+   }
+   mv.setViewName("info/info");
   return mv;
  }
 
