@@ -24,10 +24,10 @@ public class InfoController {
  @RequestMapping("/info/")
  public ModelAndView init(ItemVO itmvo) throws Exception{
   ModelAndView mv = new ModelAndView();
-  itmvo = new ItemVO("서울특별시 종로구 세종대로 175"
+  /*itmvo = new ItemVO("서울특별시 종로구 세종대로 175"
   , "", "1", "2848984", "15", "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image2_1.jpg",
    "http://tong.visitkorea.or.kr/cms/resource/81/2848981_image3_1.jpg",
-    "126.9763210635", "37.5720618985", "02-3437-0059", "거리에술 캬라반 '가을'","","");
+    "126.9763210635", "37.5720618985", "02-3437-0059", "거리에술 캬라반 '가을'","","");*/
   mv.addObject("itmVO", itmvo);
   String path = "http://apis.data.go.kr/B551011/KorService1";
   StringBuffer sb = new StringBuffer();
