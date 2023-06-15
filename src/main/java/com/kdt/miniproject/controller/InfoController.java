@@ -52,7 +52,7 @@ public class InfoController {
     //inconn.connect();
     if(inconn.getResponseCode()==HttpURLConnection.HTTP_OK){
      StringBuffer inst = new StringBuffer();
-     BufferedReader br2 = new BufferedReader(new InputStreamReader(inconn.getInputStream()));
+     BufferedReader br2 = new BufferedReader(new InputStreamReader(inconn.getInputStream(), "UTF-8") );
      String infoline;
      while((infoline =br2.readLine())!=null){
       inst.append(infoline);
@@ -140,7 +140,7 @@ public class InfoController {
   conn.connect();
   StringBuffer inputst = new StringBuffer();
   if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){
-   BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+   BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
    String line;
    while((line =br.readLine())!=null){
     inputst.append(line);
