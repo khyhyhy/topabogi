@@ -86,7 +86,7 @@
                       <p class="card-text mycustom-card-title">${vo.title}</p>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                          <button type="button" class="btn btn-sm btn-outline-secondary">자세히보기</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/info/?itmVO=${vo}'">자세히보기</button>
                         </div>
                       </div>
                     </div>
@@ -110,6 +110,14 @@
           </ul>
         </nav>
         <!-- 페이징끝---------------------------------------------------------------------------------------------------------->
+
+        <body class="d-flex flex-column">
+          <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+            <div class="container text-center">
+              <small>Copyright &copy; 2023 팀이름 </small>
+            </div>
+          </footer>
+        </body>
 
       </div>
     </div>
