@@ -10,6 +10,9 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
                 crossorigin="anonymous">
+
+            <link rel="stylesheet" href="../css/custom.css" />
+
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"
                 integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
             <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -19,10 +22,39 @@
 
         <body>
             
-            <section class="container forms show-signup">
+            <!-- 메뉴바 ---------------------------------------------------------------------------------------------------- -->
+            <div class="bg-header">
+                <div class="container">
+                    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-3 mycustom-header">
+                        <a href="/" class="d-flex align-items-center col-md-2 mb-2 mb-md-0 text-dark text-decoration-none">
+                        </a>
+
+                        <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
+                        <li><a href="/tour" class="nav-link px-3 link-dark">관광지</a></li>
+                        <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark">축제/공연</a></li>
+                        <li><a href="/tour?content_TypeId=28" class="nav-link px-3 link-dark">레저</a></li>
+                        </ul>
+
+                        <c:if test="${sessionScope.mvo == null}">
+                        <div class="col-md-3 text-end">
+                            <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn" onclick="location.href='login'">로그인</button>
+                            <button type="button" class="btn btn-outline-success mycustom-mem-btn" onclick="location.href='join'">회원가입</button>
+                        </div>
+                        </c:if>
+                        <c:if test="${sessionScope.mvo != null}">
+                        <div class="col-md-3 text-end">
+                            <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn" onclick="location.href='/tour?isLogout=true'">로그아웃</button>
+                        </div>
+                        </c:if>
+                    </header>
+                </div>
+            </div>
+            <!-- 메뉴바 끝 -------------------------------------------------------------------------------------------------- -->
+
+            <section class="container forms show-signup m_container">
                 <div class="form signup">
                     <div class="form-content">
-                        <header>회원가입</header>
+                        <p class="m_header">회원가입</header>
                         <form action="/common/join" method="post">
                             <div class="field input-field">
                                 <input type="text" placeholder="Email" class="input" name = "j_email" id = "j_email">
@@ -67,8 +99,15 @@
                     </div>
 
                 </div>
-
             </section>
+            
+            <body class="d-flex flex-column">
+                <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+                  <div class="container text-center">
+                    <small>Copyright &copy; 2023 팀이름 </small>
+                  </div>
+                </footer>
+            </body>
             <!-- JavaScript -->
             <script src="js/m_script.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
