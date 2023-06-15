@@ -91,16 +91,15 @@
                     <div class="line"></div>
                     
                     <div class="media-options">
-                        <a href="https://kauth.kakao.com/oauth/authorize?client_id=ef5415e6ed027721e4d680b30eff28fe&redirect_uri=http://localhost:8080/kakao/login&response_type=code" class="field kakao">
-                            <img src="../images/kakao_login.png" alt="" class="kakao-img">
-                            <span></span>
+                        <a href="https://kauth.kakao.com/oauth/authorize?client_id=c691b066d7c57c4085e1fa5fc3e2c47b&redirect_uri=http://localhost:8080/kakao/join&response_type=code">
+                            <img src="images/kakao_login.png">
                         </a>
+                    </br>
                     </div>
 
                     <div class="media-options">
-                        <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=py8uuUtaAKsCCxoOKiY3&state=STATE_STRING&redirect_uri=http://localhost:8080/naver/login" class="field naver">
-                            <img src="../images/naver_login.png" alt="" class="naver-img">
-                            <span></span>
+                        <a href="https://nid.naver.com/oauth2.0/authorize?client_id=6BPvD8rTeGLnG7fdps1C&redirect_uri=http://localhost:8080/naver/join&response_type=code&state=test">
+                            <img src="images/naver_login.png">
                         </a>
                     </div>
 

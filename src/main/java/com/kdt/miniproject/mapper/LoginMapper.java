@@ -10,4 +10,5 @@ public interface LoginMapper {
 
     MemberVO login (Map<String,String> map );
     
+    
 }
