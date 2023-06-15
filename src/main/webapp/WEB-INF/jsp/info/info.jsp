@@ -67,24 +67,31 @@
  <div class="bg-top" style="background-color: #FFD2D7">
   <!-- 메뉴바 ---------------------------------------------------------------------------------------------------- -->
   <div class="bg-header">
-      <div class="container">
-          <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-3 mycustom-header">
-              <a href="#" class="d-flex align-items-center col-md-2 mb-2 mb-md-0 text-dark text-decoration-none">
-              </a>
+   <div class="container">
+       <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-3 mycustom-header">
+           <a href="#" class="d-flex align-items-center col-md-2 mb-2 mb-md-0 text-dark text-decoration-none">
+           </a>
 
-              <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
-              <li><a href="/" class="nav-link px-3 link-secondary" style="color: #212529!important;">관광지</a></li>
-              <li><a href="festival" class="nav-link px-3 link-dark" style="color: #6c757d!important;">축제/공연</a></li>
-              <li><a href="sports" class="nav-link px-3 link-dark">레저</a></li>
-              </ul>
+           <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
+             <li><a href="/tour" class="nav-link px-3 link-secondary" style="color: #212529!important;">관광지</a></li>
+             <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark" style="color: #6c757d!important;">축제/공연</a></li>
+             <li><a href="/tour?content_TypeId=28"  class="nav-link px-3 link-dark">레저</a></li>
+           </ul>
 
-              <div class="col-md-3 text-end">
-              <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn">로그인</button>
-              <button type="button" class="btn btn-outline-success mycustom-mem-btn">회원가입</button>
-              </div>
-          </header>
-      </div>
-  </div>
+           <c:if test="${sessionScope.mvo == null}">
+             <div class="col-md-3 text-end">
+               <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn" onclick="location.href='/login'">로그인</button>
+               <button type="button" class="btn btn-outline-success mycustom-mem-btn" onclick="location.href='/join'">회원가입</button>
+             </div>
+           </c:if>
+           <c:if test="${sessionScope.mvo != null}">
+             <div class="col-md-3 text-end">
+               <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn" onclick="location.href='/tour?isLogout=true'">로그아웃</button>
+             </div>
+           </c:if>
+       </header>
+   </div>
+</div>
   <!-- 메뉴바 끝 -------------------------------------------------------------------------------------------------- -->
  <!-- <div class=".container">
   <div class="img"><img src="../test1.jpg" id="img"><div>

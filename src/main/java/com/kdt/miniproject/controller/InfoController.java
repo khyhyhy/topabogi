@@ -93,7 +93,7 @@ public class InfoController {
     (String)item.get("title"),(String)item.get("addr1"),
     (String)item.get("contentid"),(String)item.get("modifiedtime"),
     (String)item.get("firstimage2"),(String)item.get("tel"),
-    (String)item.get("firstimage"));
+    (String)item.get("firstimage"),null);
     list.add(ivo);
    }
    InfoVO[] iar = new InfoVO[list.size()];
