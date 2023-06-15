@@ -10,9 +10,17 @@
     font-family: "omyu";
     src: url(font/오뮤_다예쁨체.ttf);
 }
+@font-face {
+    font-family: "Jamsil";
+    src: url(font/The\ Jamsil\ OTF\ 3\ Regular.otf);
+}
+@font-face {
+    font-family: "Jamsil-Bold";
+    src: url(font/The\ Jamsil\ OTF\ 5\ Bold.otf);
+}
 .bg-top{
     background-color: #F5D08A;
-    height: 500px;
+    height: 600px;
 }
 .bg-header:hover{
     background-color: #fff;
@@ -53,6 +61,20 @@
 .mycustom-card-title{
     font-family: 'omyu';
     font-size: 22px;
+}
+
+.mycustom-paging{
+    font-family: 'Jamsil';
+    font-size: 20px;
+    color: #696969;
+    border-style: none;
+}
+
+.mycustom-paging-now{
+    font-family: 'Jamsil-Bold';
+    font-size: 20px;
+    color: #ffa07a;
+    border-style: none;
 }
 
 

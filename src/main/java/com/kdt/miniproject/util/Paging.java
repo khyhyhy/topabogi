@@ -72,23 +72,27 @@ public class Paging {
   }
   // 페이징에 필요한 변수들이 지정되었으니 html코드를 생성한다.
 
-  sb = new StringBuffer("<ol class='paging'>");
+  sb = new StringBuffer();
   if(isPrePage){
    //이전기능이 적용되는 상황
-   sb.append("<li><a href=/tour?cPage="+(startPage-pagePerBlock)+"&area_Code="+area_Code+"&content_TypeId="+content_TypeId+">&lt;</a></li>");
+   sb.append("<li class='page-item'><a class='page-link mycustom-paging' aria-label='Previous' href=/tour?cPage="+(startPage-pagePerBlock)+"&area_Code="+area_Code+"&content_TypeId="+content_TypeId+"><span aria-hidden='true'>&lt;</span></a></li>");
    
   }else{
-   sb.append("<li class='disable'>&lt;</li>");
+   sb.append("<li class='page-item disabled'><a class='page-link mycustom-paging' aria-disabled='true'>&lt;</a></li>");
   }
   // 페이지 번호를 출력하는 반복문
   for(int i=startPage;i<=endPage;i++){
    // i와 nowPage가 같다면 비활성화 다를때만 활성화
    if(i==nowPage){
-    sb.append("<li class='now'>");
+    sb.append("<li class='page-item'><a class='page-link mycustom-paging-now' href='/tour?cPage=");
     sb.append(i);
-    sb.append("</li>");
+	sb.append("&area_Code="+area_Code);
+	sb.append("&content_TypeId="+content_TypeId);
+    sb.append("'>");
+    sb.append(i);
+    sb.append("</a></li>");
    }else{
-    sb.append("<li><a href='/tour?cPage=");
+    sb.append("<li class='page-item'><a class='page-link mycustom-paging' href='/tour?cPage=");
     sb.append(i);
 	sb.append("&area_Code="+area_Code);
 	sb.append("&content_TypeId="+content_TypeId);
@@ -99,11 +103,11 @@ public class Paging {
   }
   if(isNextPage){
    //다음기능이 적용되는 상황
-   sb.append("<li><a href=/tour?cPage="+(startPage+pagePerBlock)+"&area_Code="+area_Code+"&content_TypeId="+content_TypeId+">&gt;</a></li>");
-  }else{
-   sb.append("<li class='disable'>&gt;</li>");
+   sb.append("<li class='page-item'><a class='page-link mycustom-paging' aria-label='Next' href=/tour?cPage="+(startPage+pagePerBlock)+"&area_Code="+area_Code+"&content_TypeId="+content_TypeId+"><span aria-hidden='true'>&gt;</span></a></li>");
+}else{
+   sb.append("<li class='page-item disabled'><a class='page-link mycustom-paging' aria-disabled='true'>&gt;</a></span></li>");
   }
-  sb.append("</ol>");
+
  }
 
 	public int getNowPage() {
