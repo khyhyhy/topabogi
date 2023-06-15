@@ -133,13 +133,19 @@
 
                         <!-- Comment with nested comments-->
                         <div class="d-flex mb-4">
+                          <table>
                             <c:forEach items="${ifoVO.rl_list}" var="rlvo">
+                             <tr>
                               <div class="ms-3">
-                                  <div class="fw-bold">${rlvo.rvo.title}</div>
-                                  ${rlvo.rvo.content}<br/>
-                                  ${rlvo.mvo.nickname}
+                                  <div class="fw-bold">
+                                  <td>${rlvo.rvo.title}</td> 
+                                   <td>${rlvo.rvo.content}</td>
+                                   <td>${rlvo.mvo.nickname}</td>
+                                 </div>
                               </div>
+                             </tr>
                             </c:forEach>
+                           </table>
                         </div>
                     </div>
                 </div>
