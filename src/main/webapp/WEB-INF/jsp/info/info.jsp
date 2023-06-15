@@ -10,7 +10,7 @@
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
  <link rel="stylesheet" href="../css/custom.css" />
  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+ 
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>infomation</title>
  <style>
@@ -73,8 +73,8 @@
            </a>
 
            <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
-             <li><a href="/tour" class="nav-link px-3 link-dark">관광지</a></li>
-             <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark">축제/공연</a></li>
+             <li><a href="/tour" class="nav-link px-3 link-secondary" style="color: #212529!important;">관광지</a></li>
+             <li><a href="/tour?content_TypeId=15" class="nav-link px-3 link-dark" style="color: #6c757d!important;">축제/공연</a></li>
              <li><a href="/tour?content_TypeId=28"  class="nav-link px-3 link-dark">레저</a></li>
            </ul>
 
@@ -97,14 +97,10 @@
   <div class="img"><img src="../test1.jpg" id="img"><div>
   <div class="titlebox">제목영역</div>
  </div> -->
-  
-
  <div class="container px-4 px-lg-5">
   <!-- Heading Row-->
-
-
   <div class="row gx-4 gx-lg-5 align-items-center my-5">
-      
+      <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="${itmVO.firstimage}" alt="..." /></div>
       <div class="col-lg-5">
           <h1 class="font-weight-light">${itmVO.title}</h1>
           <p><h4>${itmVO.addr1}</h4></p>
@@ -116,8 +112,47 @@
   <div class="card text-white bg-secondary my-5 py-4 text-center">
       <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
   </div>
+  <div class="accordion" id="accordionExample">
+   <div class="accordion-item">
+     <h2 class="accordion-header" id="headingOne">
+       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         주변 축제 및 행사
+       </button>
+     </h2>
+     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+       <div class="accordion-body">
+        <div id="map" style="width:800px;height:500px;"></div>
+       </div>
+     </div>
+   </div>
+   <div class="accordion-item">
+     <h2 class="accordion-header" id="headingTwo">
+       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         주변 음식점 정보
+       </button>
+     </h2>
+     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+       <div class="accordion-body">
+        <div id="map2" style="width:800px;height:500px;"></div>
+       </div>
+     </div>
+   </div>
+   <div class="accordion-item">
+     <h2 class="accordion-header" id="headingThree">
+       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+         주변 숙박 정보
+       </button>
+     </h2>
+     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+       <div class="accordion-body">
+        <div class="col-md-4 mb-5" id="map3" style="width:800px;height:500px;"></div>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
   <!-- Content Row-->
-  <div class="row gx-4 gx-lg-5">
+  <!-- <div class="row gx-4 gx-lg-5">
       <div class="col-md-4 mb-5">
           <div class="card h-100">
               <div class="card-body">
@@ -146,14 +181,14 @@
              </div>
             </div>
            </div>
-           <div class="col-md-4 mb-5" id="map" style="width:800px;height:500px;"></div>
+            -->
 </div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
  <script src="js/scripts.js"></script>
  
- <script>
+ <!-- <script>
   function sendmapdata(file,editor){
 			// 이미지 파일을 첨부하여 서버로 보내야하기 떄문에 json으로 못넘겨서 formdata가 필요하다
 			var frm = new FormData();
@@ -198,7 +233,7 @@
       $( "#map" ).dialog( "open");
     });
   } );
-  </script>
+  </script> -->
  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b64121064fac6d582b95caba86d1124d&libraries=services"></script>
  <script>
   
@@ -217,29 +252,215 @@
  });
 
   marker.setMap(map);
-   //map.setCenter(cords);
-   // style 강제 적용
-   // 클래스가 marker인 요소들 모두 찾아내기
-   // let marker_ar = document.querySelectorAll(".infobox")
-   
-   // marker_ar.forEach(function(e){
-   //  // 검색된 요소들의 수만큼 반복되는 함수
-   //  let w = e.offsetWith + 10;
-   //  let ml = w/2;
-   //  e.parentElement.style.top = "80px";
-   //  e.parentElement.style.marginLeft = -ml+"px";
-   //  e.parentElement.style.width = w+"px";
-   //  e.parentElement.previousElementSibling.style.display="none";
-   //  e.parentElement.parentElement.style.border="0px";
-   //  e.parentElement.style.left="50%";
-   // });
-   //인포윈도우를 생성하고 장소에 대한 설명을 지도에 표시합니다
-
-   
 
 var ind = 0;
 </script>
   <c:forEach items="${iar}" var="vo">
+  <script>
+   var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
+// 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+     position: position,
+     clickable: false // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+    });
+    
+    var overlayid = "idnum"+ ind++;
+
+  var iwContent = '<div style="padding:5px;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+       iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
+
+   // 인포윈도우를 생성합니다
+   var infowindow = new kakao.maps.InfoWindow({
+       position : iwPosition, 
+       content : iwContent 
+   });
+   // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+   infowindow.open(map, marker); 
+   
+   var content = document.createElement('div');
+   content.className = 'overlay';
+   content.innerHTML = '<div class="wrap">' + 
+            '    <div class="info" id='+overlayid+'>' + 
+            '        <div class="title">' + 
+            '            ${vo.title}' + 
+            '            <div class="close" onclick="closeOverlay(this)" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="${vo.firstimage2}" width="73" height="70">' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">${vo.addr1}</div>' +
+            '                <form action="/info/infomation" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>'+
+            '                <div> <input type="hidden" name="mapX" value="${vo.mapX}"/>'+
+            '                <div> <input type="hidden" name="mapY" value="${vo.mapY}"/>'+
+            '                <div> <input type="hidden" name="addr1" value="${vo.addr1}"/>'+
+            '                <div> <input type="hidden" name="contentid" value="${vo.contentid}"/>'+
+            '                <div> <input type="hidden" name="modifiedtime" value="${vo.modifiedtime}"/>'+
+            '                <div> <input type="hidden" name="firstimage" value="${vo.firstimage}"/>'+
+            '                <div> <input type="hidden" name="firstimage2" value="${vo.firstimage2}"/>'+
+            '                <div> <input type="hidden" name="tel" value="${vo.tel}"/>'+
+            '<input type="submit" value="자세히보기"/></div></form>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>';
+
+// 마커 위에 커스텀오버레이를 표시합니다
+// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+var overlay = new kakao.maps.CustomOverlay({
+    content: content,
+    map: map,
+    position: marker.getPosition()       
+});
+
+function disp(aa) {
+     document.getElementById(aa).style.display="block";
+};
+
+function closeOverlay(vo){
+ vo.parentElement.parentElement.style.display="none";
+}
+function resizeMap() {
+    var mapContainer = document.getElementById('map');
+    mapContainer.style.width = '650px';
+    mapContainer.style.height = '650px'; 
+}
+
+function relayout() {    
+    
+    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+    map.relayout();
+}
+ marker.setMap(map);
+ </script>
+</c:forEach>
+
+ <script>
+  
+  var container = document.getElementById('map2');
+		var options = {
+			center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
+			level: 4
+		};
+		var map = new kakao.maps.Map(container, options);
+  var position = options.center
+
+// 마커를 생성합니다
+ var marker = new kakao.maps.Marker({
+  position: position,
+  clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+ });
+map.relayout()
+  marker.setMap(map);
+
+var ind = 0;
+</script>
+  <c:forEach items="${iar2}" var="vo">
+  <script>
+   var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
+// 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+     position: position,
+     clickable: false // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+    });
+    
+    var overlayid = "idnum"+ ind++;
+
+  var iwContent = '<div style="padding:5px;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+       iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
+
+   // 인포윈도우를 생성합니다
+   var infowindow = new kakao.maps.InfoWindow({
+       position : iwPosition, 
+       content : iwContent 
+   });
+   // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+   infowindow.open(map, marker); 
+   
+   var content = document.createElement('div');
+   content.className = 'overlay';
+   content.innerHTML = '<div class="wrap">' + 
+            '    <div class="info" id='+overlayid+'>' + 
+            '        <div class="title">' + 
+            '            ${vo.title}' + 
+            '            <div class="close" onclick="closeOverlay(this)" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="${vo.firstimage2}" width="73" height="70">' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">${vo.addr1}</div>' +
+            '                <form action="/info/infomation" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>'+
+            '                <div> <input type="hidden" name="mapX" value="${vo.mapX}"/>'+
+            '                <div> <input type="hidden" name="mapY" value="${vo.mapY}"/>'+
+            '                <div> <input type="hidden" name="addr1" value="${vo.addr1}"/>'+
+            '                <div> <input type="hidden" name="contentid" value="${vo.contentid}"/>'+
+            '                <div> <input type="hidden" name="modifiedtime" value="${vo.modifiedtime}"/>'+
+            '                <div> <input type="hidden" name="firstimage" value="${vo.firstimage}"/>'+
+            '                <div> <input type="hidden" name="firstimage2" value="${vo.firstimage2}"/>'+
+            '                <div> <input type="hidden" name="tel" value="${vo.tel}"/>'+
+            '<input type="submit" value="자세히보기"/></div></form>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>';
+
+// 마커 위에 커스텀오버레이를 표시합니다
+// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+var overlay = new kakao.maps.CustomOverlay({
+    content: content,
+    map: map,
+    position: marker.getPosition()       
+});
+
+function disp(aa) {
+     document.getElementById(aa).style.display="block";
+};
+
+function closeOverlay(vo){
+ vo.parentElement.parentElement.style.display="none";
+}
+function resizeMap() {
+    var mapContainer = document.getElementById('map2');
+    mapContainer.style.width = '650px';
+    mapContainer.style.height = '650px'; 
+}
+
+function relayout() {    
+    
+    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+    map.relayout();
+}
+ marker.setMap(map);
+ </script>
+</c:forEach>
+ <script>
+  
+  var container = document.getElementById('map3');
+		var options = {
+			center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
+			level: 4
+		};
+		var map = new kakao.maps.Map(container, options);
+  var position = options.center
+
+// 마커를 생성합니다
+ var marker = new kakao.maps.Marker({
+  position: position,
+  clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+ });
+
+  marker.setMap(map);
+
+var ind = 0;
+</script>
+  <c:forEach items="${iar3}" var="vo">
   <script>
    var position = new kakao.maps.LatLng(${vo.mapY},${vo.mapX});
 // 마커를 생성합니다
@@ -311,6 +532,7 @@ function closeOverlay(vo){
 </c:forEach>
   
   <script>
+   map.relayout()
    let marker_ar = document.querySelectorAll(".infobox")
    
     marker_ar.forEach(function(e){

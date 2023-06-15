@@ -98,7 +98,7 @@ public class InfoController {
     }
     
     mv.addObject("itmVO", infomaVO);
-    String path = "http://apis.data.go.kr/B551011/KorService1";
+  String path = "http://apis.data.go.kr/B551011/KorService1";
   StringBuffer sb = new StringBuffer();
   String numOfRows = "10";
   String pageNo = "1";
@@ -174,13 +174,165 @@ public class InfoController {
     mv.addObject("iar", iar);
    }
    }
+   path = "http://apis.data.go.kr/B551011/KorService1";
+   sb = new StringBuffer();
+   numOfRows = "10";
+   pageNo = "1";
+   MobileOS = "ETC";
+   listYN = "Y";
+   arrange = "A";
+   mapX = infomaVO.getMapx();
+   mapY = infomaVO.getMapy();
+   radius = "1000";
+   contentTypeId = "39";
+   sb.append(path);
+   sb.append("/");
+   sb.append("locationBasedList1");
+   sb.append("?numOfRows=");
+   sb.append(numOfRows);
+   sb.append("&pageNo=");
+   sb.append(pageNo);
+   sb.append("&MobileOS=");
+   sb.append(MobileOS);
+   sb.append("&MobileApp=");
+   sb.append("kdt");
+   sb.append("&_type=json");
+   sb.append("&listYN=");
+   sb.append(listYN);
+   sb.append("&arrange=");
+   sb.append(arrange);
+   sb.append("&mapX=");
+   sb.append(mapX);
+   sb.append("&mapY=");
+   sb.append(mapY);
+   sb.append("&radius=");
+   sb.append(radius);
+   sb.append("&contentTypeId=");
+   sb.append(contentTypeId);
+   sb.append("&serviceKey=");
+   sb.append(servicekey);
+   
+   url = new URL(sb.toString());
+   conn = (HttpURLConnection)url.openConnection();
+   conn.connect();
+   inputst = new StringBuffer();
+   if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){
+    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+    String line;
+    while((line =br.readLine())!=null){
+     inputst.append(line);
+    }
+    System.out.println("상세정보2=="+inputst.toString());
+    
+    JSONParser parser = new JSONParser();
+    JSONObject json = (JSONObject)parser.parse(inputst.toString());
+    JSONObject resp = (JSONObject)json.get("response");
+    JSONObject body = (JSONObject)resp.get("body");
+    //System.out.println("totalcount+=="+body.get("totalCount").toString());
+    if(!body.get("totalCount").toString().equals("0")){
+     JSONObject items = (JSONObject)body.get("items");
+     JSONArray array = (JSONArray)items.get("item");
+     List<InfoVO> list = new ArrayList<>();
+     
+     for(Object vo : array){
+      JSONObject item = (JSONObject)vo;
+      InfoVO ivo = new InfoVO((String)item.get("mapx"), (String)item.get("mapy"), 
+      (String)item.get("title"),(String)item.get("addr1"),
+      (String)item.get("contentid"),(String)item.get("modifiedtime"),
+      (String)item.get("firstimage2"),(String)item.get("tel"),
+      (String)item.get("firstimage"),null);
+      list.add(ivo);
+     }
+     InfoVO[] iar = new InfoVO[list.size()];
+     
+     list.toArray(iar);
+     
+     mv.addObject("iar2", iar);
+    }
+   }
+   path = "http://apis.data.go.kr/B551011/KorService1";
+   sb = new StringBuffer();
+   numOfRows = "10";
+   pageNo = "1";
+   MobileOS = "ETC";
+   listYN = "Y";
+   arrange = "A";
+   mapX = infomaVO.getMapx();
+   mapY = infomaVO.getMapy();
+   radius = "1000";
+   contentTypeId = "32";
+   sb.append(path);
+   sb.append("/");
+   sb.append("locationBasedList1");
+   sb.append("?numOfRows=");
+   sb.append(numOfRows);
+   sb.append("&pageNo=");
+   sb.append(pageNo);
+   sb.append("&MobileOS=");
+   sb.append(MobileOS);
+   sb.append("&MobileApp=");
+   sb.append("kdt");
+   sb.append("&_type=json");
+   sb.append("&listYN=");
+   sb.append(listYN);
+   sb.append("&arrange=");
+   sb.append(arrange);
+   sb.append("&mapX=");
+   sb.append(mapX);
+   sb.append("&mapY=");
+   sb.append(mapY);
+   sb.append("&radius=");
+   sb.append(radius);
+   sb.append("&contentTypeId=");
+   sb.append(contentTypeId);
+   sb.append("&serviceKey=");
+   sb.append(servicekey);
+   
+   url = new URL(sb.toString());
+   conn = (HttpURLConnection)url.openConnection();
+   conn.connect();
+   inputst = new StringBuffer();
+   if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){
+    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+    String line;
+    while((line =br.readLine())!=null){
+     inputst.append(line);
+    }
+    System.out.println("상세정보2=="+inputst.toString());
+    
+    JSONParser parser = new JSONParser();
+    JSONObject json = (JSONObject)parser.parse(inputst.toString());
+    JSONObject resp = (JSONObject)json.get("response");
+    JSONObject body = (JSONObject)resp.get("body");
+    //System.out.println("totalcount+=="+body.get("totalCount").toString());
+    if(!body.get("totalCount").toString().equals("0")){
+     JSONObject items = (JSONObject)body.get("items");
+     JSONArray array = (JSONArray)items.get("item");
+     List<InfoVO> list = new ArrayList<>();
+     
+     for(Object vo : array){
+      JSONObject item = (JSONObject)vo;
+      InfoVO ivo = new InfoVO((String)item.get("mapx"), (String)item.get("mapy"), 
+      (String)item.get("title"),(String)item.get("addr1"),
+      (String)item.get("contentid"),(String)item.get("modifiedtime"),
+      (String)item.get("firstimage2"),(String)item.get("tel"),
+      (String)item.get("firstimage"),null);
+      list.add(ivo);
+     }
+     InfoVO[] iar = new InfoVO[list.size()];
+     
+     list.toArray(iar);
+     
+     mv.addObject("iar3", iar);
+    }
+   }
    mv.setViewName("info/info");
-  return mv;
- }
-
-
-
-
+   return mv;
+  }
+  
+  
+  
+  
  @RequestMapping("/info/infomation")
  public ModelAndView sanse(InfoVO vo){
   ModelAndView mv = new ModelAndView();
