@@ -16,11 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.miniproject.service.JoinService;
 import com.kdt.miniproject.service.LoginService;
+import com.kdt.miniproject.vo.InfoVO;
 import com.kdt.miniproject.vo.MemberVO;
 
 import jakarta.servlet.http.HttpSession;
@@ -44,9 +46,21 @@ public class LoginCotroller {
         return "/login/login";
     }
 
+    @RequestMapping("/login/rieview")
+    public ModelAndView rview_page(@RequestParam(value = "isRieviewPage", defaultValue = "false") boolean isRieviewPage,InfoVO info_vo){
+        ModelAndView mv = new ModelAndView();
+
+        mv.addObject("isRieviewPage",isRieviewPage);
+        mv.addObject("info_vo", info_vo);
+
+        mv.setViewName("/login/login");
+
+        return mv;
+    }
 
     @PostMapping("login")
-	public ModelAndView view(String email, String password){
+	public ModelAndView view(@RequestParam(value = "isRieviewPage", defaultValue = "false") boolean isRieviewPage,InfoVO info_vo,
+                                String email, String password){
         ModelAndView mv = new ModelAndView();
 		//받인 인자 b_idx를 조건으로 게시물 하나(BbsVO)를 얻어내야 한다.
         MemberVO vo = l_Service.ml_login(email, password);
@@ -56,8 +70,16 @@ public class LoginCotroller {
 
             //세션처리
             session.setAttribute("mvo", vo);
+            System.out.println(isRieviewPage);
+            if(isRieviewPage){
+                System.out.println(info_vo.getAddr1());
+                
+                mv.addObject("ifoVO", info_vo);
+                mv.setViewName("/info/mapinfo");
+            } else {
+                mv.setViewName("redirect:/tour");
+            }
 
-            mv.setViewName("redirect:/tour");
 
         } else {
              session.setAttribute("alat", "alat");
@@ -72,7 +94,8 @@ public class LoginCotroller {
  
  
  @RequestMapping("/naver/login")
-  public ModelAndView naverLogin(String code, String state, String error, String error_description){
+  public ModelAndView naverLogin( boolean isRieviewPage, InfoVO info_vo,
+                                    String code, String state, String error, String error_description){
         ModelAndView mv = new ModelAndView();
 
         String reqURL = "https://nid.naver.com/oauth2.0/token";
@@ -168,7 +191,14 @@ public class LoginCotroller {
                     MemberVO mvo = j_Service.getMem(vo);
 
                     session.setAttribute("mvo", mvo);
-                    mv.setViewName("redirect:/tour");
+                    
+                    System.out.println("||contentid||"+info_vo.getContentid());
+
+                    if(isRieviewPage){
+                        mv.addObject("vo", info_vo);
+                        mv.setViewName("/info/infomation");
+                    } else { mv.setViewName("redirect:/tour");}
+                    
                 }
             }
         } catch (Exception e) {
@@ -178,7 +208,8 @@ public class LoginCotroller {
     }
 
     @RequestMapping("/kakao/login")
-        public ModelAndView kakaoLogin(String code){
+        public ModelAndView kakaoLogin(@RequestParam(value = "isRieviewPage", defaultValue = "false") boolean isRieviewPage,InfoVO info_vo,
+                                        String code){
             ModelAndView mv = new ModelAndView();
 
             String access_token="";

@@ -11,7 +11,7 @@
 
         <head> <!-- ml -->
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="css/m_style.css">
+            <link rel="stylesheet" href="../css/m_style.css">
             <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
@@ -63,11 +63,16 @@
                     <div class="form-content">
                         <p class="m_header">로그인</p class="m_header">
 
-                        <form id="login" action="login" class="input-group" method="post" name="frm">
+                        <form id="login" action="/login" class="input-group" method="post" name="frm">
                             <div class="field input-field">
                                 <input type="email" placeholder="Email" class="input" name="email" id="email">
                             </div> 
-
+                            <input type="hidden" name="title" value="${info_vo.title}">
+                            <input type="hidden" name="addr1" value="${info_vo.addr1}">
+                            <input type="hidden" name="tel" value="${info_vo.tel}">
+                            <input type="hidden" name="firstimage" value="${info_vo.firstimage}">
+                            <input type="hidden" name="contentid" value="${info_vo.contentid}">
+                            <input type="hidden" name="isRieviewPage" value="${isRieviewPage}">
                             <div class="field input-field">
                                 <input type="password" placeholder="Password" class="password" name="password" id="password">
                                 <i class='bx bx-hide eye-icon'></i>
@@ -91,15 +96,15 @@
                     <div class="line"></div>
                     
                     <div class="media-options">
-                        <a href="https://kauth.kakao.com/oauth/authorize?client_id=c691b066d7c57c4085e1fa5fc3e2c47b&redirect_uri=http://localhost:8080/kakao/join&response_type=code">
-                            <img src="images/kakao_login.png">
+                        <a href="https://kauth.kakao.com/oauth/authorize?client_id=c691b066d7c57c4085e1fa5fc3e2c47b&redirect_uri=http://localhost:8080/kakao/join&response_type=code&title=${info_vo.title}&addr1=${info_vo.addr1}&tel=${info_vo.tel}&firstimage=${info_vo.firstimage}&contentid=${info_vo.contentid}&isRieviewPage=${isRieviewPage}">
+                            <img src="../images/kakao_login.png">
                         </a>
                     </br>
                     </div>
 
                     <div class="media-options">
                         <a href="https://nid.naver.com/oauth2.0/authorize?client_id=6BPvD8rTeGLnG7fdps1C&redirect_uri=http://localhost:8080/naver/join&response_type=code&state=test">
-                            <img src="images/naver_login.png">
+                            <img src="../images/naver_login.png">
                         </a>
                     </div>
 

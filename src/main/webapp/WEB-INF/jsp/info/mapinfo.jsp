@@ -84,8 +84,16 @@
 
            <c:if test="${sessionScope.mvo == null}">
              <div class="col-md-3 text-end">
-               <button type="button" class="btn btn-outline-success me-2 mycustom-mem-btn" onclick="location.href='/login'">로그인</button>
-               <button type="button" class="btn btn-outline-success mycustom-mem-btn" onclick="location.href='/join'">회원가입</button>
+                <form action="/login/rieview" method="get">
+                  <input type="hidden" name="title" value="${ifoVO.title}">
+                  <input type="hidden" name="addr1" value="${ifoVO.addr1}">
+                  <input type="hidden" name="tel" value="${ifoVO.tel}">
+                  <input type="hidden" name="firstimage" value="${ifoVO.firstimage}">
+                  <input type="hidden" name="contentid" value="${ifoVO.contentid}">
+                  <input type="hidden" name="isRieviewPage" value="true">
+                  <button type="submit" class="btn btn-outline-success me-2 mycustom-mem-btn">로그인</button>
+                  <button type="button" class="btn btn-outline-success mycustom-mem-btn" onclick="location.href='/join'">회원가입</button>
+                </form>
              </div>
            </c:if>
            <c:if test="${sessionScope.mvo != null}">
@@ -270,5 +278,6 @@
     e.parentElement.parentElement.style.background = "unset";
     });
   </script>
+
 </body>
 </html>
