@@ -7,6 +7,7 @@
  <meta charset="UTF-8">
  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
  <link rel="stylesheet" href="/resources/demos/style.css">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
  <link rel="stylesheet" href="../css/custom.css" />
  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
@@ -126,10 +127,22 @@
                           <input type="hidden" name="votel" value="${ifoVO.tel}">
                           <input type="hidden" name="vofirstimage" value="${ifoVO.firstimage}">
                           
-                          <input class="form-control" type="text" name="title">
+                          <input class="form-control" type="text" name="title" placeholder="제목">
+                          <section style="padding: 8px 0px;">
+                          <input type="radio" class="btn-check" name="score" id="option1" autocomplete="off" value="1">
+                          <label class="btn btn-secondary" for="option1"><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></label>
+                          <input type="radio" class="btn-check" name="score" id="option2" autocomplete="off" value="2">
+                          <label class="btn btn-secondary" for="option2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></label>
+                          <input type="radio" class="btn-check" name="score" id="option3" autocomplete="off" value="3">
+                          <label class="btn btn-secondary" for="option3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></label>
+                          <input type="radio" class="btn-check" name="score" id="option4" autocomplete="off" value="4">
+                          <label class="btn btn-secondary" for="option4"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></label>
+                          <input type="radio" class="btn-check" name="score" id="option5" autocomplete="off" value="5" checked>
+                          <label class="btn btn-secondary" for="option5"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></label>
+                         </section>
                           <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}">
                           <input type="hidden" name="contentid" value="${ifoVO.contentid}">
-                          <textarea class="form-control" rows="3" name="content"></textarea>
+                          <textarea class="form-control" rows="3" name="content" placeholder="내용"></textarea>
                           <br/>
                           <button class="btn btn-default mycustom-mapinfo-btn" type="submit">리뷰남기기</button>
                         </form>
@@ -146,7 +159,15 @@
                            <div class="fw-bold">
                            <td>${rlvo.rvo.title}</td> 
                             <td>${rlvo.rvo.content}</td>
-                            <td>${rlvo.rvo.score}</td>
+                            <td>
+                             <c:choose>
+                              <c:when test="${rlvo.rvo.score eq 5}"><i class="bi bi-star-fill white"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></c:when>
+                              <c:when test="${rlvo.rvo.score eq 4}"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></c:when>
+                              <c:when test="${rlvo.rvo.score eq 3}"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></c:when>
+                              <c:when test="${rlvo.rvo.score eq 2}"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></c:when>
+                              <c:when test="${rlvo.rvo.score eq 1}"><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></c:when>
+                            </c:choose> 
+                            </td>
                             <td>${rlvo.mvo.nickname}</td>
                           </div>
                        </div>

@@ -351,7 +351,7 @@ public class InfoController {
  } 
 
  @RequestMapping("/info/reviewwrite")
- public ModelAndView reviewwrite(String title, String m_idx , String content,String contentid,String votitle, String voaddr1 ,String votel , String vofirstimage){
+ public ModelAndView reviewwrite(String title, String score , String m_idx , String content,String contentid,String votitle, String voaddr1 ,String votel , String vofirstimage){
   ModelAndView mv = new ModelAndView();
   InfoVO vo = new InfoVO();
   vo.setAddr1(voaddr1);
@@ -363,7 +363,7 @@ public class InfoController {
   rvo.setTitle(title);
   rvo.setContent(content);
   rvo.setContentid(contentid);
-  rvo.setScore("5");
+  rvo.setScore(score);
   service.reviewwrite(rvo, m_idx,contentid);
   ReviewLogVO[] ar = service.reviewall(contentid);
   vo.setRl_list(ar);
