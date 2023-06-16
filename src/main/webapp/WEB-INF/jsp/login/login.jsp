@@ -61,11 +61,11 @@
             <section class="container forms m_container">
                 <div class="form login">
                     <div class="form-content">
-                        <p class="m_header">Login</p class="m_header">
+                        <p class="m_header">로그인</p class="m_header">
 
                         <form id="login" action="login" class="input-group" method="post" name="frm">
                             <div class="field input-field">
-                                <input type="email" placeholder="email" class="input" name="email" id="email">
+                                <input type="email" placeholder="Email" class="input" name="email" id="email">
                             </div> 
 
                             <div class="field input-field">
