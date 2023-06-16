@@ -144,7 +144,12 @@
                           <input type="hidden" name="contentid" value="${ifoVO.contentid}">
                           <textarea class="form-control" rows="3" name="content" placeholder="내용"></textarea>
                           <br/>
+                          <c:if test="${sessionScope.mvo ne null}">
                           <button class="btn btn-default mycustom-mapinfo-btn" type="submit">리뷰남기기</button>
+                         </c:if>
+                         <c:if test="${sessionScope.mvo eq null}">
+                          <button class="btn btn-default mycustom-mapinfo-btn disabled" type="button">리뷰남기기(로그인필요)</button>
+                         </c:if>
                         </form>
 
                         <!-- Comment with nested comments-->
