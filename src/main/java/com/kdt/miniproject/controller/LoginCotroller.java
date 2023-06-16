@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kdt.miniproject.service.InfoService;
 import com.kdt.miniproject.service.JoinService;
 import com.kdt.miniproject.service.LoginService;
 import com.kdt.miniproject.vo.InfoVO;
 import com.kdt.miniproject.vo.MemberVO;
+import com.kdt.miniproject.vo.ReviewLogVO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -40,6 +42,9 @@ public class LoginCotroller {
     @Autowired
     private JoinService j_Service;
     
+    @Autowired
+    private InfoService i_Service;
+
     @RequestMapping("/login")
     public String init() {
 
@@ -74,6 +79,8 @@ public class LoginCotroller {
             if(isRieviewPage){
                 System.out.println(info_vo.getAddr1());
                 
+                ReviewLogVO[] rlar = i_Service.reviewall(info_vo.getContentid());
+                info_vo.setRl_list(rlar);
                 mv.addObject("ifoVO", info_vo);
                 mv.setViewName("/info/mapinfo");
             } else {
