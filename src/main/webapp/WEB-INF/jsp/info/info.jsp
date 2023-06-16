@@ -174,7 +174,7 @@
    <div class="accordion-item">
      <h2 class="accordion-header" id="headingOne">
        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick="map1load()">
-         주변 축제 및 행사
+         주변 문화시설 정보
        </button>
      </h2>
      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -451,6 +451,7 @@ function map2load(){
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">${vo.addr1}</div>' +
+            '                <div class="ellipsis">${vo.average}(${fn:length(vo.rl_list)})</div>' +
             '                <form action="/info/infomation" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>'+
             '                <div> <input type="hidden" name="mapX" value="${vo.mapX}"/>'+
             '                <div> <input type="hidden" name="mapY" value="${vo.mapY}"/>'+
@@ -548,6 +549,7 @@ function map3load(){
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">${vo.addr1}</div>' +
+            '                <div class="ellipsis">${vo.average}(${fn:length(vo.rl_list)})</div>' +
             '                <form action="/info/infomation" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>'+
             '                <div> <input type="hidden" name="mapX" value="${vo.mapX}"/>'+
             '                <div> <input type="hidden" name="mapY" value="${vo.mapY}"/>'+

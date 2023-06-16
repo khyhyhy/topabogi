@@ -114,7 +114,7 @@ public class InfoController {
   String mapX = infomaVO.getMapx();
   String mapY = infomaVO.getMapy();
   String radius = "3000";
-  String contentTypeId = "15";
+  String contentTypeId = "14";
   sb.append(path);
   sb.append("/");
   sb.append("locationBasedList1");
@@ -274,6 +274,28 @@ public class InfoController {
       if((String)item.get("contentid")!=null){
        ReviewLogVO[] ar = service.reviewall((String)item.get("contentid"));
        ivo.setRl_list(ar);
+       Integer scoreadd = 0;
+      ivo.setRl_list(ar);
+      if(ar!=null&&ar.length>0){
+       for(ReviewLogVO arvo : ar){
+        Integer scoreint = Integer.parseInt(arvo.getRvo().getScore());
+        scoreadd += + scoreint;
+       }
+       Integer aver = scoreadd/ar.length;
+       if(aver==5)
+       ivo.setAverage("<i class=\"bi bi-star-fill \"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i>");
+       if(aver<5 && aver>=4)
+       ivo.setAverage("<i class=\"bi bi-star-fill \"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star\"></i>");
+       if(aver<4 && aver>=3)
+       ivo.setAverage("<i class=\"bi bi-star-fill \"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star\"></i><i class=\"bi bi-star\"></i>");
+       if(aver<3 && aver>=2)
+       ivo.setAverage("<i class=\\\"bi bi-star-fill \\\"></i><i class=\\\"bi bi-star-fill\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i>");
+       if(aver<2 && aver>=1)
+       ivo.setAverage("<i class=\\\"bi bi-star-fill \\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i>");
+       if(aver<1 && aver>=0)
+       ivo.setAverage("<i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i>");
+     }
+    
       }
       list.add(ivo);
      }
@@ -354,6 +376,28 @@ public class InfoController {
       if((String)item.get("contentid")!=null){
       ReviewLogVO[] ar = service.reviewall((String)item.get("contentid"));
       ivo.setRl_list(ar);
+      Integer scoreadd = 0;
+      ivo.setRl_list(ar);
+      if(ar!=null&&ar.length>0){
+       for(ReviewLogVO arvo : ar){
+        Integer scoreint = Integer.parseInt(arvo.getRvo().getScore());
+        scoreadd += + scoreint;
+       }
+       Integer aver = scoreadd/ar.length;
+       if(aver==5)
+       ivo.setAverage("<i class=\"bi bi-star-fill \"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i>");
+       if(aver<5 && aver>=4)
+       ivo.setAverage("<i class=\"bi bi-star-fill \"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star\"></i>");
+       if(aver<4 && aver>=3)
+       ivo.setAverage("<i class=\"bi bi-star-fill \"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star\"></i><i class=\"bi bi-star\"></i>");
+       if(aver<3 && aver>=2)
+       ivo.setAverage("<i class=\\\"bi bi-star-fill \\\"></i><i class=\\\"bi bi-star-fill\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i>");
+       if(aver<2 && aver>=1)
+       ivo.setAverage("<i class=\\\"bi bi-star-fill \\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i>");
+       if(aver<1 && aver>=0)
+       ivo.setAverage("<i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i>");
+     }
+    
      }
       list.add(ivo);
      }
