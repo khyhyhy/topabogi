@@ -117,6 +117,11 @@
     font-family: "Jamsil";
     font-size: 25px;
 }
+.mycustom-info-info{
+    font-family: "Jamsil";
+    font-size: 17px;
+    line-height: 2.5em;
+}
 
 .mycustom-mapinfo-rieview{
     border-style: none;

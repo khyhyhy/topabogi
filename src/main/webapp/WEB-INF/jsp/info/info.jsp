@@ -147,9 +147,11 @@
   <div class="row gx-4 gx-lg-5 align-items-center my-5">
       <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="${itmVO.firstimage}" alt="..." /></div>
       <div class="col-lg-5">
-          <h1 class="font-weight-light">${itmVO.title}</h1>
+          <h1 class="font-weight-light fw-bolder mb-1 mycustom-mapinfo-title">${itmVO.title}</h1>
+          <section class="mycustom-mapinfo-info">
           <p><h4>${itmVO.addr1}</h4></p>
           <p><h4>${itmVO.tel}</h4></p>
+         </section>
           <!--<a class="btn btn-primary" href="#!">Call to Action!</a>-->
       </div>
   </div>
@@ -163,7 +165,7 @@
      <c:if test="${itmVO.contenttypeid == 28}">
        <div class="card text-gray  my-5 py-4 text-left" style="background-color: #dbf1fcca !important;">
      </c:if>
-        <div class="card-body"><p class="text-gray m-0">
+        <div class="card-body"><p class="text-gray m-0 mycustom-info-info">
      ${itmVO.overview}</p></div>
   </div>
   <div class="accordion" id="accordionExample">

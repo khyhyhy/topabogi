@@ -60,6 +60,9 @@
   -moz-appearance: none;
   appearance: none;
   }
+  .t1{
+   width:auto;
+  }
  </style>
 </head>
 <body>
@@ -132,22 +135,24 @@
                         </form>
 
                         <!-- Comment with nested comments-->
-                        <div class="d-flex mb-4">
-                          <table>
-                            <c:forEach items="${ifoVO.rl_list}" var="rlvo">
-                             <tr>
-                              <div class="ms-3">
-                                  <div class="fw-bold">
-                                  <td>${rlvo.rvo.title}</td> 
-                                   <td>${rlvo.rvo.content}</td>
-                                   <td>${rlvo.mvo.nickname}</td>
-                                 </div>
-                              </div>
-                             </tr>
-                            </c:forEach>
-                           </table>
-                        </div>
+                        <!-- <div class="d-flex mb-4"> -->
+                          
+                        <!-- </div> -->
                     </div>
+                    <table class="table table-striped table-hover t1">
+                     <c:forEach items="${ifoVO.rl_list}" var="rlvo">
+                      <tr>
+                       <div class="ms-3">
+                           <div class="fw-bold">
+                           <td>${rlvo.rvo.title}</td> 
+                            <td>${rlvo.rvo.content}</td>
+                            <td>${rlvo.rvo.score}</td>
+                            <td>${rlvo.mvo.nickname}</td>
+                          </div>
+                       </div>
+                      </tr>
+                     </c:forEach>
+                    </table>
                 </div>
             </section>
         </div>
