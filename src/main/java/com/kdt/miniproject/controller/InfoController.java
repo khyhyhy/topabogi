@@ -170,20 +170,40 @@ public class InfoController {
      (String)item.get("title"),(String)item.get("addr1"),
      (String)item.get("contentid"),(String)item.get("modifiedtime"),
      (String)item.get("firstimage2"),(String)item.get("tel"),
-     (String)item.get("firstimage"),null);
+     (String)item.get("firstimage"),null,null);
      if((String)item.get("contentid")!=null){
       ReviewLogVO[] ar = service.reviewall((String)item.get("contentid"));
+      Integer scoreadd = 0;
       ivo.setRl_list(ar);
+      if(ar!=null&&ar.length>0){
+       for(ReviewLogVO arvo : ar){
+        Integer scoreint = Integer.parseInt(arvo.getRvo().getScore());
+        scoreadd += + scoreint;
+       }
+       Integer aver = scoreadd/ar.length;
+       if(aver==5)
+       ivo.setAverage("<i class=\"bi bi-star-fill \"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i>");
+       if(aver<5 && aver>=4)
+       ivo.setAverage("<i class=\"bi bi-star-fill \"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star\"></i>");
+       if(aver<4 && aver>=3)
+       ivo.setAverage("<i class=\"bi bi-star-fill \"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star-fill\"></i><i class=\"bi bi-star\"></i><i class=\"bi bi-star\"></i>");
+       if(aver<3 && aver>=2)
+       ivo.setAverage("<i class=\\\"bi bi-star-fill \\\"></i><i class=\\\"bi bi-star-fill\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i>");
+       if(aver<2 && aver>=1)
+       ivo.setAverage("<i class=\\\"bi bi-star-fill \\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i>");
+       if(aver<1 && aver>=0)
+       ivo.setAverage("<i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i><i class=\\\"bi bi-star\\\"></i>");
      }
+    }
      list.add(ivo);
-   }
+    }
     InfoVO[] iar = new InfoVO[list.size()];
-
+    
     list.toArray(iar);
-  
+    
     mv.addObject("iar", iar);
    }
-   }
+  }
    path = "http://apis.data.go.kr/B551011/KorService1";
    sb = new StringBuffer();
    numOfRows = "50";
@@ -250,7 +270,7 @@ public class InfoController {
       (String)item.get("title"),(String)item.get("addr1"),
       (String)item.get("contentid"),(String)item.get("modifiedtime"),
       (String)item.get("firstimage2"),(String)item.get("tel"),
-      (String)item.get("firstimage"),null);
+      (String)item.get("firstimage"),null,null);
       if((String)item.get("contentid")!=null){
        ReviewLogVO[] ar = service.reviewall((String)item.get("contentid"));
        ivo.setRl_list(ar);
@@ -330,7 +350,7 @@ public class InfoController {
       (String)item.get("title"),(String)item.get("addr1"),
       (String)item.get("contentid"),(String)item.get("modifiedtime"),
       (String)item.get("firstimage2"),(String)item.get("tel"),
-      (String)item.get("firstimage"),null);
+      (String)item.get("firstimage"),null,null);
       if((String)item.get("contentid")!=null){
       ReviewLogVO[] ar = service.reviewall((String)item.get("contentid"));
       ivo.setRl_list(ar);

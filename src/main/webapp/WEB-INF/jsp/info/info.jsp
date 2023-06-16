@@ -353,7 +353,7 @@ function map1load(){
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">${vo.addr1}</div>' +
-            '                <div class="ellipsis">${fn:length(vo.rl_list)}</div>' +
+            '                <div class="ellipsis">${vo.average}(${fn:length(vo.rl_list)})</div>' +
             `                <form action="/info/infomation" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>`+
             '                <div> <input type="hidden" name="mapX" value="${vo.mapX}"/>'+
             '                <div> <input type="hidden" name="mapY" value="${vo.mapY}"/>'+

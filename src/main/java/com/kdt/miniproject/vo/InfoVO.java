@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InfoVO {
- String mapX,mapY,title,addr1,contentid,modifiedtime,firstimage2,tel,firstimage;
-
+ String mapX,mapY,title,addr1,contentid,modifiedtime,firstimage2,tel,firstimage,average;
+  
  ReviewLogVO[] rl_list;
 }
