@@ -96,7 +96,7 @@
                     <div class="line"></div>
                     
                     <div class="media-options">
-                        <a href="https://kauth.kakao.com/oauth/authorize?client_id=c691b066d7c57c4085e1fa5fc3e2c47b&redirect_uri=http://localhost:8080/kakao/join&response_type=code&title=${info_vo.title}&addr1=${info_vo.addr1}&tel=${info_vo.tel}&firstimage=${info_vo.firstimage}&contentid=${info_vo.contentid}&isRieviewPage=${isRieviewPage}">
+                        <a href="https://kauth.kakao.com/oauth/authorize?client_id=c691b066d7c57c4085e1fa5fc3e2c47b&redirect_uri=http://localhost:8080/kakao/join&response_type=code">
                             <img src="../images/kakao_login.png">
                         </a>
                     </br>

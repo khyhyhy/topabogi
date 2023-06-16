@@ -208,7 +208,7 @@ public class LoginCotroller {
     }
 
     @RequestMapping("/kakao/login")
-        public ModelAndView kakaoLogin(@RequestParam(value = "isRieviewPage", defaultValue = "false") boolean isRieviewPage,InfoVO info_vo,
+        public ModelAndView kakaoLogin(boolean isRieviewPage,InfoVO info_vo,
                                         String code){
             ModelAndView mv = new ModelAndView();
 
@@ -306,7 +306,12 @@ public class LoginCotroller {
                         MemberVO mvo = j_Service.getMem(vo);
 
                         session.setAttribute("mvo", mvo);
-                        mv.setViewName("redirect:/tour");
+
+                        if(isRieviewPage){
+                            mv.addObject("vo", info_vo);
+                            mv.setViewName("/info/infomation");
+                        } else { mv.setViewName("redirect:/tour");}
+                            
                     }
                 }
             } catch (Exception e) {
