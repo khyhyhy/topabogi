@@ -171,6 +171,10 @@ public class InfoController {
      (String)item.get("contentid"),(String)item.get("modifiedtime"),
      (String)item.get("firstimage2"),(String)item.get("tel"),
      (String)item.get("firstimage"),null);
+     if((String)item.get("contentid")!=null){
+      ReviewLogVO[] ar = service.reviewall((String)item.get("contentid"));
+      ivo.setRl_list(ar);
+     }
      list.add(ivo);
    }
     InfoVO[] iar = new InfoVO[list.size()];
@@ -247,6 +251,10 @@ public class InfoController {
       (String)item.get("contentid"),(String)item.get("modifiedtime"),
       (String)item.get("firstimage2"),(String)item.get("tel"),
       (String)item.get("firstimage"),null);
+      if((String)item.get("contentid")!=null){
+       ReviewLogVO[] ar = service.reviewall((String)item.get("contentid"));
+       ivo.setRl_list(ar);
+      }
       list.add(ivo);
      }
      InfoVO[] iar = new InfoVO[list.size()];
@@ -323,6 +331,10 @@ public class InfoController {
       (String)item.get("contentid"),(String)item.get("modifiedtime"),
       (String)item.get("firstimage2"),(String)item.get("tel"),
       (String)item.get("firstimage"),null);
+      if((String)item.get("contentid")!=null){
+      ReviewLogVO[] ar = service.reviewall((String)item.get("contentid"));
+      ivo.setRl_list(ar);
+     }
       list.add(ivo);
      }
      InfoVO[] iar = new InfoVO[list.size()];
