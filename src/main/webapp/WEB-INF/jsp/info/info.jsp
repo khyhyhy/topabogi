@@ -327,8 +327,8 @@ function map1load(){
     });
     
     var overlayid = "idnum"+ ind++;
-
-  var iwContent = '<div style="padding:5px;width:auto;" class="infobox">${vo.title}<button type="button"  class="butt" onclick="disp(\''+overlayid+'\')"><i class="bi bi-caret-up white"></i></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    var contitle = "${vo.title}"
+  var iwContent = `<div style="padding:5px;width:auto;" class="infobox">`+contitle+`<button type="button"  class="butt" onclick="disp(\'`+overlayid+'\')"><i class="bi bi-caret-up white"></i></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
        iwPosition = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
    // 인포윈도우를 생성합니다
@@ -344,7 +344,7 @@ function map1load(){
    content.innerHTML = '<div class="wrap">' + 
             '    <div class="info" id='+overlayid+'>' + 
             '        <div class="title">' + 
-            '            ${vo.title}' + 
+            `            ${vo.title}` + 
             '            <div class="close" onclick="closeOverlay(this)" title="닫기"></div>' + 
             '        </div>' + 
             '        <div class="body">' + 
@@ -354,7 +354,7 @@ function map1load(){
             '            <div class="desc">' + 
             '                <div class="ellipsis">${vo.addr1}</div>' +
             '                <div class="ellipsis">${fn:length(vo.rl_list)}</div>' +
-            '                <form action="/info/infomation" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>'+
+            `                <form action="/info/infomation" method="get"><div> <input type="hidden" name="title" value="${vo.title}"/>`+
             '                <div> <input type="hidden" name="mapX" value="${vo.mapX}"/>'+
             '                <div> <input type="hidden" name="mapY" value="${vo.mapY}"/>'+
             '                <div> <input type="hidden" name="addr1" value="${vo.addr1}"/>'+
@@ -393,13 +393,14 @@ function closeOverlay(vo){
  <script>
   var container2 = document.getElementById('map2');
 		var options2 = {
-			center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
+   center: new kakao.maps.LatLng(${itmVO.mapy}, ${itmVO.mapx}),
 			level: 4
 		};
 		var map2 = new kakao.maps.Map(container2, options2);
   map2.relayout();
   var position2 = options2.center
-
+  
+  
 // 마커를 생성합니다
  var marker2 = new kakao.maps.Marker({
   position: position2,
@@ -423,8 +424,8 @@ function map2load(){
     });
     
     var overlayid2 = "idnumm"+ ind2++;
-
-  var iwContent2 = '<div style="width:150px;" class="infobox2">${vo.title}<button type="button"  class="butt" onclick="dispp(\''+overlayid2+'\')"><i class="bi bi-caret-up white"></i></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    var contitle2 = "${vo.title}"
+  var iwContent2 = `<div style="padding:5px;width:10em !important;" class="infobox">`+contitle2+`<button type="button"  class="butt" onclick="dispp(\'`+overlayid2+'\')"><i class="bi bi-caret-up white"></i></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
        iwPosition2 = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
        infowindow.close();
@@ -520,8 +521,8 @@ function map3load(){
     });
     
     var overlayid3 = "idnumm"+ ind3++;
-
-  var iwContent3 = '<div style="width:300px;" class="infobox3">${vo.title}<button type="button"  class="butt" onclick="disppp(\''+overlayid3+'\')"><i class="bi bi-caret-up white"></i></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    var contitle3 = "${vo.title}"
+  var iwContent3 = `<div style="height:60px; width:14em !important;" class="infobox">`+contitle3+`<button type="button"  class="butt" onclick="disppp(\'`+overlayid3+'\')"><i class="bi bi-caret-up white"></i></button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
        iwPosition3 = new kakao.maps.LatLng(${vo.mapY},${vo.mapX}); //인포윈도우 표시 위치입니다
 
        
@@ -619,10 +620,10 @@ function closeOverlay(vo){
    $('i').on('click',function(){
        if(ix==0){
            $(this).attr('class','bi-caret-up-fill white');
-           i++;
+           ix++;
        }else if(ix==1){
            $(this).attr('class','bi-caret-up white');
-           i--;
+           ix--;
        }
 
    });
